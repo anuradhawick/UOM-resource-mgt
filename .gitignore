@@ -4,9 +4,9 @@
 hs_err_pid*
 
 # netbeans
-/nbproject/*
-/build
-/dist/
-/src/java/data/Constants.java
-/logs/*
-build.xml
+#/nbproject/*
+#/build
+#/dist/
+#/src/java/data/Constants.java
+#/logs/*
+#build.xml
