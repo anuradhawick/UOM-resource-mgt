@@ -1,94 +1,135 @@
-<body id="header_footer">
-    <div class="container" style="margin-bottom: 10px;">
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header page-scroll">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+<%-- 
+    Document   : header
+    Created on : Jan 9, 2016, 1:47:53 AM
+    Author     : Dulaj
+--%>
 
-                    <a class="navbar-brand page-scroll" href="/"><big>UOMRMS</big></a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse navbar-right" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li class="hidden">
-                            <a href="#page-top"></a>
-                        </li>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!-- header-starts -->
+<div class="sticky-header header-section">
+    <div class="header-left">
+        <!--toggle button start-->
+        <button id="showLeftPush"><i class="fa fa-bars"></i></button>
+        <!--toggle button end-->
+        <!--logo -->
+        <div class="logo">
+            <a href="index.html">
+                <h1>UoMRMS</h1>
+                <span>AdminPanel</span>
+            </a>
+        </div>
+        <!--//logo-->
+        <div class="clearfix"> </div>
+    </div>
+    <div class="header-right">
+        <div class="profile_details_left"><!--notifications of menu start -->
+            <ul class="nofitications-dropdown">
+                <li class="dropdown head-dpdn">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">3</span></a>
+                    <ul class="dropdown-menu">
                         <li>
-                            <a class="page-scroll" href="index.php">Home</a>
+                            <div class="notification_header">
+                                <h3>You have 3 new messages</h3>
+                            </div>
                         </li>
+                        <li><a href="#">
+                                <div class="user_img"><img src="images/1.png" alt=""></div>
+                                <div class="notification_desc">
+                                    <p>Lorem ipsum dolor amet</p>
+                                    <p><span>1 hour ago</span></p>
+                                </div>
+                                <div class="clearfix"></div>	
+                            </a></li>
+                        <li class="odd"><a href="#">
+                                <div class="user_img"><img src="images/2.png" alt=""></div>
+                                <div class="notification_desc">
+                                    <p>Lorem ipsum dolor amet </p>
+                                    <p><span>1 hour ago</span></p>
+                                </div>
+                                <div class="clearfix"></div>	
+                            </a></li>
+                        <li><a href="#">
+                                <div class="user_img"><img src="images/3.png" alt=""></div>
+                                <div class="notification_desc">
+                                    <p>Lorem ipsum dolor amet </p>
+                                    <p><span>1 hour ago</span></p>
+                                </div>
+                                <div class="clearfix"></div>	
+                            </a></li>
                         <li>
-                            <a class="page-scroll" href="tankwars.php">Tank Wars</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="aboutus.php">About us</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="contactus.php">Contact Us</a>
+                            <div class="notification_bottom">
+                                <a href="#">See all messages</a>
+                            </div> 
                         </li>
                     </ul>
-
-                    <script>
-                        (function () {
-                            var cx = '012216564877933424843:cnics730oke';
-                            var gcse = document.createElement('script');
-                            gcse.type = 'text/javascript';
-                            gcse.async = true;
-                            gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-                                    '//cse.google.com/cse.js?cx=' + cx;
-                            var s = document.getElementsByTagName('script')[0];
-                            s.parentNode.insertBefore(gcse, s);
-                        })();
-                    </script>
-
-
-
-                    <!--Search-->
-
-                    <div class="pull-right">
-                        <form class="navbar-form" role="search" method="get" action="search.php">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name="q" id="srch-term">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                                </div>
+                </li>
+                <li class="dropdown head-dpdn">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">3</span></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="notification_header">
+                                <h3>You have 3 new notification</h3>
                             </div>
-                        </form>
-                    </div>
-                    <!--/Search-->
-
-                    <!--User account-->
-                    <!--                        <ul class="nav navbar-nav">
-                                                <li id="signin_button">
-                                                    <a class="page-scroll" href="aboutus.php">Sign In</a>
-                                                </li>
-                    
-                                                <li id="profile_button" class = "dropdown hidden">
-                                                    <a href = "#" class = "dropdown-toggle" data-toggle = "dropdown"> 
-                                                        <b class = "caret"></b>
-                                                    </a>
-                    
-                                                    <ul class = "dropdown-menu">
-                                                        <li><a href = "#">My Account</a></li>
-                                                        <li class = "divider"></li>
-                                                        <li><a href = "#">Sign Out</a></li>
-                                                    </ul>
-                    
-                                                </li>
-                                            </ul>-->
-                    <!--/User account-->
-
-                </div>
-
-            </div>
-        </nav>
-        <!-- Header -->
+                        </li>
+                        <li><a href="#">
+                                <div class="user_img"><img src="images/2.png" alt=""></div>
+                                <div class="notification_desc">
+                                    <p>Lorem ipsum dolor amet</p>
+                                    <p><span>1 hour ago</span></p>
+                                </div>
+                                <div class="clearfix"></div>	
+                            </a></li>
+                        <li class="odd"><a href="#">
+                                <div class="user_img"><img src="images/1.png" alt=""></div>
+                                <div class="notification_desc">
+                                    <p>Lorem ipsum dolor amet </p>
+                                    <p><span>1 hour ago</span></p>
+                                </div>
+                                <div class="clearfix"></div>	
+                            </a></li>
+                        <li><a href="#">
+                                <div class="user_img"><img src="images/3.png" alt=""></div>
+                                <div class="notification_desc">
+                                    <p>Lorem ipsum dolor amet </p>
+                                    <p><span>1 hour ago</span></p>
+                                </div>
+                                <div class="clearfix"></div>	
+                            </a></li>
+                        <li>
+                            <div class="notification_bottom">
+                                <a href="#">See all notifications</a>
+                            </div> 
+                        </li>
+                    </ul>
+                </li>		
+            </ul>
+            <div class="clearfix"> </div>
+        </div>
+        <!--notification menu end -->
+        <div class="profile_details">		
+            <ul>
+                <li class="dropdown profile_details_drop">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <div class="profile_img">	
+                            <span class="prfil-img"><img src="images/a.png" alt=""> </span> 
+                            <div class="user-name">
+                                <p>Wikolia</p>
+                                <span>Administrator</span>
+                            </div>
+                            <i class="fa fa-angle-down lnr"></i>
+                            <i class="fa fa-angle-up lnr"></i>
+                            <div class="clearfix"></div>	
+                        </div>	
+                    </a>
+                    <ul class="dropdown-menu drp-mnu"> 
+                        <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li> 
+                        <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="clearfix"> </div>				
     </div>
-</body>
+    <div class="clearfix"> </div>	
+</div>
+<!-- //header-ends -->
