@@ -9,4 +9,4 @@ hs_err_pid*
 /dist/
 /src/java/data/Constants.java
 /logs/*
-build.xml
+*/build.xml
