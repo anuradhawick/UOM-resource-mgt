@@ -14,6 +14,7 @@
             <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/src/java/model/foundation/Hall.java</file>
         </group>
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBAuthenticatorHandler.java</file>
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBConnector.java</file>
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBInsertDeleteHandler.java</file>
@@ -22,6 +23,15 @@
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/model/logic/ReservationHandler.java</file>
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/Authenticator/Authenticator.java</file>
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/Constants.java</file>
+=======
+            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/index.jsp</file>
+            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/side_naviagation.jsp</file>
+            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/footer.jsp</file>
+            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/contact_us.jsp</file>
+            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/admin.jsp</file>
+            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/resource_filter_pane.jsp</file>
+            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/header.jsp</file>
+>>>>>>> bc8bb1bbfef261adc0324d08448e65e57564655e
         </group>
     </open-files>
 </project-private>
