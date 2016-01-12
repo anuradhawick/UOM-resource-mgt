@@ -1,15 +1,10 @@
 package data;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.logging.Level;
 import model.foundation.*;
-import org.apache.log4j.Logger;
 
 /**
  *
