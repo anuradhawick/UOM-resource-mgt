@@ -25,7 +25,7 @@ public class DBAuthenticatorHandler {
         try {
             PreparedStatement s = c.prepareStatement("SELECT * FROM authorized_person WHERE username=? AND password=?");
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(("admin").getBytes());
+            md.update(auth.getPassword().getBytes());
             byte[] mdbytes = md.digest();
 
             //convert the byte to hex format method 1

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 public class test {
 
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        Authenticator a = new Authenticator("asd", "sdfg");
+        Authenticator a = new Authenticator("admin", "admin");
         DBAuthenticatorHandler db = new DBAuthenticatorHandler();
         boolean success = db.login(a);
         System.out.println(success);
