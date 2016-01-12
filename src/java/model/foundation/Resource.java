@@ -39,7 +39,7 @@ public abstract class Resource {
     public String getResourceName() {
         return this.resourceName;
     }
-    
+
     public void setResourceName(String resourceName) {
         this.resourceName = resourceName;
     }

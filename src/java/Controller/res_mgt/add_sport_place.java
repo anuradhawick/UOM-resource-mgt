@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.foundation.SportPlace;
 
 /**
  *
@@ -32,15 +33,20 @@ public class add_sport_place extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet add_sport_place</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet add_sport_place at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+                    if (request.getParameter("submit") != null) {
+                        SportPlace place = new Lab();
+                        place.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));                        
+                        place.setCategory("Lab");
+                        place.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));                        
+                        place.setResourceName(request.getParameter("desc"));
+                        place.setDescription(request.getParameter("desc"));
+                        
+                        place.setAirConditioned(Boolean.TRUE);
+                        place.setDepartment(null);
+                        DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
+                        dbh.insertLab(place);
+//                        response.sendRedirect("add-vehicle.jsp?success");
+        }
         }
     }
 

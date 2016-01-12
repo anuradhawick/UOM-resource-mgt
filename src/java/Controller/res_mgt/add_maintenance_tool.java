@@ -5,12 +5,15 @@
  */
 package Controller.res_mgt;
 
+import data.DBInsertDeleteHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.foundation.MaintenanceTool;
 
 /**
  *
@@ -28,19 +31,21 @@ public class add_maintenance_tool extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet add_maintenance_tool</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet add_maintenance_tool at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+                    if (request.getParameter("submit") != null) {
+                        MaintenanceTool tool = new MaintenanceTool();
+                        tool.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));                        
+                        tool.setCategory("Maintainance-tool");
+                        tool.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));                        
+                        tool.setResourceName(request.getParameter("desc"));
+                        tool.setDescription(request.getParameter("desc"));
+                        tool.setUsage("Usage");
+                        DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
+                        dbh.insertMaintenanceTool(tool);
+//                        response.sendRedirect("add-vehicle.jsp?success");           
         }
     }
 

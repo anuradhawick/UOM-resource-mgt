@@ -5,12 +5,16 @@
  */
 package Controller.res_mgt;
 
+import data.DBInsertDeleteHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.foundation.Department;
+import model.foundation.Hall;
 
 /**
  *
@@ -28,19 +32,28 @@ public class add_hall extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet add_hall</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet add_hall at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+                    if (request.getParameter("submit") != null) {
+                        Hall v = new Hall();
+                        v.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));
+                        v.setDescription(request.getParameter("desc"));
+                        v.setCategory("Hall");
+                        v.setResourceName(request.getParameter("name"));
+                        v.setResourceid(String.valueOf(System.currentTimeMillis() % 100000000));
+                        v.setAirConditioned(request.getParameter("fac").equals("Yes") ? true : false);
+                        v.setProjectorAvailable(request.getParameter("pro").equals("Yes") ? true : false);
+                        v.setBoardType(request.getParameter("boardtype"));
+                        Department d = new Department();
+                        d.setDeptName(request.getParameter("building").split("[,]")[0]);
+                        d.setBuilding(request.getParameter("building").split("[,]")[1]);
+                        v.setDepartment(d);
+                        DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
+                        dbh.insertHall(v);
+//                        response.sendRedirect("add-hall.jsp?success");
+                    }
         }
     }
 
