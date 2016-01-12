@@ -5,16 +5,24 @@
  */
 package Impl;
 
+import Authenticator.Authenticator;
+import data.DBAuthenticatorHandler;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author RAVIDU-PC
  */
 public class test {
-    public static void main(String[] args) {
-        String word="HELLO World ";
-        word=word.trim();
-         
-         System.out.println(word);
+
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        Authenticator a = new Authenticator("asd", "sdfg");
+        DBAuthenticatorHandler db = new DBAuthenticatorHandler();
+        boolean success = db.login(a);
+        System.out.println(success);
+        
     }
-    
+
 }
