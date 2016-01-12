@@ -14,13 +14,9 @@
             <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/src/java/model/foundation/Hall.java</file>
         </group>
         <group>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/index.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/side_naviagation.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/footer.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/contact_us.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/admin.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/resource_filter_pane.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/header.jsp</file>
+            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/data/DBConnector.java</file>
+            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/data/DBSearchHandler.java</file>
+            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/data/DBInsertDeleteHandler.java</file>
         </group>
     </open-files>
 </project-private>
