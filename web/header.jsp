@@ -123,7 +123,7 @@
                     </a>
                     <ul class="dropdown-menu drp-mnu"> 
                         <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li> 
-                        <li> <a href="#"><i class="fa fa-sign-out"></i> Logout</a> </li>
+                        <li> <a href=login.jsp><i class="fa fa-sign-out"></i> Login</a> </li>
                     </ul>
                 </li>
             </ul>

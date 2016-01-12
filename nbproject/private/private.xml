@@ -13,6 +13,7 @@
             <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/add-res/add-tool.jsp</file>
             <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/src/java/model/foundation/Hall.java</file>
         </group>
+<<<<<<< HEAD
         <group>
 <<<<<<< HEAD
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBAuthenticatorHandler.java</file>
@@ -33,5 +34,8 @@
             <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/header.jsp</file>
 >>>>>>> bc8bb1bbfef261adc0324d08448e65e57564655e
         </group>
+=======
+        <group/>
+>>>>>>> 5c102f80bbb394613a085b64041c36d67e984fe5
     </open-files>
 </project-private>
