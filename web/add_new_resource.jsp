@@ -29,10 +29,13 @@
                             <div class="alert alert-info">
                                 Resource Category
                             </div>
-                            <select id="filter_add" class="form-control1">
-                                <option value="hall">Hall</option>
-                                <option value="lab" selected>Lab</option>
-                                <option value="car">Car</option>
+                            <select id="filter_add" class="form-control1" >
+                                <option value="hall" selected>Hall</option>
+                                <option value="lab">Lab</option>
+                                <option value="vehicle">Vehicle</option>
+                                <option value="maintenance_tool">Maintenance Tool</option>
+                                <option value="sports_item">Sports Item</option>
+                                <option value="sports_place">Sports Place</option>
                             </select>
                             <!--//end-search-box-->
                         </div>
@@ -46,10 +49,38 @@
         <%@include file="footer.jsp" %>
 
         <script>
-            $(document).load(function () {
-                // var selected_val=$("#filter_add").val();
-                $("#form_holder").append("<form id='add_hall_form' class='form-horizontal panel-default'> <div class='form-group'> <label for='focusedinput' class='col-sm-3 control-label'>Resource name</label> <div class='col-sm-9'> <input type='text' class='form-control1' id='focusedinput' placeholder='Resource Name' name='resource_name'> </div> </div> <div class='form-group'> <label class='control-label col-sm-3' for='mediuminput'>Capacity/Count</label> <div class='col-sm-9'> <input class='form-control1' type='number' name='capacity' min='1' placeholder='Capacity/Count'> </div> </div> <div class='form-group'> <label for='txtarea1' class='col-sm-3 control-label'>Description</label> <div class='col-sm-9'><textarea name='description' id='txtarea1' cols='50' rows='4' class='form-control1' placeholder='Add a short description here'></textarea></div> </div> <div class='form-group'> <label class='control-label col-sm-3'>Department</label> <div class='col-sm-9'> <select name='building' class='form-control1'> <option value='cse_sumanadasa'>ENTC</option> <option value='cse_sumanadasa'>CSE</option> </select> </div> </div> <div class='form-group'> <label class='control-label col-sm-3'>Building</label> <div class='col-sm-9'> <select name='building' class='form-control1'> <option value='cse_sumanadasa'>Sumanadasa</option> <option value='entc'>ENTC Main</option> </select> </div> </div> <div class='form-group'> <label class='control-label col-sm-3'>Air conditioned status</label> <div class='col-sm-9'> <select name='ac' class='form-control1'> <option value='Yes'>Yes</option> <option value='No'>No</option> </select> </div> </div> <div class='form-group'> <label class='control-label col-sm-3'>Projector availability</label> <div class='col-sm-9'> <select name='pro' class='form-control'> <option value='Yes'>Yes</option> <option value='No'>No</option> </select> </div> </div> <div class='form-group'> <label class='control-label col-sm-3'>Board type</label> <div class='col-sm-9'> <select name='boardtype' class='form-control'> <option value='Black board'>Black board</option> <option value='While Board'>While Board</option> <option value='Both'>Both</option> <option value='N/A'>N/A</option> </select> </div> </div> <br> <div class='form-group'> <div class='col-sm-4 col-sm-offset-4'> <button class='btn btn-default form-control1' type='submit'>Add Resource</button> </div> </div></form>");
-            })
+            $(document).ready(function ( ) {
+                $("#form_holder").append("<%@include file='add_resource/add_new_hall.jsp' %>");
+
+                $("#filter_add").change(function () {
+
+                    var selected_val = $('#filter_add').find(":selected").val();
+                    if (selected_val === "hall") {
+                        $("#form_holder").empty();
+                        $("#form_holder").append("<%@include file='add_resource/add_new_hall.jsp' %>");
+                    }
+                    else if (selected_val === "lab") {
+                        $("#form_holder").empty();
+                        $("#form_holder").append("<%@include file='add_resource/add_new_lab.jsp' %>");
+                    }
+                    else if (selected_val === "vehicle") {
+                        $("#form_holder").empty();
+                        $("#form_holder").append("<%@include file='add_resource/add_new_vehicle.jsp' %>");
+                    }
+                    else if (selected_val === "maintenance_tool") {
+                        $("#form_holder").empty();
+                        $("#form_holder").append("<%@include file='add_resource/add_new_maintainence_tool.jsp' %>");
+                    }
+                    else if (selected_val === "sports_item") {
+                        $("#form_holder").empty();
+                        $("#form_holder").append("<%@include file='add_resource/add_new_sports_item.jsp' %>");
+                    }
+                    else if (selected_val === "sports_place") {
+                        $("#form_holder").empty();
+                        $("#form_holder").append("<%@include file='add_resource/add_new_sports_place.jsp' %>");
+                    }
+                });
+            });
         </script>
     </body>
 </html>
