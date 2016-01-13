@@ -38,7 +38,7 @@ public class add_sport_item extends HttpServlet {
                     if (request.getParameter("submit") != null) {
                         SportItem item = new SportItem();
                         item.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));                        
-                        item.setCategory("Lab");
+                        item.setCategory("sportItem");
                         item.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));                        
                         item.setResourceName(request.getParameter("desc"));
                         item.setDescription(request.getParameter("desc"));

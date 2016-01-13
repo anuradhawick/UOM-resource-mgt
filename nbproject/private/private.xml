@@ -1,37 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/data/DBConnector.java</file>
-            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/data/DBInsertDeleteHandler.java</file>
-            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/data/DBSearchHandler.java</file>
+            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/Controller/res_mgt/add_hall.java</file>
         </group>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-        <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBAuthenticatorHandler.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBConnector.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBInsertDeleteHandler.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBSelectHandler.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/model/foundation/AuthorizedPerson.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/model/logic/ReservationHandler.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/Authenticator/Authenticator.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/Constants.java</file>
-=======
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/index.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/side_naviagation.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/footer.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/contact_us.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/admin.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/resource_filter_pane.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/header.jsp</file>
->>>>>>> bc8bb1bbfef261adc0324d08448e65e57564655e
-        </group>
-=======
-        <group/>
->>>>>>> 5c102f80bbb394613a085b64041c36d67e984fe5
->>>>>>> 09e7f2f9e3ce1d8930021235a3cc3087835f280c
     </open-files>
 </project-private>

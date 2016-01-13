@@ -5,8 +5,10 @@
  */
 package Controller.res_mgt;
 
+import data.DBInsertDeleteHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,22 +31,21 @@ public class add_sport_place extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
                     if (request.getParameter("submit") != null) {
-                        SportPlace place = new Lab();
+                        SportPlace place = new SportPlace();
                         place.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));                        
-                        place.setCategory("Lab");
+                        place.setCategory("SportPlace");
                         place.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));                        
                         place.setResourceName(request.getParameter("desc"));
                         place.setDescription(request.getParameter("desc"));
                         
-                        place.setAirConditioned(Boolean.TRUE);
-                        place.setDepartment(null);
+                        place.setLocation("Location");
                         DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-                        dbh.insertLab(place);
+                        dbh.insertSportPlace(place);
 //                        response.sendRedirect("add-vehicle.jsp?success");
         }
         }
