@@ -25,7 +25,7 @@
                     <div class="col-md-3 widget-shadow" >
                         <div class="panel-body filter-pane">
                             <div class="alert alert-info">
-                                Select Category
+                                Resource Category
                             </div>
                             <select class="form-control1">
                                 <option>Hall</option>

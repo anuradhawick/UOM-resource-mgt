@@ -7,7 +7,7 @@
 <html>
     <head>
         <title>UoM RMS</title>
-        <%@include file="common_imports.jsp" %>        
+        <%@include file="common_imports.jsp" %>
     </head> 
     <body class="cbp-spmenu-push">
         <div class="main-content">
@@ -16,106 +16,38 @@
             <!-- main content start-->
             <div id="page-wrapper">
                 <div class="main-page compose">
-                    <div class="well col-sm-8 col-sm-offset-2">
-                        <%                    if (request.getParameter("success") != null) {
-                        %>
-                        <div class="well" style="background-color: #94F28A;">
-                            <p class="text-center">Resource, Hall added successfully.</p>
+                    <div class="col-md-8 forms">
+                        <h3 class="title1">Add New Resource</h3>
+                        <div class="form-three widget-shadow">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="focusedinput" class="col-sm-3 control-label">Resource Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control1" id="focusedinput" placeholder="Resource Name" name="resource_name">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <%
-                            }
-//                            if (request.getParameter("submit") != null) {
-//                                Hall v = new Hall();
-//                                v.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));
-//                                v.setDescription(request.getParameter("desc"));
-//                                v.setCategory("Hall");
-//                                v.setResourceName(request.getParameter("name"));
-//                                v.setResourceid(String.valueOf(System.currentTimeMillis() % 100000000));
-//                                v.setAirConditioned(request.getParameter("fac").equals("Yes") ? true : false);
-//                                v.setProjectorAvailable(request.getParameter("pro").equals("Yes") ? true : false);
-//                                v.setBoardType(request.getParameter("boardtype"));
-//                                Department d = new Department();
-//                                d.setDeptName(request.getParameter("building").split("[,]")[0]);
-//                                d.setBuilding(request.getParameter("building").split("[,]")[1]);
-//                                v.setDepartment(d);
-//                                DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-//                                dbh.insertHall(v);
-//                                response.sendRedirect("add-hall.jsp?success");
-//                            }
-%>
-                        <h4>Add resource: </h4>
-                        <hr>
-                        <form class="form-horizontal">
-                            <input type="hidden" name="submit" value="submit">
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Name: </label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" type="text" name="name">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Capacity: </label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" type="number" name="cap" min="1">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Description: </label>
-                                <div class="col-sm-4">
-                                    <input class="form-control" type="text" name="desc">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Building: </label>
-                                <div class="col-sm-4">
-                                    <select name="building" class="form-control">
-                                        <option value="CSE,Sumanadasa">CSE | Sumanadasa</option>
-                                        <option value="Tronic,ENTC">ENTC</option>
-                                        <option value="Mechanical,New Building">New Building</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">AC/ non AC: </label>
-                                <div class="col-sm-4">
-                                    <select name="fac" class="form-control">
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Projector availablity: </label>
-                                <div class="col-sm-4">
-                                    <select name="pro" class="form-control">
-                                        <option value="Yes">Yes</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Board type: </label>
-                                <div class="col-sm-4">
-                                    <select name="boardtype" class="form-control">
-                                        <option value="Black board">Black board</option>
-                                        <option value="While Board">While Board</option>
-                                        <option value="Both">Both</option>
-                                        <option value="N/A">N/A</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-4 col-sm-offset-4">
-                                    <button class="btn btn-default">Add</button>
-                                </div>
-                            </div>
-                        </form>
-                        <hr>
                     </div>
+                    <div class="col-md-1 clearfix"></div>
+                    <!--Filter pane start-->
+                    <div class="col-md-3 widget-shadow" >
+                        <div class="panel-body filter-pane">
+                            <div class="alert alert-info">
+                                Resource Category
+                            </div>
+                            <select class="form-control1">
+                                <option>Hall</option>
+                                <option>Car</option>
+                            </select>
+                            <!--//end-search-box-->
+                        </div>
+                    </div>
+                    <!--Filter pane end-->
                 </div>
             </div>
-            <div class="clearfix"> </div>	
+            <!-- main content end-->
+            <%@include file="footer.jsp" %>
         </div>
-    <%@include file="footer.jsp" %>
-</body>
+    </body>
 </html>
