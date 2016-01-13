@@ -17,14 +17,10 @@ import model.foundation.ResourceView;
 public class ResourceHandler {
 
     public int getResourceCount() throws SQLException {
-      
-            return new DBSelectHandler().getResourceCount();
-       
+        return new DBSelectHandler().getResourceCount();
     }
-    
-     public ArrayList<ResourceView> getResources(int start,int end) throws SQLException {
-      
-            return new DBSearchHandler().searchbyCategory(start, end);
-       
+
+    public ArrayList<ResourceView> getResources(int start, int end) throws SQLException {
+        return new DBSearchHandler().searchbyCategory(start, end);
     }
 }
