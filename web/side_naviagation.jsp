@@ -10,26 +10,43 @@
     <div class="navbar-collapse">
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
             <ul class="nav" id="side-menu">
+                <% String __jspName = this.getClass().getSimpleName().replaceAll("005f", "");
+                __jspName = __jspName.replaceAll("_", "");%>
+
                 <li>
-                    <a href="index.jsp" class="active"><i class="fa fa-home nav_icon"></i>All Resources</a>
+                    <a href="index.jsp" class="<% if (__jspName.equals("indexjsp")) {
+                            out.print("active");
+                        }%>"><i class="fa fa-home nav_icon"></i>All Resources</a>
+                </li>
+<!--                <li>
+                    <a class="<% if (__jspName.equals("indexjsp")) {
+                            out.print("active");
+                        }%>" href="index.jsp"><i class="fa fa-check-circle nav_icon"></i>Available Resources</a>
+                </li>-->
+                <li>
+                    <a class="<% if (__jspName.equals("allocationsjsp")) {
+                            out.print("active");
+                        }%>" href="allocations.jsp"><i class="fa fa-th nav_icon"></i>Allocations</a>
                 </li>
                 <li>
-                    <a href="index.jsp"><i class="fa fa-check-circle nav_icon"></i>Available Resources</a>
+                    <a class="<% if (__jspName.equals("addnewresourcejsp")) {
+                            out.print("active");
+                        }%>" href="add_new_resource.jsp"><i class="fa fa-plus-square nav_icon"></i>Add New Resource</a>
                 </li>
                 <li>
-                    <a href="allocations.jsp"><i class="fa fa-th nav_icon"></i>Allocations</a>
+                    <a class="<% if (__jspName.equals("addnewmanagerjsp")) {
+                            out.print("active");
+                        }%>" href="add_new_manager.jsp"><i class="fa fa-male nav_icon"></i>Add New Manager</a>
                 </li>
                 <li>
-                    <a href="add_new_resource.jsp"><i class="fa fa-plus-square nav_icon"></i>Add New Resource</a>
+                    <a class="<% if (__jspName.equals("contactusjsp")) {
+                            out.print("active");
+                        }%>" href="contact_us.jsp"><i class="fa fa-envelope nav_icon"></i>Contact Us</a>
                 </li>
                 <li>
-                    <a href="add_new_manager.jsp"><i class="fa fa-male nav_icon"></i>Add New Manager</a>
-                </li>
-                <li>
-                    <a href="contact_us.jsp"><i class="fa fa-envelope nav_icon"></i>Contact Us</a>
-                </li>
-                <li>
-                    <a href=about.jsp><i class="fa fa-info-circle nav_icon"></i>About</a>
+                    <a class="<% if (__jspName.equals("aboutjsp")) {
+                            out.print("active");
+                        }%>" href=about.jsp><i class="fa fa-info-circle nav_icon"></i>About</a>
                 </li>
             </ul>
             <!-- //sidebar-collapse -->
