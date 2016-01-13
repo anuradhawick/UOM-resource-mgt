@@ -38,25 +38,27 @@ public class add_lab extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                    if (request.getParameter("submit") != null) {
-                        Lab lab = new Lab();
-                        lab.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));                        
-                        lab.setCategory("Lab");
-                        lab.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));                        
-                        lab.setResourceName(request.getParameter("desc"));
-                        lab.setDescription(request.getParameter("desc"));
-                        
-                        lab.setAirConditioned(Boolean.TRUE);
-                        Department d = new Department();
-                        d.setDeptName(request.getParameter("building").split("[,]")[0]);
-                        d.setBuilding(request.getParameter("building").split("[,]")[1]);
-                        lab.setDepartment(d);
-                        DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-                        dbh.insertLab(lab);
-//                        response.sendRedirect("add-vehicle.jsp?success");
+            Lab lab = new Lab();
+            lab.setCategory("Lab");
+            lab.setCapacityAmount(Integer.parseInt(request.getParameter("capacity")));
+            lab.setResourceName(request.getParameter("description"));
+            lab.setDescription(request.getParameter("description"));
+
+            lab.setAirConditioned(request.getParameter("ac").equals("Yes") ? true : false);
+            Department d = new Department();
+            d.setDeptName(request.getParameter("department"));
+            d.setBuilding(request.getParameter("building"));
+            lab.setDepartment(d);
+            for (String s : request.getParameterMap().keySet()) {
+                out.println(s + " " + request.getParameter(s) + "<br>");
+            }
+            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
+            dbh.insertLab(lab);
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success");
+
         }
     }
-    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

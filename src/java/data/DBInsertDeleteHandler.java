@@ -2,7 +2,9 @@ package data;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import model.foundation.*;
 
@@ -11,7 +13,7 @@ import model.foundation.*;
  * @author Pamoda
  */
 public class DBInsertDeleteHandler {
-    
+
     private Connection connection;
     private PreparedStatement statement;
 
@@ -35,24 +37,30 @@ public class DBInsertDeleteHandler {
         statement.clearParameters();
     }
 
-    public void insertResource(Resource resource) throws SQLException {
+    public int insertResource(Resource resource) throws SQLException {
         connection = DBConnector.connect();
-        statement = connection.prepareStatement("INSERT INTO resource_management.resource (resourceid, resource_name, capacity_amount, description, cat_name) VALUES (?,?,?,?,?)");
-        statement.setString(1, resource.getResourceid());
-        statement.setString(2, resource.getResourceName());
-        statement.setInt(3, resource.getCapacityAmount());
-        statement.setString(4, resource.getDescription());
-        statement.setString(5, resource.getCategory());
+        statement = connection.prepareStatement("INSERT INTO resource_management.resource (resource_name, capacity_amount, description, cat_name) VALUES (?,?,?,?)");
+        statement.setString(1, resource.getResourceName());
+        statement.setInt(2, resource.getCapacityAmount());
+        statement.setString(3, resource.getDescription());
+        statement.setString(4, resource.getCategory());
         statement.executeUpdate();
         statement.clearParameters();
+        Statement st = connection.createStatement();
+        ResultSet rs = st.executeQuery("select last_insert_id() as last_id from resource");
+        int last_id = -1;
+        if (rs.next()) {
+            last_id = rs.getInt("last_id");
+        }
         statement.close();
+        return last_id;
     }
 
     public void insertHall(Hall hall) throws SQLException {
-        insertResource(hall);
+        int resid = insertResource(hall);
         connection = DBConnector.connect();
-        statement = connection.prepareStatement("INSERT INTO resource_management.hall (resourceid, air_conditioned, projector_available, board_type, dept_name, building) VALUES (?,?,?,?,?,?)");
-        statement.setString(1, hall.getResourceid());
+        statement = connection.prepareStatement("INSERT INTO resource_management.hall (resourceid,air_conditioned, projector_available, board_type, dept_name, building) VALUES (?,?,?,?,?,?)");
+        statement.setInt(1, resid);
         statement.setBoolean(2, hall.isAirConditioned());
         statement.setBoolean(3, hall.isProjectorAvailable());
         statement.setString(4, hall.getBoardType());
@@ -64,26 +72,27 @@ public class DBInsertDeleteHandler {
     }
 
     public void insertLab(Lab lab) throws SQLException {
-        insertResource(lab);
+        int resid = insertResource(lab);
         connection = DBConnector.connect();
-        statement = connection.prepareStatement("INSERT INTO resource_management.lab (air_conditioned, resourceid) VALUES (?,?)");
+        statement = connection.prepareStatement("INSERT INTO resource_management.lab (air_conditioned, resourceid,dept_name,building) VALUES (?,?,?,?)");
         statement.setBoolean(1, lab.isAirConditioned());
-        statement.setString(2, lab.getResourceid());
+        statement.setInt(2, resid);
+        statement.setString(3, lab.getDepartment().getDeptName());
+        statement.setString(4, lab.getDepartment().getBuilding());
         statement.executeUpdate();
         statement.clearParameters();
         statement.close();
     }
 
     public void insertMaintenanceTool(MaintenanceTool maintenanceTool) throws SQLException {
-        insertResource(maintenanceTool);
+        int resid = insertResource(maintenanceTool);
         connection = DBConnector.connect();
-        statement = connection.prepareStatement("INSERT INTO resource_management.maintenance_tool (usage, resourceid) VALUES (?,?)");
+        statement = connection.prepareStatement("INSERT INTO resource_management.maintenance_tool (`usage`, resourceid) VALUES (?,?)");
         statement.setString(1, maintenanceTool.getUsage());
-        statement.setString(2, maintenanceTool.getResourceid());
+        statement.setInt(2, resid);
         statement.executeUpdate();
         statement.clearParameters();
         statement.close();
-        insertResource(maintenanceTool);
     }
 
     public void insertPerson(Person person) throws SQLException {
@@ -118,23 +127,23 @@ public class DBInsertDeleteHandler {
     }
 
     public void insertSportItem(SportItem sportItem) throws SQLException {
-        insertResource(sportItem);
+        int insid=insertResource(sportItem);
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.sport_item (sport , item_number ,resourceid) VALUES (?,?,?)");
         statement.setString(1, sportItem.getSport());
         statement.setString(2, sportItem.getItemNumber());
-        statement.setString(3, sportItem.getResourceid());
+        statement.setInt(3, insid);
         statement.executeUpdate();
         statement.clearParameters();
         statement.close();
     }
 
     public void insertSportPlace(SportPlace sportPlace) throws SQLException {
-        insertResource(sportPlace);
+        int insid=insertResource(sportPlace);
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.sport_place (location, resourceid) VALUES (?,?)");
         statement.setString(1, sportPlace.getLocation());
-        statement.setString(2, sportPlace.getResourceid());
+        statement.setInt(2, insid);
         statement.executeUpdate();
         statement.clearParameters();
         statement.close();
@@ -142,13 +151,13 @@ public class DBInsertDeleteHandler {
     }
 
     public void insertVehicle(Vehicle vehicle) throws SQLException {
-        insertResource(vehicle);
+        int resid = insertResource(vehicle);
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.vehicle (vehicle_niumber, vehicle_name, facility, resourceid, type)  VALUES (?,?,?,?,?)");
         statement.setString(1, vehicle.getVehicleNumber());
         statement.setString(2, vehicle.getVehicleName());
         statement.setString(3, vehicle.getFacility());
-        statement.setString(4, vehicle.getResourceid());
+        statement.setInt(4, resid);
         statement.setString(5, vehicle.getType());
         statement.executeUpdate();
         statement.clearParameters();
@@ -234,8 +243,8 @@ public class DBInsertDeleteHandler {
         statement.clearParameters();
         statement.close();
     }
-    
-    public void deleteReservation(int reservationID) throws SQLException{
+
+    public void deleteReservation(int reservationID) throws SQLException {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("DELETE FROM resource_management.reserve WHERE reserveID=?;");
         statement.setInt(1, reservationID);
