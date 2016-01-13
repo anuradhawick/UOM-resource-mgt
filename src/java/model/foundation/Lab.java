@@ -27,7 +27,6 @@ public class Lab extends Resource {
         return department;
     }
 
-   
     public void setDepartment(Department department) {
         this.department = department;
     }

@@ -9,19 +9,17 @@ import data.DBInsertDeleteHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.Vehicle;
+import model.foundation.SportItem;
 
 /**
  *
- * @author Anuradha
+ * @author Pamoda
  */
-public class add_vehicle extends HttpServlet {
+public class add_sport_item extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,20 +36,19 @@ public class add_vehicle extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
                     if (request.getParameter("submit") != null) {
-                        Vehicle v = new Vehicle();
-                        v.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));
-                        v.setDescription(request.getParameter("desc"));
-                        v.setCategory("Vehicle");
-                        v.setFacility(request.getParameter("fac"));
-                        v.setResourceName(request.getParameter("desc"));
-                        v.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));
-                        v.setType(request.getParameter("type"));
-                        v.setVehicleName(request.getParameter("name"));
-                        v.setVehicleNumber(request.getParameter("numb"));
+                        SportItem item = new SportItem();
+                        item.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));                        
+                        item.setCategory("sportItem");
+                        item.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));                        
+                        item.setResourceName(request.getParameter("desc"));
+                        item.setDescription(request.getParameter("desc"));
+                        
+                        item.setItemNumber("item number");
+                        item.setSport("sport");
                         DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-                        dbh.insertVehicle(v);
+                        dbh.insertSportItem(item);
 //                        response.sendRedirect("add-vehicle.jsp?success");
-                    }
+        }
         }
     }
 
@@ -67,11 +64,7 @@ public class add_vehicle extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(add_vehicle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -85,11 +78,7 @@ public class add_vehicle extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(add_vehicle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

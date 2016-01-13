@@ -3,6 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/web/index.jsp</file>
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/Constants.java</file>
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/web/WEB-INF/web.xml</file>
@@ -11,6 +12,9 @@
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/Controller/res_mgt/add_vehicle.java</file>
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBAuthenticatorHandler.java</file>
+=======
+            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/Controller/res_mgt/add_hall.java</file>
+>>>>>>> 292d098b6bfb9f0a98214bf3dd3f96e1f576c704
         </group>
     </open-files>
 </project-private>
