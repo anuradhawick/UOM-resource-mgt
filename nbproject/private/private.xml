@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="Group 20141207-09:12:37">
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/index.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/res_mod.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/add-res/add-vehicle.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/src/java/data/DBInsertDeleteHandler.java</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/details.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/add-res/add-hall.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/add-res/add-lab.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/add-res/add-tool.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/src/java/model/foundation/Hall.java</file>
+        <group>
+            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/data/DBConnector.java</file>
+            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/data/DBInsertDeleteHandler.java</file>
+            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/data/DBSearchHandler.java</file>
         </group>
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
         <group>
 <<<<<<< HEAD
@@ -37,5 +32,6 @@
 =======
         <group/>
 >>>>>>> 5c102f80bbb394613a085b64041c36d67e984fe5
+>>>>>>> 09e7f2f9e3ce1d8930021235a3cc3087835f280c
     </open-files>
 </project-private>

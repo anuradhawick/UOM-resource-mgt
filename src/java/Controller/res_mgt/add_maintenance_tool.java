@@ -50,7 +50,11 @@ public class add_maintenance_tool extends HttpServlet {
 //                        response.sendRedirect("add-vehicle.jsp?success");           
         }
     }
+
     }
+
+
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -63,11 +67,15 @@ public class add_maintenance_tool extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(add_maintenance_tool.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+       
+
     }
 
     /**
@@ -81,11 +89,15 @@ public class add_maintenance_tool extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(add_maintenance_tool.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        
+
     }
 
     /**
