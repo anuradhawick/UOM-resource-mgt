@@ -15,13 +15,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.Vehicle;
+import model.foundation.Department;
+import model.foundation.Lab;
 
 /**
  *
- * @author Anuradha
+ * @author Pamoda
  */
-public class add_vehicle extends HttpServlet {
+public class add_lab extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,23 +39,24 @@ public class add_vehicle extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
                     if (request.getParameter("submit") != null) {
-                        Vehicle v = new Vehicle();
-                        v.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));
-                        v.setDescription(request.getParameter("desc"));
-                        v.setCategory("Vehicle");
-                        v.setFacility(request.getParameter("fac"));
-                        v.setResourceName(request.getParameter("desc"));
-                        v.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));
-                        v.setType(request.getParameter("type"));
-                        v.setVehicleName(request.getParameter("name"));
-                        v.setVehicleNumber(request.getParameter("numb"));
+                        Lab lab = new Lab();
+                        lab.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));                        
+                        lab.setCategory("Lab");
+                        lab.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));                        
+                        lab.setResourceName(request.getParameter("desc"));
+                        lab.setDescription(request.getParameter("desc"));
+                        
+                        lab.setAirConditioned(Boolean.TRUE);
+                        Department d = new Department();
+                        d.setDeptName(request.getParameter("building").split("[,]")[0]);
+                        d.setBuilding(request.getParameter("building").split("[,]")[1]);
+                        lab.setDepartment(d);
                         DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-                        dbh.insertVehicle(v);
+                        dbh.insertLab(lab);
 //                        response.sendRedirect("add-vehicle.jsp?success");
-                    }
         }
     }
-
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -65,12 +67,12 @@ public class add_vehicle extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(add_vehicle.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(add_lab.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -88,7 +90,7 @@ public class add_vehicle extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(add_vehicle.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(add_lab.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

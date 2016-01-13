@@ -70,8 +70,8 @@ body a:hover{
 
 .center {
     margin: auto;
-    width: 150%;
-    border: 3px solid #73AD21;
+    width: 160%;
+    padding-top: 15px;
     text-align: center;
 }
 /* ----menu-icon----*/

@@ -15,13 +15,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.Vehicle;
+import model.foundation.SportPlace;
 
 /**
  *
- * @author Anuradha
+ * @author Pamoda
  */
-public class add_vehicle extends HttpServlet {
+public class add_sport_place extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,20 +38,18 @@ public class add_vehicle extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
                     if (request.getParameter("submit") != null) {
-                        Vehicle v = new Vehicle();
-                        v.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));
-                        v.setDescription(request.getParameter("desc"));
-                        v.setCategory("Vehicle");
-                        v.setFacility(request.getParameter("fac"));
-                        v.setResourceName(request.getParameter("desc"));
-                        v.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));
-                        v.setType(request.getParameter("type"));
-                        v.setVehicleName(request.getParameter("name"));
-                        v.setVehicleNumber(request.getParameter("numb"));
+                        SportPlace place = new SportPlace();
+                        place.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));                        
+                        place.setCategory("SportPlace");
+                        place.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));                        
+                        place.setResourceName(request.getParameter("desc"));
+                        place.setDescription(request.getParameter("desc"));
+                        
+                        place.setLocation("Location");
                         DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-                        dbh.insertVehicle(v);
+                        dbh.insertSportPlace(place);
 //                        response.sendRedirect("add-vehicle.jsp?success");
-                    }
+        }
         }
     }
 
@@ -70,7 +68,7 @@ public class add_vehicle extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(add_vehicle.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(add_sport_place.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -88,7 +86,7 @@ public class add_vehicle extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(add_vehicle.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(add_sport_place.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

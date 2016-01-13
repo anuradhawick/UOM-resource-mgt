@@ -2,40 +2,19 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="Group 20141207-09:12:37">
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/index.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/res_mod.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/add-res/add-vehicle.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/src/java/data/DBInsertDeleteHandler.java</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/details.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/add-res/add-hall.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/add-res/add-lab.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/web/user/add-res/add-tool.jsp</file>
-            <file>file:/D:/Semester%204/Anuradha/Database%20Systems/ProjectJSP/uomrms/src/java/model/foundation/Hall.java</file>
-        </group>
-<<<<<<< HEAD
         <group>
 <<<<<<< HEAD
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBAuthenticatorHandler.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBConnector.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBInsertDeleteHandler.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBSelectHandler.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/model/foundation/AuthorizedPerson.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/model/logic/ReservationHandler.java</file>
-            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/Authenticator/Authenticator.java</file>
+            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/web/index.jsp</file>
             <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/Constants.java</file>
+            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/Controller/auth/login_servelet.java</file>
+            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/Impl/test.java</file>
+            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/Controller/res_mgt/add_vehicle.java</file>
+            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/Anuradha/Documents/uomrms/uomrms/src/java/data/DBAuthenticatorHandler.java</file>
 =======
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/index.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/side_naviagation.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/footer.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/contact_us.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/admin.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/resource_filter_pane.jsp</file>
-            <file>file:/C:/Users/Dulaj/Documents/NetBeansProjects/uomrms/web/header.jsp</file>
->>>>>>> bc8bb1bbfef261adc0324d08448e65e57564655e
+            <file>file:/D:/Semester_4/UOMRMS/uomrms/src/java/Controller/res_mgt/add_hall.java</file>
+>>>>>>> 292d098b6bfb9f0a98214bf3dd3f96e1f576c704
         </group>
-=======
-        <group/>
->>>>>>> 5c102f80bbb394613a085b64041c36d67e984fe5
     </open-files>
 </project-private>

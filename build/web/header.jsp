@@ -20,7 +20,7 @@
         </div>
         <!--//logo-->
         <div class="center">
-            <p>Hello</p>
+            <h3 class="title1">Add New Resource</h3>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -75,7 +75,7 @@
                             </div>
                         </li>
                         <li><a href="#">
-                                <div class="user_img"><img src="images/2.png" alt=""></div>
+                                <div class="user_img"><img src="images/avatar.png" alt=""></div>
                                 <div class="notification_desc">
                                     <p>Lorem ipsum dolor amet</p>
                                     <p><span>1 hour ago</span></p>
@@ -114,10 +114,10 @@
                 <li class="dropdown profile_details_drop">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <div class="profile_img">	
-                            <span class="prfil-img"><img src="images/a.png" alt=""> </span> 
+                            <span class="prfil-img"><img src="images/avatar.png" alt=""> </span> 
                             <div class="user-name">
-                                <p>Wikolia</p>
-                                <span>Administrator</span>
+                                <p>Please sign in</p>
+                                <!--<span>Administrator</span>-->
                             </div>
                             <i class="fa fa-angle-down lnr"></i>
                             <i class="fa fa-angle-up lnr"></i>
