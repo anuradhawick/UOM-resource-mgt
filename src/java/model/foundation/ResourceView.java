@@ -9,6 +9,6 @@ package model.foundation;
  *
  * @author RAVIDU-PC
  */
-public class ResourceView {
+public class ResourceView extends Resource {
     
 }

@@ -4,6 +4,9 @@
     Author     : Dulaj
 --%>
 
+<%@page import="model.foundation.Person"%>
+<%@page import="data.DBPrivilegeUserHandler"%>
+<%@page import="model.foundation.AuthorizedPerson"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!-- header-starts -->
 <div class="sticky-header header-section">
@@ -116,7 +119,22 @@
                         <div class="profile_img">	
                             <span class="prfil-img"><img src="images/avatar.png" alt=""> </span> 
                             <div class="user-name">
+                                <%
+                                    if (request.getSession(false).getAttribute("logged") == null) {
+                                %>
                                 <p>Please sign in</p>
+                                <% } else {
+                                    AuthorizedPerson p = new AuthorizedPerson();
+                                    p.setUsername((String) request.getSession(false).getAttribute("username"));
+                                    DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
+                                    Person person = dbh.getLoggedPerson(p);
+                                    out.print("<p>"+person.getFirstName()+" "+person.getLastName()+"</p>");
+                                    
+                                %>
+
+                                <%
+                                    }%>
+
                                 <!--<span>Administrator</span>-->
                             </div>
                             <i class="fa fa-angle-down lnr"></i>

@@ -9,7 +9,11 @@ import Authenticator.Authenticator;
 import data.DBAuthenticatorHandler;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
+import model.foundation.ResourceView;
+import model.logic.ResourceHandler;
 
 /**
  *
@@ -17,12 +21,12 @@ import javax.servlet.http.HttpSession;
  */
 public class test {
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        Authenticator a = new Authenticator("admin", "admin");
-        DBAuthenticatorHandler db = new DBAuthenticatorHandler();
-        boolean success = db.login(a);
-        System.out.println(success);
-        
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException {
+        ResourceHandler res=new ResourceHandler();
+        ArrayList<ResourceView> rv=res.getResources(0, 2);
+        for(ResourceView r:rv){
+            System.out.println(r.getResourceName());
+        }
     }
 
 }

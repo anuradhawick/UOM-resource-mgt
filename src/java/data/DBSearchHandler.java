@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,6 +14,7 @@ import model.foundation.Department;
 import model.foundation.Hall;
 import model.foundation.Lab;
 import model.foundation.MaintenanceTool;
+import model.foundation.ResourceView;
 import model.foundation.SportItem;
 import model.foundation.SportPlace;
 import model.foundation.Vehicle;
@@ -195,5 +197,24 @@ public class DBSearchHandler {
 
     }
 
-    
+    public ArrayList<ResourceView> searchbyCategory(int start, int end) throws SQLException {
+        Connection connection = DBConnector.connect();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM RESOURCE LIMIT ?,?");
+        preparedStatement.setInt(1, start);
+        preparedStatement.setInt(2, end);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ArrayList<ResourceView> arr=new ArrayList<>();
+        
+        while (resultSet.next()) {
+            ResourceView rv=new ResourceView();
+            rv.setResourceid(resultSet.getString("resourceid"));
+            rv.setResourceName(resultSet.getString("resource_name"));
+            rv.setCapacityAmount(resultSet.getInt("capacity_amount"));
+            rv.setDescription(resultSet.getString("description"));
+            rv.setCategory(resultSet.getString("cat_name"));
+            arr.add(rv);
+        }
+        return arr;
+    }
+
 }
