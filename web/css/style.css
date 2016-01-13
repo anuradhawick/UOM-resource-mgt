@@ -67,6 +67,13 @@ body a:hover{
 .header-right {
     float: right;
 }
+
+.center {
+    margin: auto;
+    width: 150%;
+    border: 3px solid #73AD21;
+    text-align: center;
+}
 /* ----menu-icon----*/
 button#showLeftPush {
     font-size: 1.5em;

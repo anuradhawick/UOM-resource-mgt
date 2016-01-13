@@ -19,7 +19,10 @@
             </a>
         </div>
         <!--//logo-->
-        <div class="clearfix"> </div>
+        <div class="center">
+            <p>Hello</p>
+        </div>
+        <div class="clearfix"></div>
     </div>
     <div class="header-right">
         <div class="profile_details_left"><!--notifications of menu start -->
@@ -128,7 +131,7 @@
                         <li> <a href=login.jsp><i class="fa fa-sign-out"></i> Login</a> </li>
                             <% } else {
                             %><li><a href="/uomrms/logout_servlet"><i class="fa fa-sign-out"></i> Logout</a> </li><%
-                                    }%>
+                                }%>
                     </ul>
                 </li>
             </ul>

@@ -37,6 +37,7 @@
                     <div class="clearfix"> </div>	
                 </div>
             </div>
+            <!-- main content end-->
         </div>
 
         <%@include file="footer.jsp" %>
