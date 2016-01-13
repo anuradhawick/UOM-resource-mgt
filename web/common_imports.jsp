@@ -18,6 +18,7 @@
 <link href="css/font-awesome.css" rel="stylesheet"> 
 <!-- //font-awesome icons -->
 <!-- js-->
+
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/modernizr.custom.js"></script>
 <!--webfonts-->
@@ -38,7 +39,6 @@
 <script src="js/underscore-min.js" type="text/javascript"></script>
 <script src= "js/moment-2.2.1.js" type="text/javascript"></script>
 <script src="js/clndr.js" type="text/javascript"></script>
-<script src="js/site.js" type="text/javascript"></script>
 <!--End Calender-->
 <!-- Metis Menu -->
 <script src="js/metisMenu.min.js"></script>

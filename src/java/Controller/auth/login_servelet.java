@@ -45,12 +45,14 @@ public class login_servelet extends HttpServlet {
                 boolean success = db.login(a);
                 if (!success) {
                     out.println("Failed");
+                     response.sendRedirect("/uomrms/login.jsp?fail=true");
                     //response.sendRedirect("?login-err");
                 } else {
                     out.println("Success");
-                    //response.sendRedirect("user/");
                     HttpSession s = request.getSession(true);
                     s.setAttribute("logged", "true");
+                    s.setAttribute("username", request.getParameter("username"));
+                    response.sendRedirect("/uomrms");
                 }
             }else{
                 out.println("No parameters");
