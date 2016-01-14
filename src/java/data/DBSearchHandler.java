@@ -14,6 +14,7 @@ import model.foundation.Department;
 import model.foundation.Hall;
 import model.foundation.Lab;
 import model.foundation.MaintenanceTool;
+import model.foundation.Resource;
 import model.foundation.ResourceView;
 import model.foundation.SportItem;
 import model.foundation.SportPlace;
@@ -203,10 +204,10 @@ public class DBSearchHandler {
         preparedStatement.setInt(1, start);
         preparedStatement.setInt(2, end);
         ResultSet resultSet = preparedStatement.executeQuery();
-        ArrayList<ResourceView> arr=new ArrayList<>();
-        
+        ArrayList<ResourceView> arr = new ArrayList<>();
+
         while (resultSet.next()) {
-            ResourceView rv=new ResourceView();
+            ResourceView rv = new ResourceView();
             rv.setResourceid(resultSet.getString("resourceid"));
             rv.setResourceName(resultSet.getString("resource_name"));
             rv.setCapacityAmount(resultSet.getInt("capacity_amount"));
@@ -215,6 +216,165 @@ public class DBSearchHandler {
             arr.add(rv);
         }
         return arr;
+    }
+
+    public Resource SearchResource(String category, int id) {
+        Connection c = DBConnector.connect();
+        try {
+
+            Statement stmt = c.createStatement();
+            if (category.equals("Lab")) {
+                String query = "SELECT * FROM resource INNER JOIN lab USING(resourceid)"
+                        + " INNER JOIN department USING(dept_name)"
+                        + "WHERE cat_name=? AND resourceid=?";
+                PreparedStatement preparedStatement = c.prepareStatement(query);
+                preparedStatement.setString(1, category);
+                preparedStatement.setInt(2, id);
+                ResultSet rs = preparedStatement.executeQuery();
+
+                if (rs.next()) {
+
+                    Lab lab = new Lab();
+                    lab.setResourceid(rs.getString("resourceid"));
+                    lab.setCategory(category);
+                    lab.setResourceName(rs.getString("resource_name"));
+                    lab.setCapacityAmount(rs.getInt("capacity_amount"));
+                    lab.setDescription(rs.getString("description"));
+                    lab.setAirConditioned(rs.getBoolean("air_conditioned"));
+
+                    Department department = new Department();
+                    department.setDeptName(rs.getString("dept_name"));
+                    department.setBuilding(rs.getString("building"));
+                    lab.setDepartment(department);
+                    return lab;
+                   
+                }
+                
+                
+
+            } else if (category.equals("Sport Place")) {
+                
+                String query = "SELECT * FROM resource INNER JOIN sport_place USING(resourceid)"
+                        + "WHERE cat_name=? AND resourceid=?";
+                PreparedStatement preparedStatement = c.prepareStatement(query);
+                preparedStatement.setString(1, category);
+                preparedStatement.setInt(2, id);
+                ResultSet rs = preparedStatement.executeQuery();
+                
+                if (rs.next()) {
+                    SportPlace sportplace = new SportPlace();
+                    sportplace.setResourceid(rs.getString("resourceid"));
+                    sportplace.setCategory(category);
+                    sportplace.setResourceName(rs.getString("resource_name"));
+                    sportplace.setCapacityAmount(rs.getInt("capacity_amount"));
+                    sportplace.setDescription(rs.getString("description"));
+                    sportplace.setLocation(rs.getString("location"));
+                    return sportplace;
+                }
+                
+                
+                
+            } else if (category.equals("Sport Item")) {
+                String query = "SELECT * FROM resource INNER JOIN sport_item USING(resourceid)"
+                        + "WHERE cat_name=? AND resourceid=?";
+                PreparedStatement preparedStatement = c.prepareStatement(query);
+                preparedStatement.setString(1, category);
+                preparedStatement.setInt(2, id);
+                ResultSet rs = preparedStatement.executeQuery();
+                if(rs.next()) {
+                    SportItem sportitem = new SportItem();
+                    sportitem.setResourceid(rs.getString("resourceid"));
+                    sportitem.setCategory(category);
+                    sportitem.setResourceName(rs.getString("resource_name"));
+                    sportitem.setCapacityAmount(rs.getInt("capacity_amount"));
+                    sportitem.setDescription(rs.getString("description"));
+                    sportitem.setSport(rs.getString("sport"));
+                    sportitem.setItemNumber(rs.getString("item_number"));
+                    return sportitem;
+                }
+                
+
+            } else if (category.equals("Maintenance Tool")) {
+
+                String query = "SELECT * FROM resource INNER JOIN maintenance_tool USING(resourceid)"
+                        + "WHERE cat_name=? AND resourceid=?";
+                 PreparedStatement preparedStatement = c.prepareStatement(query);
+                preparedStatement.setString(1, category);
+                preparedStatement.setInt(2, id);
+                ResultSet rs = preparedStatement.executeQuery();
+                while (rs.next()) {
+                    MaintenanceTool tool = new MaintenanceTool();
+                    tool.setResourceid(rs.getString("resourceid"));
+                    tool.setCategory(category);
+                    tool.setResourceName(rs.getString("resource_name"));
+                    tool.setCapacityAmount(rs.getInt("capacity_amount"));
+                    tool.setDescription(rs.getString("description"));
+                    tool.setUsage(rs.getString("usage"));
+
+                    return tool;
+                }
+                
+            } else if (category.equals("Hall")) {
+
+                String query = "SELECT * FROM resource INNER JOIN hall USING(resourceid)"
+                        + " INNER JOIN department USING(dept_name)"
+                        + "WHERE cat_name=? AND resourceid=?";
+               PreparedStatement preparedStatement = c.prepareStatement(query);
+                preparedStatement.setString(1, category);
+                preparedStatement.setInt(2, id);
+                ResultSet rs = preparedStatement.executeQuery();
+                while (rs.next()) {
+
+                    Hall hall = new Hall();
+                    hall.setResourceid(rs.getString("resourceid"));
+                    hall.setCategory(category);
+                    hall.setResourceName(rs.getString("resource_name"));
+                    hall.setCapacityAmount(rs.getInt("capacity_amount"));
+                    hall.setDescription(rs.getString("description"));
+                    hall.setAirConditioned(rs.getBoolean("air_conditioned"));
+                    hall.setProjectorAvailable(rs.getBoolean("projector_available"));
+                    hall.setBoardType(rs.getString("board_type"));
+
+                    Department d = new Department();
+                    d.setDeptName(rs.getString("dept_name"));
+                    d.setBuilding(rs.getString("building"));
+                    hall.setDepartment(d);
+
+                    return hall;
+                }
+              
+            } else if (category.equals("Vehicle")) {
+
+                String query = "SELECT * FROM resource INNER JOIN vehicle USING(resourceid)"
+                        + "INNER JOIN vehicle_type USING(type) WHERE cat_name=? AND resourceid=?";
+                PreparedStatement preparedStatement = c.prepareStatement(query);
+                preparedStatement.setString(1, category);
+                preparedStatement.setInt(2, id);
+                ResultSet rs = preparedStatement.executeQuery();
+
+                while (rs.next()) {
+                    Vehicle vehicle = new Vehicle();
+                    vehicle.setResourceid(rs.getString("resourceid"));
+                    vehicle.setCategory(category);
+                    vehicle.setResourceName(rs.getString("resource_name"));
+                    vehicle.setCapacityAmount(rs.getInt("capacity_amount"));
+                    vehicle.setDescription(rs.getString("description"));
+                    vehicle.setVehicleNumber(rs.getString("vehicle_number"));
+                    vehicle.setVehicleName(rs.getString("vehicle_name"));
+                    vehicle.setFacility(rs.getString("facility"));
+                    vehicle.setType(rs.getString("type"));
+                    return vehicle;
+                }
+               
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            DBConnector.closeDB(c);
+        }
+
+        return null;
     }
 
 }
