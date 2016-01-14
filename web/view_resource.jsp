@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="media-heading"><h4>Media heading</h4></div>                                
                                 <div class="media-body">
-                                   <%  %>                                  
+                                    <p></p>
                                 </div>
                                 <div class="clearfix"> </div>
                             </div>
@@ -46,5 +46,10 @@
             <!-- main content end-->
         </div>
         <%@include file="footer.jsp" %>
+        
+        <script>
+            alert(localStorage.getItem("id") + ", " + localStorage.getItem("cat"));
+                
+        </script>
     </body>
 </html>

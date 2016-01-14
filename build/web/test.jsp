@@ -12,6 +12,12 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <button onclick="location.href='view_resource.jsp?resource_id=1&category=hall'">Test button</button>
+        <button onclick="viewResource(['One','Two'])">Test button</button>
+        
+        <script>
+            var viewResource=function (para){
+                alert(para[0]);
+            };
+        </script>
     </body>
 </html>
