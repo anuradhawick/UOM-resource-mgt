@@ -62,8 +62,10 @@
             $(document).ready(function () {
                 $.get("SearchAll?start=0&end=10", function (data) {
 //                    alert(data)
+                      
                     var objArr = $.parseJSON(data);
                     alert(objArr[0]['resourceName']);
+                    $("#resources").append("<div class=\"media\"> <div class=\"bs-example5\"> <div> <div class=\"media-left\"> <a href=\"#\"> <img alt=\"64x64\" src=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNGUwMDNiM2U3NSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE0ZTAwM2IzZTc1Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==\" data-holder-rendered=\"true\" style=\"width: 128px; height: 128;\"> </a> </div> <div class=\"media-body\"> <h2 class=\"media-heading\">Resource Name 1</h2> <p><b>Resource ID: </b> 100001</p> <p><b>Category: </b> Hall</p> <p><b>Capacity/Amount: </b> 125</p> <p><b>Description: </b> Seminal room is the biggest hall of COmputer Science and Engineering Department. It is full air conditioned. One projector and a white board is available.</p> </div> <div> <button class=\"btn\">View</button> <button class=\"btn\">Edit</button> </div> <div class=\"clearfix\"> </div> </div> </div> </div>");
                 })
             });
         </script>
