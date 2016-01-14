@@ -37,21 +37,22 @@ public class add_vehicle extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                    if (request.getParameter("submit") != null) {
-                        Vehicle v = new Vehicle();
-                        v.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));
-                        v.setDescription(request.getParameter("desc"));
-                        v.setCategory("Vehicle");
-                        v.setFacility(request.getParameter("fac"));
-                        v.setResourceName(request.getParameter("desc"));
-                        v.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));
-                        v.setType(request.getParameter("type"));
-                        v.setVehicleName(request.getParameter("name"));
-                        v.setVehicleNumber(request.getParameter("numb"));
-                        DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-                        dbh.insertVehicle(v);
-//                        response.sendRedirect("add-vehicle.jsp?success");
-                    }
+            Vehicle v = new Vehicle();
+            v.setCapacityAmount(Integer.parseInt(request.getParameter("capacity")));
+            v.setDescription(request.getParameter("description"));
+            v.setCategory("Vehicle");
+            v.setFacility(request.getParameter("ac"));
+            v.setResourceName(request.getParameter("description"));
+            v.setType(request.getParameter("vehicle_type"));
+            v.setVehicleName(request.getParameter("vehicle_name"));
+            v.setVehicleNumber(request.getParameter("vehicle_no"));
+            for (String s : request.getParameterMap().keySet()) {
+                out.println(s + " " + request.getParameter(s) + "<br>");
+            }
+            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
+            dbh.insertVehicle(v);
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success");
+
         }
     }
 

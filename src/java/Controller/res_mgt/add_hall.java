@@ -38,24 +38,30 @@ public class add_hall extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                    if (request.getParameter("submit") != null) {
-                        Hall v = new Hall();
-                        v.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));
-                        v.setDescription(request.getParameter("desc"));
-                        v.setCategory("Hall");
-                        v.setResourceName(request.getParameter("name"));
-                        v.setResourceid(String.valueOf(System.currentTimeMillis() % 100000000));
-                        v.setAirConditioned(request.getParameter("fac").equals("Yes") ? true : false);
-                        v.setProjectorAvailable(request.getParameter("pro").equals("Yes") ? true : false);
-                        v.setBoardType(request.getParameter("boardtype"));
-                        Department d = new Department();
-                        d.setDeptName(request.getParameter("building").split("[,]")[0]);
-                        d.setBuilding(request.getParameter("building").split("[,]")[1]);
-                        v.setDepartment(d);
-                        DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-                        dbh.insertHall(v);
-//                        response.sendRedirect("add-hall.jsp?success");
-                    }
+            out.println("start<br>");
+            Hall v = new Hall();
+            v.setCapacityAmount(Integer.parseInt(request.getParameter("capacity")));
+            v.setDescription(request.getParameter("description"));
+            v.setCategory("Hall");
+            v.setResourceName(request.getParameter("resource_name"));
+            v.setAirConditioned(request.getParameter("ac").equals("Yes") ? true : false);
+            v.setProjectorAvailable(request.getParameter("pro").equals("Yes") ? true : false);
+            v.setBoardType(request.getParameter("boardtype"));
+            Department d = new Department();
+            d.setDeptName(request.getParameter("department"));
+            d.setBuilding(request.getParameter("building"));
+            v.setDepartment(d);
+            out.println("asd");
+            for (String s : request.getParameterMap().keySet()) {
+                out.println(s + " " + request.getParameter(s) + "<br>");
+            }
+            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
+            dbh.insertHall(v);
+            out.println("Done");
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success");
+
+        } catch (Exception c) {
+            c.printStackTrace();
         }
     }
 

@@ -37,23 +37,23 @@ public class add_maintenance_tool extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                    if (request.getParameter("submit") != null) {
-                        MaintenanceTool tool = new MaintenanceTool();
-                        tool.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));                        
-                        tool.setCategory("Maintainance-tool");
-                        tool.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));                        
-                        tool.setResourceName(request.getParameter("desc"));
-                        tool.setDescription(request.getParameter("desc"));
-                        tool.setUsage("Usage");
-                        DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-                        dbh.insertMaintenanceTool(tool);
-//                        response.sendRedirect("add-vehicle.jsp?success");           
+
+            MaintenanceTool tool = new MaintenanceTool();
+            tool.setCategory("Maintenance Tool");
+            tool.setCapacityAmount(Integer.parseInt(request.getParameter("count")));
+            tool.setResourceName(request.getParameter("resource_name"));
+            tool.setDescription(request.getParameter("description"));
+            tool.setUsage("usage");
+            for (String s : request.getParameterMap().keySet()) {
+                out.println(s + " " + request.getParameter(s) + "<br>");
+            }
+            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
+            dbh.insertMaintenanceTool(tool);
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success");
+
         }
-    }
 
     }
-
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -73,8 +73,6 @@ public class add_maintenance_tool extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(add_maintenance_tool.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-       
 
     }
 
@@ -96,8 +94,6 @@ public class add_maintenance_tool extends HttpServlet {
             Logger.getLogger(add_maintenance_tool.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
-
     }
 
     /**
@@ -109,6 +105,5 @@ public class add_maintenance_tool extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 
 }

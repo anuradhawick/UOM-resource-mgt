@@ -37,21 +37,23 @@ public class add_sport_item extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                    if (request.getParameter("submit") != null) {
-                        SportItem item = new SportItem();
-                        item.setResourceid(String.valueOf(System.currentTimeMillis()%100000000));                        
-                        item.setCategory("sportItem");
-                        item.setCapacityAmount(Integer.parseInt(request.getParameter("cap")));                        
-                        item.setResourceName(request.getParameter("desc"));
-                        item.setDescription(request.getParameter("desc"));
-                        
-                        item.setItemNumber("item number");
-                        item.setSport("sport");
-                        DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-                        dbh.insertSportItem(item);
-//                        response.sendRedirect("add-vehicle.jsp?success");
+            SportItem item = new SportItem();
+
+            item.setCategory("Sport Item");
+            item.setCapacityAmount(Integer.parseInt(request.getParameter("count")));
+            item.setResourceName(request.getParameter("resource_name"));
+            item.setDescription(request.getParameter("description"));
+
+            item.setItemNumber("item_code");
+            item.setSport("sport");
+            for (String s : request.getParameterMap().keySet()) {
+                out.println(s + " " + request.getParameter(s) + "<br>");
+            }
+            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
+            dbh.insertSportItem(item);
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success");
         }
-        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
