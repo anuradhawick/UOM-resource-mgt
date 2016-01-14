@@ -26,15 +26,10 @@ import model.logic.ResourceHandler;
 public class test {
 
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException {
-       MaintenanceTool tool = new MaintenanceTool();
-                tool.setCategory("Maintenance Tool");
-            tool.setCapacityAmount(100);
-            tool.setResourceName("Hammer");
-            tool.setDescription("Good");
-            tool.setUsage("usage");
-           
-            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-            dbh.insertMaintenanceTool(tool);
+        Authenticator a = new Authenticator("admin", "admin");
+        DBAuthenticatorHandler db = new DBAuthenticatorHandler();
+        boolean success = db.login(a);
+        System.out.println(success);
 
     }
 

@@ -22,7 +22,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <h4>Welcome to UoM RMS ! <br> Not a Member? <a href="signup.jsp">  Sign Up</a> </h4>
                         </div>
                         <div class="login-body">
-                            <form action="/uomrms/login_servelet" method="POST">
+                            <form action="/uomrms/login_servelet">
                                 <input type="text" class="user" name="username" placeholder="Enter your NIC" required="">
                                 <input type="password" name="password" class="lock" placeholder="password">
                                 <% if(request.getParameter("fail")!=null){
