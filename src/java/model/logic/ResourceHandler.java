@@ -8,7 +8,7 @@ package model.logic;
 import data.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.foundation.ResourceView;
+import model.foundation.*;
 
 /**
  *
@@ -23,4 +23,8 @@ public class ResourceHandler {
     public ArrayList<ResourceView> getResources(int start, int end) throws SQLException {
         return new DBSearchHandler().searchbyCategory(start, end);
     }
+    
+   public Resource getResource(String category,int id){
+       return new DBSearchHandler().SearchResource(category, id);
+   }
 }
