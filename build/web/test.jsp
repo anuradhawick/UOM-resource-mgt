@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        
+        <button onclick="location.href='view_resource.jsp?resource_id=1&category=hall'">Test button</button>
     </body>
 </html>
