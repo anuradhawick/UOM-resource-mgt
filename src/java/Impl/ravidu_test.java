@@ -17,7 +17,6 @@ import model.foundation.Resource;
 import model.foundation.ResourceView;
 import model.logic.ReservationHandler;
 import model.logic.ResourceHandler;
-import org.jboss.weld.SimpleCDI;
 
 /**
  *
