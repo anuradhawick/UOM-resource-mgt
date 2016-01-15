@@ -16,13 +16,19 @@
     <head>
         <title>UoM RMS</title>
         <%@include file="common_imports.jsp" %>        
+
+        <script>
+            var onReserveClick = function () {
+                
+            };
+        </script>
     </head> 
     <body class="cbp-spmenu-push">
         <div class="main-content">
             <%@include file="header.jsp" %>
             <%@include file="side_naviagation.jsp" %>
             <div id="page-wrapper">
-                <div class="main-page">
+                <div class="main-page compose">
                     <!-- main content start-->
                     <div class="media col-md-12">
                         <div class="bs-example5 widget-shadow" data-example-id="default-media">
@@ -34,7 +40,7 @@
                                 </div>
                                 <div class="media-right col-md-10">
                                     <div id="resource_heading" class="media-heading"></div><br>
-                                    <div id="resource_heading" class="media-heading"><button type="button" class="btn btn-info" data-toggle="modal" data-target="#requestmodal" data-whatever="@mdo">Reserve</button></div>
+                                    <div id="resource_heading" class="media-heading"><button type="button" class="btn btn-info" data-toggle="modal" data-whatever="@mdo" onclick="onReserveClick()">Reserve</button></div>
                                     <div class="modal fade" id="requestmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                                         <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -78,6 +84,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="clearfix"> </div>	
             </div>
             <!-- main content end-->
         </div>
@@ -91,43 +98,55 @@
                     $("#resource_heading").append("<h1>" + jsonObject['resourceName'] + "</h1>");
 
                     if (cat === "hall") {
-                        $("#resource_details").append("<tr><td>" + "Value 1" + "</td><td>Value 2</td></tr>");
+                        var airConditioned;
+                        var projectorAvailable;
+                        if(jsonObject['airConditioned']){ airConditioned="Yes"; }
+                        else{ airConditioned="No"; }
+                        if(jsonObject['projectorAvailable']){ projectorAvailable="Yes"; }
+                        else{ projectorAvailable="No"; }
+                        $("#resource_details").append("<tr><td>Resource Category</td><td>" + jsonObject['category'] + "</td></tr><tr><td>Capacity</td><td>" + jsonObject['capacityAmount'] + "</td></tr><tr><td>Department</td><td>" + jsonObject['department']['deptName'] + "</td></tr><tr><td>Building</td><td>" + jsonObject['department']['building'] + "</td></tr><tr><td>Air conditioned</td><td>" + airConditioned + "</td></tr><tr><td>Board Type</td><td>" + jsonObject['boardType'] + "</td></tr><tr><td>Projector availability</td><td>" + projectorAvailable + "</td></tr><tr><td>Description</td><td>" + jsonObject['description'] + "</td></tr>");
                     }
                     else if (cat === "lab") {
-                        $("#resource_details").append("<tr><td>" + "Value 1" + "</td><td>Value 2</td></tr>");
+                        var airConditioned;
+                        if(jsonObject['airConditioned']){ airConditioned="Yes"; }
+                        else{ airConditioned="No"; }
+                        $("#resource_details").append("<tr><td>Resource Category</td><td>" + jsonObject['category'] + "</td></tr><tr><td>Capacity</td><td>" + jsonObject['capacityAmount'] + "</td></tr><tr><td>Department</td><td>" + jsonObject['department']['deptName'] + "</td></tr><tr><td>Building</td><td>" + jsonObject['department']['building'] + "</td></tr><tr><td>Air conditioned</td><td>" + airConditioned + "</td></tr><tr><td>Description</td><td>" + jsonObject['description'] + "</td></tr>");
                     }
                     else if (cat === "vehicle") {
-
+                        var airConditioned;
+                        if(jsonObject['airConditioned']){ airConditioned="Yes"; }
+                        else{ airConditioned="No"; }
+                        $("#resource_details").append("<tr><td>Resource Category</td><td>" + jsonObject['category'] + "</td></tr><tr><td>Vehicle Type</td><td>" + jsonObject['type'] + "</td></tr><tr><td>Brand</td><td>" + jsonObject['vehicleName'] + "</td></tr><tr><td>Vehicle Number</td><td>" + jsonObject['vehicleNumber'] + "</td></tr><tr><td>Capacity</td><td>" + jsonObject['capacityAmount'] + "</td></tr><tr><td>Air conditioned</td><td>" + airConditioned + "</td></tr><tr><td>Extra facilities</td><td>" + jsonObject['facility'] + "</td></tr><tr><td>Usage</td><td>" + jsonObject['usage'] + "</td></tr><tr><td>Description</td><td>" + jsonObject['description'] + "</td></tr>");
                     }
                     else if (cat === "maintenance tool") {
-
+                        $("#resource_details").append("<tr><td>Resource Category</td><td>" + jsonObject['category'] + "</td></tr><tr><td>Amount</td><td>" + jsonObject['capacityAmount'] + "</td></tr><tr><td>Description</td><td>" + jsonObject['description'] + "</td></tr>");
                     }
                     else if (cat === "sports item") {
-
+                        $("#resource_details").append("<tr><td>Resource Category</td><td>" + jsonObject['category'] + "</td></tr><tr><td>Related sport</td><td>" + jsonObject['sport'] + "</td></tr><tr><td>Item code   </td><td>" + jsonObject['itemNumber'] + "</td></tr><tr><td>Amount</td><td>" + jsonObject['capacityAmount'] + "</td></tr><tr><td>Description</td><td>" + jsonObject['description'] + "</td></tr>");
                     }
                     else if (cat === "sports place") {
-
+                        $("#resource_details").append("<tr><td>Resource Category</td><td>" + jsonObject['category'] + "</td></tr><tr><td>Location</td><td>" + jsonObject['location'] + "</td></tr><tr><td>Capacity</td><td>" + jsonObject['capacityAmount'] + "</td></tr><tr><td>Description</td><td>" + jsonObject['description'] + "</td></tr>");
                     }
                 })
-                
-                if (cat === "hall") {
-                        $("#requestmodal").append();
-                    }
-                    else if (cat === "lab") {
-                        
-                    }
-                    else if (cat === "vehicle") {
 
-                    }
-                    else if (cat === "maintenance tool") {
-
-                    }
-                    else if (cat === "sports item") {
-
-                    }
-                    else if (cat === "sports place") {
-
-                    }
+//                if (cat === "hall") {
+//                    $("#requestmodal").append();
+//                }
+//                else if (cat === "lab") {
+//
+//                }
+//                else if (cat === "vehicle") {
+//
+//                }
+//                else if (cat === "maintenance tool") {
+//
+//                }
+//                else if (cat === "sports item") {
+//
+//                }
+//                else if (cat === "sports place") {
+//
+//                }
             });
         </script>
     </body>
