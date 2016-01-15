@@ -3,27 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.auth;
+package Controller;
 
-import com.google.gson.Gson;
-import data.DBPrivilegeUserHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.AuthorizedPerson;
-import model.foundation.Person;
 
 /**
  *
  * @author Anuradha
  */
-public class update_details extends HttpServlet {
+@WebServlet(name = "test", urlPatterns = {"/test"})
+public class test extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,28 +30,19 @@ public class update_details extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String username = (String)request.getSession(false).getAttribute("username");
-            String password = (String)request.getParameter("password");
-            AuthorizedPerson p = new AuthorizedPerson();
-            p.setUsername(username);
-            p.setPassword(password);
-            DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
-            Person per = dbh.getLoggedPerson(p);
-            p.setFirstName(request.getParameter("fname"));
-            p.setMiddleName(request.getParameter("mname"));
-            p.setLastName(request.getParameter("lname"));  
-            dbh.getPrivileges(per);
-            boolean success = dbh.updateDetails(p, per, null);
-            Gson g = new Gson();
-            if(success){
-                out.print(g.toJson(true));
-            }else{
-                out.print(g.toJson(false));
-            }
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet test</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet test at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -72,11 +58,7 @@ public class update_details extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(update_details.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -90,11 +72,7 @@ public class update_details extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(update_details.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

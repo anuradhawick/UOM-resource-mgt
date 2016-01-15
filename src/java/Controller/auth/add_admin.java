@@ -5,7 +5,6 @@
  */
 package Controller.auth;
 
-import com.google.gson.Gson;
 import data.DBPrivilegeUserHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,13 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.foundation.AuthorizedPerson;
-import model.foundation.Person;
+import model.foundation.Privilege;
 
 /**
  *
  * @author Anuradha
  */
-public class update_details extends HttpServlet {
+public class add_admin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,24 +38,13 @@ public class update_details extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String username = (String)request.getSession(false).getAttribute("username");
-            String password = (String)request.getParameter("password");
-            AuthorizedPerson p = new AuthorizedPerson();
-            p.setUsername(username);
-            p.setPassword(password);
+            String admin_username = request.getParameter("admin_username");
             DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
-            Person per = dbh.getLoggedPerson(p);
-            p.setFirstName(request.getParameter("fname"));
-            p.setMiddleName(request.getParameter("mname"));
-            p.setLastName(request.getParameter("lname"));  
-            dbh.getPrivileges(per);
-            boolean success = dbh.updateDetails(p, per, null);
-            Gson g = new Gson();
-            if(success){
-                out.print(g.toJson(true));
-            }else{
-                out.print(g.toJson(false));
-            }
+            AuthorizedPerson person = new AuthorizedPerson();
+            person.setUsername(admin_username);
+            Privilege priv = new Privilege("admin");
+            dbh.addAdmin(person, priv);
+            // URL redirect for the success page
         }
     }
 
@@ -75,7 +63,7 @@ public class update_details extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(update_details.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(add_admin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -93,7 +81,7 @@ public class update_details extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(update_details.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(add_admin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
