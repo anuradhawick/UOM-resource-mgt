@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -116,9 +118,8 @@ public class DBSearchHandler {
                 return mt;
             } else if (category.equals("Hall")) {
 
-                String query = "SELECT * FROM resource INNER JOIN hall USING(resourceid)"
-                        + " INNER JOIN department USING(dept_name)"
-                        + "WHERE cat_name='" + category + "'";
+                String query = "SELECT * FROM resource INNER JOIN hall USING(resourceid)" +
+                               " WHERE cat_name='"+category+"';";
                 ResultSet rs = stmt.executeQuery(query);
                 DBConnector.closeDB(c);
                 ArrayList<Hall> h = new ArrayList<Hall>();
@@ -145,8 +146,8 @@ public class DBSearchHandler {
 
             } else if (category.equals("Vehicle")) {
 
-                String query = "SELECT * FROM resource INNER JOIN vehicle USING(resourceid)"
-                        + "INNER JOIN vehicle_type USING(type) WHERE cat_name='" + category + "'";
+                String query = "SELECT * FROM resource INNER JOIN vehicle USING(resourceid)" +
+                                " WHERE cat_name='"+category+"';";
                 ResultSet rs = stmt.executeQuery(query);
                 DBConnector.closeDB(c);
                 ArrayList<Vehicle> v = new ArrayList<>();
@@ -158,7 +159,7 @@ public class DBSearchHandler {
                     vehicle.setResourceName(rs.getString("resource_name"));
                     vehicle.setCapacityAmount(rs.getInt("capacity_amount"));
                     vehicle.setDescription(rs.getString("description"));
-                    vehicle.setVehicleNumber(rs.getString("vehicle_number"));
+                    vehicle.setVehicleNumber(rs.getString("vehicle_niumber"));
                     vehicle.setVehicleName(rs.getString("vehicle_name"));
                     vehicle.setFacility(rs.getString("facility"));
                     vehicle.setType(rs.getString("type"));
@@ -316,9 +317,8 @@ public class DBSearchHandler {
                 
             } else if (category.equals("Hall")) {
 
-                String query = "SELECT * FROM resource INNER JOIN hall USING(resourceid)"
-                        + " INNER JOIN department USING(dept_name)"
-                        + "WHERE cat_name=? AND resourceid=?";
+                String query = "SELECT * FROM resource INNER JOIN hall USING(resourceid)" +
+                               " WHERE cat_name=? AND resourceid=?;";
                PreparedStatement preparedStatement = c.prepareStatement(query);
                 preparedStatement.setString(1, category);
                 preparedStatement.setInt(2, id);
@@ -345,8 +345,8 @@ public class DBSearchHandler {
               
             } else if (category.equals("Vehicle")) {
 
-                String query = "SELECT * FROM resource INNER JOIN vehicle USING(resourceid)"
-                        + "INNER JOIN vehicle_type USING(type) WHERE cat_name=? AND resourceid=?";
+                String query = "SELECT * FROM resource INNER JOIN vehicle USING(resourceid)" +
+                                " WHERE cat_name=? AND resourceid=?;";
                 PreparedStatement preparedStatement = c.prepareStatement(query);
                 preparedStatement.setString(1, category);
                 preparedStatement.setInt(2, id);
@@ -359,7 +359,7 @@ public class DBSearchHandler {
                     vehicle.setResourceName(rs.getString("resource_name"));
                     vehicle.setCapacityAmount(rs.getInt("capacity_amount"));
                     vehicle.setDescription(rs.getString("description"));
-                    vehicle.setVehicleNumber(rs.getString("vehicle_number"));
+                    vehicle.setVehicleNumber(rs.getString("vehicle_niumber"));
                     vehicle.setVehicleName(rs.getString("vehicle_name"));
                     vehicle.setFacility(rs.getString("facility"));
                     vehicle.setType(rs.getString("type"));
@@ -375,6 +375,30 @@ public class DBSearchHandler {
         }
 
         return null;
+    }
+    
+    public boolean checkAvailability(String resourceID,Date date,Date startTime, Date endTime) throws SQLException{
+        
+         Connection connection = DBConnector.connect();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(reserveID) as count FROM resource_management.reserve WHERE resourceid=? and ((date_start <= ? and date_end >= ?) or (date_start <= ? and date_end >= ?)) and (DATE(date_start)<=? and DATE(date_end)>=?);");
+        preparedStatement.setString(1, resourceID);
+        preparedStatement.setTimestamp(2, new Timestamp(startTime.getTime()));
+        preparedStatement.setTimestamp(3, new Timestamp(startTime.getTime()));
+        preparedStatement.setTimestamp(4, new Timestamp(endTime.getTime()));
+        preparedStatement.setTimestamp(5, new Timestamp(endTime.getTime()));
+        preparedStatement.setDate(6,  date);
+        preparedStatement.setDate(5,  date);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        while (resultSet.next()) {
+            if (resultSet.getInt("count") > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    
     }
 
 }

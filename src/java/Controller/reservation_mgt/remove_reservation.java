@@ -7,21 +7,17 @@ package Controller.reservation_mgt;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.Reservation;
 import model.logic.ReservationHandler;
 
 /**
  *
  * @author RAVIDU-PC
  */
-public class add_reservation extends HttpServlet {
+public class remove_reservation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,18 +32,9 @@ public class add_reservation extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            Reservation reserve = new Reservation();
-            reserve.setCapacity(Integer.parseInt(request.getParameter("capacity")));
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date start = format.parse(request.getParameter("start"));
-            reserve.setStartTime(start);
-            Date end = format.parse(request.getParameter("end"));
-            reserve.setEndTime(end);
-            reserve.setResourceId(request.getParameter("resourceid"));
-            reserve.setPersonId(request.getParameter("id"));
-            ReservationHandler handler = new ReservationHandler();
-            handler.addReservation(reserve);
-        } catch (Exception e) {
+           int id=Integer.parseInt(request.getParameter("reservationid"));
+            ReservationHandler handler=new ReservationHandler();
+            handler.deleteReservation(id);
         }
     }
 
@@ -63,11 +50,7 @@ public class add_reservation extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception e) {
-        }
-
+        processRequest(request, response);
     }
 
     /**
@@ -81,11 +64,7 @@ public class add_reservation extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception e) {
-        }
-
+        processRequest(request, response);
     }
 
     /**
