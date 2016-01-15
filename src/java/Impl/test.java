@@ -5,13 +5,16 @@
  */
 package Impl;
 
+import data.DBNotificationHandler;
 import data.DBPrivilegeUserHandler;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import model.foundation.AuthorizedPerson;
+import model.foundation.Notification;
 import model.foundation.Person;
 import model.foundation.Privilege;
+import model.foundation.Reservation;
 
 /**
  *
@@ -20,13 +23,11 @@ import model.foundation.Privilege;
 public class test {
 
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException {
-        DBPrivilegeUserHandler d = new DBPrivilegeUserHandler();
-        AuthorizedPerson p =new AuthorizedPerson();
-        p.setUsername("admin");
-        p.setPassword("admin");
-        Person pp = new Person("1","Fname" , "Mname", "Lname");
-        Privilege pr = new Privilege("user");
-        d.updateDetails(p, pp, pr);
+        DBNotificationHandler db = new DBNotificationHandler();
+        Person p = new Person("130647R");
+        Reservation r = new Reservation();
+        r.setReserveId(1);
+        db.markNotifActedMgr(p, r);
     }
 
 }
