@@ -5,6 +5,7 @@
  */
 package Controller.reservation_mgt;
 
+import data.DBNotificationHandler;
 import data.DBPrivilegeUserHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -57,9 +58,11 @@ public class add_reservation extends HttpServlet {
             reserve.setPurpose(request.getParameter("purpose"));
             ReservationHandler handler = new ReservationHandler();
             int id=handler.addReservation(reserve);
-            Notification no=new Notification();
-            no.setNotification(request.getParameter("notification"));
-            no.setReservationid(id);
+            
+            // Adding the notification
+            Notification no=new Notification(request.getParameter("notification"),p,id);
+            DBNotificationHandler dbnh = new DBNotificationHandler();
+            dbnh.addNotificationForMgr(no);
             
         } catch (Exception e) {
         }
