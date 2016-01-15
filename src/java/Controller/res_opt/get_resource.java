@@ -15,6 +15,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.foundation.Hall;
+import model.foundation.Lab;
 import model.logic.ResourceHandler;
 
 /**
@@ -39,11 +41,18 @@ public class get_resource extends HttpServlet {
             String category = request.getParameter("category");
             int id = Integer.parseInt(request.getParameter("resourceid"));
             ResourceHandler handler = new ResourceHandler();
+            if (handler.getResource(category, id) instanceof Hall) {
+                Hall h = (Hall) handler.getResource(category, id);
+                String json = new Gson().toJson(h.getResourceid() + h.getResourceName() + h.getCapacityAmount() + h.getDescription() + h.getCategory() + h.isAirConditioned() + h.isProjectorAvailable() + h.getBoardType() + h.getDepartment().getDeptName() + h.getDepartment().getBuilding());
+            } else if (handler.getResource(category, id) instanceof Lab) {
+                Lab h = (Lab) handler.getResource(category, id);
+                String json = new Gson().toJson(h.getResourceid() + h.getResourceName() + h.getCapacityAmount() + h.getDescription() + h.getCategory() + h.isAirConditioned() + h.getDepartment().getDeptName() + h.getDepartment().getBuilding());
+            } else {
+                String json = new Gson().toJson(handler.getResource(category, id) + "");
+                out.print(json);
+            }
 
-            String json = new Gson().toJson(handler.getResource(category, id));
-            out.print(json);
-
-        }catch(Exception e){
+        } catch (Exception e) {
         }
     }
 
