@@ -51,7 +51,9 @@ public class add_sport_item extends HttpServlet {
             }
             DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
             dbh.insertSportItem(item);
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success");
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");
+        } catch (Exception e) {
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success=false");
         }
 
     }
