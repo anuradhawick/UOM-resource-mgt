@@ -13,6 +13,7 @@ public class Reservation {
     private Date startTime;
     private String resourceId;
     private String PersonId;
+    private String purpose;
 
     public Reservation() {
     }
@@ -72,4 +73,13 @@ public class Reservation {
     public void setPersonId(String PersonId) {
         this.PersonId = PersonId;
     }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+    
 }

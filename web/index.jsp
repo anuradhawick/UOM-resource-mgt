@@ -45,10 +45,10 @@
                 $("#pagination_div").empty();
                 for(var i=0;i<<%=noPages %>;i++){
                     if(currentPageNo==(i+1)){
-                        $("#pagination_div").append("<li class='active'><a onClick=\"loadResourcePage(["+ i*5 + ',' + (i+1)*5 +"])\">"+(i+1)+"</a></li>");
+                        $("#pagination_div").append("<li class='active'><a onClick=\"loadResourcePage(["+ i*5 + ',' + 5 +"])\">"+(i+1)+"</a></li>");
                     }
                     else{
-                        $("#pagination_div").append("<li><a onClick=\"loadResourcePage(["+ i*5 + ',' + (i+1)*5 +"])\">"+(i+1)+"</a></li>");
+                        $("#pagination_div").append("<li><a onClick=\"loadResourcePage(["+ i*5 + ',' + 5 +"])\">"+(i+1)+"</a></li>");
                     }
                 }
             };
