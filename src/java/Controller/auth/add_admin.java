@@ -3,29 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.res_opt;
+package Controller.auth;
 
-import com.google.gson.Gson;
-import data.DBSearchHandler;
+import data.DBPrivilegeUserHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jdk.nashorn.api.scripting.JSObject;
-import model.foundation.ResourceView;
-import model.logic.ResourceHandler;
+import model.foundation.AuthorizedPerson;
+import model.foundation.Privilege;
 
 /**
  *
- * @author RAVIDU-PC
+ * @author Anuradha
  */
-public class SearchAll extends HttpServlet {
+public class add_admin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,21 +34,17 @@ public class SearchAll extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            int start=Integer.parseInt(request.getParameter("start"));
-            
-            int end=Integer.parseInt(request.getParameter("end"));
-            
-            ResourceHandler rh=new ResourceHandler();
-            try {
-                String json = new Gson().toJson(rh.getResources(start, end));
-                out.print(json);
-//                request.setAttribute("resources", rh.getResources(start, end));
-            } catch (SQLException ex) {
-                Logger.getLogger(SearchAll.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            /* TODO output your page here. You may use following sample code. */
+            String admin_username = request.getParameter("admin_username");
+            DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
+            AuthorizedPerson person = new AuthorizedPerson();
+            person.setUsername(admin_username);
+            Privilege priv = new Privilege("admin");
+            dbh.addAdmin(person, priv);
+            // URL redirect for the success page
         }
     }
 
@@ -69,9 +62,9 @@ public class SearchAll extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            Logger.getLogger(add_admin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     /**
@@ -86,10 +79,10 @@ public class SearchAll extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-             processRequest(request, response);
-        } catch (Exception e) {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(add_admin.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
     }
 
     /**

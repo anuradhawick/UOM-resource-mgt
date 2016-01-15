@@ -7,6 +7,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import model.foundation.Reservation;
@@ -44,19 +45,41 @@ public class ReservationHandler {
             return false;
         }
     }
-    
-    public void deleteReservation(int reservationID){
+
+    public void deleteReservation(int reservationID) {
         try {
             new DBInsertDeleteHandler().deleteReservation(reservationID);
         } catch (SQLException ex) {
             logger.error("Delete reservation failed", ex);
         }
     }
-    
-    public boolean modifyReservation(Reservation reservation){
+
+    public boolean modifyReservation(Reservation reservation) {
         deleteReservation(reservation.getReserveId());
         return addReservation(reservation);
     }
-    
-  
+
+    public void checkAvailability(String resourceID, Date date) {
+        Date d1 = date;
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(d1);
+        ReservationHandler handle = new ReservationHandler();
+        for (int i = 5; i < 22; i++) {
+            cal.set(Calendar.HOUR_OF_DAY, i);
+            cal.set(Calendar.MINUTE, 00);
+            cal.set(Calendar.SECOND, 00);
+            date= cal.getTime();
+
+            cal1.set(Calendar.HOUR_OF_DAY, i + 1);
+            cal1.set(Calendar.MINUTE, 00);
+            cal1.set(Calendar.SECOND, 00);
+            d1 = cal1.getTime();
+
+            if (handle.isAvailable("8", date, d1)) {
+                System.out.println("Start:" + i + " End:" + (i + 1));
+            }
+        }
+    }
 }
