@@ -8,19 +8,34 @@ package Impl;
 import Authenticator.Authenticator;
 import data.DBAuthenticatorHandler;
 import data.DBInsertDeleteHandler;
+<<<<<<< HEAD
 import data.DBPrivilegeUserHandler;
+=======
+import data.DBSearchHandler;
+>>>>>>> 36cec5546aebe285820c0c582eb5482c0db21907
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 import model.foundation.AuthorizedPerson;
 import model.foundation.Department;
 import model.foundation.Hall;
 import model.foundation.MaintenanceTool;
+<<<<<<< HEAD
 import model.foundation.Person;
 import model.foundation.Privilege;
 import model.foundation.ResourceView;
+=======
+import model.foundation.*;
+import model.logic.ReservationHandler;
+>>>>>>> 36cec5546aebe285820c0c582eb5482c0db21907
 import model.logic.ResourceHandler;
 
 /**
@@ -29,6 +44,7 @@ import model.logic.ResourceHandler;
  */
 public class test {
 
+<<<<<<< HEAD
     public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException {
         DBPrivilegeUserHandler d = new DBPrivilegeUserHandler();
         AuthorizedPerson p =new AuthorizedPerson();
@@ -37,6 +53,12 @@ public class test {
         Person pp = new Person("1","Fname" , "Mname", "Lname");
         Privilege pr = new Privilege("user");
         d.updateDetails(p, pp, pr);
+=======
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException, SQLException, ParseException {
+        DBSearchHandler ahndle=new DBSearchHandler();
+        Hall r=(Hall)ahndle.SearchResource("Hall", 8);
+        System.out.println(r.getCapacityAmount()+" "+r.getCategory()+" "+r.getDescription()+" "+r.getResourceName()+" "+r.getResourceid()+" "+r.getDepartment().getBuilding());
+>>>>>>> 36cec5546aebe285820c0c582eb5482c0db21907
     }
 
 }

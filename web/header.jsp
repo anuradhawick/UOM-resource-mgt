@@ -23,7 +23,27 @@
         </div>
         <!--//logo-->
         <div class="center">
-            <h3 class="title1">Add New Resource</h3>
+            <%
+                    String __jspName = this.getClass().getSimpleName().replaceAll("005f", "");
+                    __jspName = __jspName.replaceAll("_", "");      %>
+            <h3 class="title1"><% if (__jspName.equals("indexjsp")) {
+                            out.print("All Resources");
+                        }
+            else if (__jspName.equals("allocationsjsp")) {
+                            out.print("Allocations");
+                        }
+            else if (__jspName.equals("addnewresourcejsp")) {
+                            out.print("Add New Resource");
+                        }
+            else if (__jspName.equals("addnewmanagerjsp")) {
+                            out.print("Add New Manager");
+                        }
+            else if (__jspName.equals("contactusjsp")) {
+                            out.print("Contact Us");
+                        }
+            else if (__jspName.equals("aboutjsp")) {
+                            out.print("About");
+                        }%></h3>
         </div>
         <div class="clearfix"></div>
     </div>

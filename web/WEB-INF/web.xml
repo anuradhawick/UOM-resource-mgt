@@ -44,6 +44,22 @@
         <servlet-name>update_details</servlet-name>
         <servlet-class>Controller.auth.update_details</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>add_reservation</servlet-name>
+        <servlet-class>Controller.reservation_mgt.add_reservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>get_reservation</servlet-name>
+        <servlet-class>Controller.reservation_mgt.get_reservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>get_resource</servlet-name>
+        <servlet-class>Controller.res_opt.get_resource</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>remove_reservation</servlet-name>
+        <servlet-class>Controller.reservation_mgt.remove_reservation</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>login_servelet</servlet-name>
         <url-pattern>/login_servelet</url-pattern>
@@ -87,6 +103,22 @@
     <servlet-mapping>
         <servlet-name>update_details</servlet-name>
         <url-pattern>/update_details</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>add_reservation</servlet-name>
+        <url-pattern>/add_reservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>get_reservation</servlet-name>
+        <url-pattern>/get_reservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>get_resource</servlet-name>
+        <url-pattern>/get_resource</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>remove_reservation</servlet-name>
+        <url-pattern>/remove_reservation</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

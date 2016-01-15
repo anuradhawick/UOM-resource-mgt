@@ -3993,3 +3993,21 @@ i.fa.fa-facebook.profile-icon {
     top: 76px;
     padding: 2em 0;
 }
+
+#parentmy {
+    text-align:center;
+    width:100%;
+}
+.blockmy {
+    width:60%;
+    text-align:left;
+}
+.centermy {
+    margin:auto;
+}
+.leftmy {
+    margin:auto auto auto 0;
+}
+.rightmy {
+    margin:auto 0 auto auto;
+}

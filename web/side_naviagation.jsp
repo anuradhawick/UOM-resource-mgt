@@ -14,9 +14,7 @@
     <div class="navbar-collapse">
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
             <ul class="nav" id="side-menu">
-                <%
-                    String __jspName = this.getClass().getSimpleName().replaceAll("005f", "");
-                    __jspName = __jspName.replaceAll("_", "");      
+                <% 
                     HashMap<String, Integer> priv = new HashMap();
                     if (request.getSession(false).getAttribute("username") != null) {
                         String username = (String) request.getSession(false).getAttribute("username");
