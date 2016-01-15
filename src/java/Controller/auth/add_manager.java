@@ -41,12 +41,15 @@ public class add_manager extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String admin_username = request.getParameter("username");
             DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
-            AuthorizedPerson person = new AuthorizedPerson();
-            person.setUsername(admin_username);
-            Privilege priv = new Privilege("manager");
-            dbh.addAdmin(person, priv);
-            // URL redirect for the success page
-            response.sendRedirect("/uomrms/add_new_manager.jsp?success=true");
+            if (dbh.isNormalUser(admin_username)) {
+                AuthorizedPerson person = new AuthorizedPerson();
+                person.setUsername(admin_username);
+                Privilege priv = new Privilege("manager");
+                dbh.addAdmin(person, priv);
+                response.sendRedirect("/uomrms/add_new_manager.jsp?success=true");
+            } else {
+                response.sendRedirect("/uomrms/add_new_manager.jsp?success=false");
+            }
         } catch (Exception e) {
             response.sendRedirect("/uomrms/add_new_manager.jsp?success=false");
         }
