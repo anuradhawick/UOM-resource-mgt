@@ -23,6 +23,9 @@ public class DBNotificationHandler {
     private Connection connection;
     private PreparedStatement statement;
 
+    /*
+    Add notification to be seen by a user
+    */
     public void addNotification(Notification notif) throws SQLException {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO `resource_management`.`notification` (`notification`, `reserve_reserveID`, `person_ID`) VALUES (?, ?, ?);");
@@ -34,6 +37,12 @@ public class DBNotificationHandler {
         connection.close();
     }
 
+    /*
+     These are request for reservation where the managers are required to see the notification
+     thus
+     read status = 2 unread for mgr
+     acted status = 2 unacted for mgr
+     */
     public void addNotificationForMgr(Notification notif) throws SQLException {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO `resource_management`.`notification` (`notification`, `read_status`, `acted_status`, `reserve_reserveID`, `person_ID`) VALUES (?, '2', '2', ?, ?)");
@@ -45,6 +54,9 @@ public class DBNotificationHandler {
         connection.close();
     }
 
+    /*
+    Marking a notification as read for normal users
+    */
     public void markNotifRead(Notification not) throws SQLException {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("UPDATE notification SET read_status = 1 WHERE idnotification= ?");
@@ -54,6 +66,11 @@ public class DBNotificationHandler {
         connection.close();
     }
 
+    /*
+     This is marking a notification to be acted by a manager once acted these are no longer visible
+     read status = 3 for mgr
+     acted status = 3 for mgr
+     */
     public void markNotifActedMgr(Notification not) throws SQLException {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("UPDATE notification SET read_status = 3,acted_status = 3 WHERE idnotification=?");
@@ -62,6 +79,9 @@ public class DBNotificationHandler {
         statement.close();
         connection.close();
     }
+    /*
+    get all notif for a particular person
+     */
 
     public ArrayList<Notification> getNotificationsAll(Person p) throws SQLException {
         int notif_id, res_id;
@@ -103,6 +123,10 @@ public class DBNotificationHandler {
         return arr;
     }
 
+    
+    /*
+    Reading the pending notif for managers
+    */
     public ArrayList<Notification> getNotificationsUnreadMgr() throws SQLException {
         int notif_id, res_id;
         ArrayList<Notification> arr = new ArrayList<>();

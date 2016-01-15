@@ -37,20 +37,22 @@ public class add_sport_place extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-                   
-                        SportPlace place = new SportPlace();
-                                               
-                        place.setCategory("Sport Place");
-                        place.setCapacityAmount(Integer.parseInt(request.getParameter("capacity")));                        
-                        place.setResourceName(request.getParameter("resource_name"));
-                        place.setDescription(request.getParameter("description"));
-                        
-                        place.setLocation("location");
-                        DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-                        dbh.insertSportPlace(place);
-                        response.sendRedirect("/uomrms/add_new_resource.jsp?success");
+
+            SportPlace place = new SportPlace();
+
+            place.setCategory("Sport Place");
+            place.setCapacityAmount(Integer.parseInt(request.getParameter("capacity")));
+            place.setResourceName(request.getParameter("resource_name"));
+            place.setDescription(request.getParameter("description"));
+
+            place.setLocation("location");
+            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
+            dbh.insertSportPlace(place);
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");
+        } catch (Exception e) {
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success=false");
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

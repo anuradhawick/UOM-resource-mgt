@@ -49,8 +49,10 @@ public class add_maintenance_tool extends HttpServlet {
             }
             DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
             dbh.insertMaintenanceTool(tool);
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success");
-
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");
+        }
+        catch(Exception e){
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success=false");
         }
 
     }

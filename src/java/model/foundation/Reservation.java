@@ -77,6 +77,13 @@ public class Reservation {
         this.PersonId = PersonId;
     }
 
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
   
     public int getApproval() {
         return approval;
@@ -86,13 +93,4 @@ public class Reservation {
         this.approval = approval;
     }
 
-   
-    public String getPurpose() {
-        return purpose;
-    }
-
-  
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
 }
