@@ -27,4 +27,8 @@ public class ResourceHandler {
    public Resource getResource(String category,int id){
        return new DBSearchHandler().SearchResource(category, id);
    }
+   
+   public ArrayList<Resource> getCategoryWiseResources(String category){
+       return new DBSearchHandler().SearchKeyword(category);
+   }
 }

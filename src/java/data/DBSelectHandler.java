@@ -74,6 +74,7 @@ public class DBSelectHandler {
         return 0;
     }
 
+    
     private String getDay(int number) {
         if (null == day) {
             

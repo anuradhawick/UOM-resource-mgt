@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import model.foundation.Reservation;
 import model.foundation.Resource;
 import model.foundation.ResourceView;
 import model.logic.ReservationHandler;
@@ -25,14 +26,16 @@ import model.logic.ResourceHandler;
 public class ravidu_test {
 
     public static void main(String[] args) throws SQLException, ParseException {
-
-        DBSelectHandler han=new DBSelectHandler();
-        String Starttime="2016-01-16 10:00:00";
-        String EndTime="2016-01-16 14:00:00";
-        SimpleDateFormat fm=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date start=fm.parse(Starttime);
-        Date end=fm.parse(EndTime);
-        System.out.println(han.isAvailable("8", start, end));
+        DBSearchHandler han=new DBSearchHandler();
+        String date1="2016-01-16";
+        String date2="2016-01-18";
+        SimpleDateFormat fm=new SimpleDateFormat("yyyy-MM-dd");
+        Date d1=fm.parse(date1);
+        Date d2=fm.parse(date2);
+        ArrayList<Reservation> res=han.getReservationHistory(d1, d2);
+        for (Reservation r:res) {
+            System.out.println(r.getCapacity());
+        }
         
         
     }
