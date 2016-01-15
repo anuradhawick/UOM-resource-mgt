@@ -51,6 +51,7 @@ public class get_resource extends HttpServlet {
                 out.print(json);
             } else {
                 String json = new Gson().toJson(handler.getResource(category, id));
+                System.out.println(json);
                 out.print(json);
             }
 
