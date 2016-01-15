@@ -30,13 +30,32 @@
                         var capacityAmount = jsonObject['capacityAmount'];
                         var description = jsonObject['description'];
                         $("#resources").append("<div class=\"media\"> <div class=\"bs-example5\"> <div> <div class=\"media-left\"> <a href=\"#\"> <img alt=\"64x64\" src=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNGUwMDNiM2U3NSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE0ZTAwM2IzZTc1Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==\" data-holder-rendered=\"true\" style=\"width: 128px; height: 128;\"> </a> </div> <div class=\"media-body\"> <h2 class=\"media-heading\">" + resource_name + "</h2><p><b>Category: </b> " + category + "</p> <p><b>Capacity/Amount: </b> " + capacityAmount + "</p> <p><b>Description: </b> " + description + "</p> </div> <div> <button onclick=\"viewResource(['" + resource_id + "','" + category + "'])\" style=\"margin-top: 10px;\" class=\"btn\">View</button> <button style=\"margin-top: 10px;\" class=\"btn\">Edit</button> </div> <div class=\"clearfix\"> </div> </div> </div> </div>");
+                        setPagination(args[0] / 5 + 1);
                     }
                 })
             };
 
+            var setPagination = function (currentPageNo) {
+            <%@page import="model.logic.ResourceHandler"%>
+            <% ResourceHandler resourceHandler = new ResourceHandler();
+                int noPages = resourceHandler.getResourceCount();
+                if(noPages%5==0){ noPages/=5; }
+                else{noPages=noPages/5+1;} %>
+
+                $("#pagination_div").empty();
+                for(var i=0;i<<%=noPages %>;i++){
+                    if(currentPageNo==(i+1)){
+                        $("#pagination_div").append("<li class='active'><a onClick=\"loadResourcePage(["+ i*5 + ',' + (i+1)*5 +"])\">"+(i+1)+"</a></li>");
+                    }
+                    else{
+                        $("#pagination_div").append("<li><a onClick=\"loadResourcePage(["+ i*5 + ',' + (i+1)*5 +"])\">"+(i+1)+"</a></li>");
+                    }
+                }
+            };
+
             $(document).ready(function () {
                 loadResourcePage([0, 5]);
-
+                
                 $("#filer_resource").change(function () {
                     var selected_val = $('#filer_resource').find(":selected").val();
                     alert(selected_val);
@@ -85,21 +104,7 @@
                     <div class="grid_3 grid_5 widget-shadow col-md-8">
                         <div id="parentmy" class="col-md-6">
                             <nav class="blockmy centermy">
-                                <ul class="pagination">
-                                    <%@page import="model.logic.ResourceHandler"%>
-                                    <% ResourceHandler resourceHandler = new ResourceHandler();
-                                        int noPages = resourceHandler.getResourceCount() / 10; %>
-
-                                    <li class="active"><a onclick="loadResourcePage([0, 5])">1</a></li>
-                                    <li <% if (noPages < 5) {%> class="disabled" <%}%>><a onclick="loadResourcePage([5, 10])" href="#">2</a></li>
-                                    <li <% if (noPages < 10) {%> class="disabled" <%}%>><a onclick="loadResourcePage([10, 15])" href="#">3</a></li>
-                                    <li><a onclick="loadResourcePage([15, 20])" href="#">4</a></li>
-                                    <li><a onclick="loadResourcePage([20, 25])" href="#">5</a></li>
-                                    <li><a onclick="loadResourcePage([25, 30])" href="#">6</a></li>
-                                    <li><a onclick="loadResourcePage([30, 35])" href="#">7</a></li>
-                                    <li><a onclick="loadResourcePage([35, 40])" href="#">8</a></li>
-                                    <li><a onclick="loadResourcePage([40, 45])" href="#">9</a></li>
-                                    <li><a onclick="loadResourcePage([45, 50])" href="#">10</a></li>
+                                <ul id="pagination_div" class="pagination">
                                 </ul>
                             </nav>
                         </div>
