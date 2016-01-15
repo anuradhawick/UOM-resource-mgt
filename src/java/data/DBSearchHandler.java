@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -16,6 +16,7 @@ import model.foundation.Department;
 import model.foundation.Hall;
 import model.foundation.Lab;
 import model.foundation.MaintenanceTool;
+import model.foundation.Reservation;
 import model.foundation.Resource;
 import model.foundation.ResourceView;
 import model.foundation.SportItem;
@@ -29,14 +30,14 @@ import model.foundation.Vehicle;
 public class DBSearchHandler {
 
     //return results according to the keyword given
-    public List SearchKeyword(String category) {
+    public ArrayList<Resource> SearchKeyword(String category) {
         Connection c = DBConnector.connect();
         try {
 
             Statement stmt = c.createStatement();
             if (category.equals("Lab")) {
                 String query = "SELECT * FROM resource INNER JOIN lab USING(resourceid)"
-                        + " INNER JOIN department USING(dept_name)"
+                        
                         + "WHERE cat_name='" + category + "'";
                 ResultSet rs = stmt.executeQuery(query);
                 ArrayList l = new ArrayList();
@@ -61,7 +62,7 @@ public class DBSearchHandler {
                 return l;
 
             } else if (category.equals("Sport Place")) {
-                ArrayList<SportPlace> p = new ArrayList<>();
+                ArrayList p = new ArrayList<>();
                 String query = "SELECT * FROM resource INNER JOIN sport_place USING(resourceid)"
                         + "WHERE cat_name='" + category + "'";
                 ResultSet rs = stmt.executeQuery(query);
@@ -83,7 +84,7 @@ public class DBSearchHandler {
                         + "WHERE cat_name='" + category + "'";
                 ResultSet rs = stmt.executeQuery(query);
                 DBConnector.closeDB(c);
-                ArrayList<SportItem> si = new ArrayList<>();
+                ArrayList si = new ArrayList<>();
                 while (rs.next()) {
                     SportItem sportitem = new SportItem();
                     sportitem.setResourceid(rs.getString("resourceid"));
@@ -103,7 +104,7 @@ public class DBSearchHandler {
                         + "WHERE cat_name='" + category + "'";
                 ResultSet rs = stmt.executeQuery(query);
                 DBConnector.closeDB(c);
-                ArrayList<MaintenanceTool> mt = new ArrayList<>();
+                ArrayList mt = new ArrayList<>();
                 while (rs.next()) {
                     MaintenanceTool tool = new MaintenanceTool();
                     tool.setResourceid(rs.getString("resourceid"));
@@ -118,11 +119,11 @@ public class DBSearchHandler {
                 return mt;
             } else if (category.equals("Hall")) {
 
-                String query = "SELECT * FROM resource INNER JOIN hall USING(resourceid)" +
-                               " WHERE cat_name='"+category+"';";
+                String query = "SELECT * FROM resource INNER JOIN hall USING(resourceid)"
+                        + " WHERE cat_name='" + category + "';";
                 ResultSet rs = stmt.executeQuery(query);
                 DBConnector.closeDB(c);
-                ArrayList<Hall> h = new ArrayList<Hall>();
+                ArrayList h = new ArrayList<Hall>();
                 while (rs.next()) {
 
                     Hall hall = new Hall();
@@ -146,11 +147,11 @@ public class DBSearchHandler {
 
             } else if (category.equals("Vehicle")) {
 
-                String query = "SELECT * FROM resource INNER JOIN vehicle USING(resourceid)" +
-                                " WHERE cat_name='"+category+"';";
+                String query = "SELECT * FROM resource INNER JOIN vehicle USING(resourceid)"
+                        + " WHERE cat_name='" + category + "';";
                 ResultSet rs = stmt.executeQuery(query);
                 DBConnector.closeDB(c);
-                ArrayList<Vehicle> v = new ArrayList<>();
+                ArrayList v = new ArrayList<>();
 
                 while (rs.next()) {
                     Vehicle vehicle = new Vehicle();
@@ -248,20 +249,18 @@ public class DBSearchHandler {
                     department.setBuilding(rs.getString("building"));
                     lab.setDepartment(department);
                     return lab;
-                   
+
                 }
-                
-                
 
             } else if (category.equals("Sport Place")) {
-                
+
                 String query = "SELECT * FROM resource INNER JOIN sport_place USING(resourceid)"
                         + "WHERE cat_name=? AND resourceid=?";
                 PreparedStatement preparedStatement = c.prepareStatement(query);
                 preparedStatement.setString(1, category);
                 preparedStatement.setInt(2, id);
                 ResultSet rs = preparedStatement.executeQuery();
-                
+
                 if (rs.next()) {
                     SportPlace sportplace = new SportPlace();
                     sportplace.setResourceid(rs.getString("resourceid"));
@@ -272,9 +271,7 @@ public class DBSearchHandler {
                     sportplace.setLocation(rs.getString("location"));
                     return sportplace;
                 }
-                
-                
-                
+
             } else if (category.equals("Sport Item")) {
                 String query = "SELECT * FROM resource INNER JOIN sport_item USING(resourceid)"
                         + "WHERE cat_name=? AND resourceid=?";
@@ -282,7 +279,7 @@ public class DBSearchHandler {
                 preparedStatement.setString(1, category);
                 preparedStatement.setInt(2, id);
                 ResultSet rs = preparedStatement.executeQuery();
-                if(rs.next()) {
+                if (rs.next()) {
                     SportItem sportitem = new SportItem();
                     sportitem.setResourceid(rs.getString("resourceid"));
                     sportitem.setCategory(category);
@@ -293,13 +290,12 @@ public class DBSearchHandler {
                     sportitem.setItemNumber(rs.getString("item_number"));
                     return sportitem;
                 }
-                
 
             } else if (category.equals("Maintenance Tool")) {
 
                 String query = "SELECT * FROM resource INNER JOIN maintenance_tool USING(resourceid)"
                         + "WHERE cat_name=? AND resourceid=?";
-                 PreparedStatement preparedStatement = c.prepareStatement(query);
+                PreparedStatement preparedStatement = c.prepareStatement(query);
                 preparedStatement.setString(1, category);
                 preparedStatement.setInt(2, id);
                 ResultSet rs = preparedStatement.executeQuery();
@@ -314,12 +310,12 @@ public class DBSearchHandler {
 
                     return tool;
                 }
-                
+
             } else if (category.equals("Hall")) {
 
-                String query = "SELECT * FROM resource INNER JOIN hall USING(resourceid)" +
-                               " WHERE cat_name=? AND resourceid=?;";
-               PreparedStatement preparedStatement = c.prepareStatement(query);
+                String query = "SELECT * FROM resource INNER JOIN hall USING(resourceid)"
+                        + " WHERE cat_name=? AND resourceid=?;";
+                PreparedStatement preparedStatement = c.prepareStatement(query);
                 preparedStatement.setString(1, category);
                 preparedStatement.setInt(2, id);
                 ResultSet rs = preparedStatement.executeQuery();
@@ -342,11 +338,11 @@ public class DBSearchHandler {
 
                     return hall;
                 }
-              
+
             } else if (category.equals("Vehicle")) {
 
-                String query = "SELECT * FROM resource INNER JOIN vehicle USING(resourceid)" +
-                                " WHERE cat_name=? AND resourceid=?;";
+                String query = "SELECT * FROM resource INNER JOIN vehicle USING(resourceid)"
+                        + " WHERE cat_name=? AND resourceid=?;";
                 PreparedStatement preparedStatement = c.prepareStatement(query);
                 preparedStatement.setString(1, category);
                 preparedStatement.setInt(2, id);
@@ -365,7 +361,7 @@ public class DBSearchHandler {
                     vehicle.setType(rs.getString("type"));
                     return vehicle;
                 }
-               
+
             }
 
         } catch (SQLException ex) {
@@ -376,9 +372,75 @@ public class DBSearchHandler {
 
         return null;
     }
-    
-   
-    
-    
 
-}
+    public ArrayList<Reservation> getApprovedReservationHistory(Date startdate, Date enddate) throws SQLException {
+        Connection connection = DBConnector.connect();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM resource_management.reserve WHERE ((DATE(date_start)>=? and DATE(date_start)<=?) and(DATE(date_end)<=?)) and approval=?");
+        preparedStatement.setDate(1, new java.sql.Date(startdate.getTime()));
+        preparedStatement.setDate(2, new java.sql.Date(enddate.getTime()));
+        preparedStatement.setDate(3, new java.sql.Date(enddate.getTime()));
+        preparedStatement.setInt(4, 2);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ArrayList<Reservation> list=new ArrayList<>();
+        while (resultSet.next()) {
+            Reservation rv=new Reservation();
+            rv.setReserveId(resultSet.getInt("reserveID"));
+            rv.setCapacity(resultSet.getInt("capacity"));
+            rv.setStartTime(resultSet.getDate("date_start"));
+            rv.setEndTime(resultSet.getDate("date_end"));
+            rv.setResourceId(resultSet.getString("resourceid"));
+            rv.setPersonId(resultSet.getString("ID"));
+            rv.setPurpose(resultSet.getString("purpose"));
+            list.add(rv);
+        }
+        return list;
+        }
+    
+    public ArrayList<Reservation> getRejectedReservationHistory(Date startdate, Date enddate) throws SQLException{
+        Connection connection = DBConnector.connect();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM resource_management.reserve WHERE ((DATE(date_start)>=? and DATE(date_start)<=?) and(DATE(date_end)<=?)) and approval=?");
+        preparedStatement.setDate(1, new java.sql.Date(startdate.getTime()));
+        preparedStatement.setDate(2, new java.sql.Date(enddate.getTime()));
+        preparedStatement.setDate(3, new java.sql.Date(enddate.getTime()));
+        preparedStatement.setInt(4, 1);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ArrayList<Reservation> list=new ArrayList<>();
+        while (resultSet.next()) {
+            Reservation rv=new Reservation();
+            rv.setReserveId(resultSet.getInt("reserveID"));
+            rv.setCapacity(resultSet.getInt("capacity"));
+            rv.setStartTime(resultSet.getDate("date_start"));
+            rv.setEndTime(resultSet.getDate("date_end"));
+            rv.setResourceId(resultSet.getString("resourceid"));
+            rv.setPersonId(resultSet.getString("ID"));
+            rv.setPurpose(resultSet.getString("purpose"));
+            list.add(rv);
+        }
+        return list;
+    }
+    
+    public ArrayList<Reservation> getReservationHistory(Date startdate, Date enddate) throws SQLException{
+        Connection connection = DBConnector.connect();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM resource_management.reserve WHERE ((DATE(date_start)>=? and DATE(date_start)<=?) and(DATE(date_end)<=?))");
+        preparedStatement.setDate(1, new java.sql.Date(startdate.getTime()));
+        preparedStatement.setDate(2, new java.sql.Date(enddate.getTime()));
+        preparedStatement.setDate(3, new java.sql.Date(enddate.getTime()));
+       
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ArrayList<Reservation> list=new ArrayList<>();
+        while (resultSet.next()) {
+            Reservation rv=new Reservation();
+            rv.setReserveId(resultSet.getInt("reserveID"));
+            rv.setCapacity(resultSet.getInt("capacity"));
+            rv.setStartTime(resultSet.getDate("date_start"));
+            rv.setEndTime(resultSet.getDate("date_end"));
+            rv.setResourceId(resultSet.getString("resourceid"));
+            rv.setPersonId(resultSet.getString("ID"));
+            rv.setPurpose(resultSet.getString("purpose"));
+            rv.setApproval(resultSet.getInt("approval"));
+            list.add(rv);
+        }
+        return list;
+    }
+
+    }
