@@ -61,8 +61,13 @@
         <servlet-class>Controller.reservation_mgt.remove_reservation</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>add_admin</servlet-name>
         <servlet-class>Controller.auth.add_admin</servlet-class>
+=======
+        <servlet-name>modify_reservation</servlet-name>
+        <servlet-class>Controller.reservation_mgt.modify_reservation</servlet-class>
+>>>>>>> 4dda1f8403aeb5c25387803db254ae6c20e93005
     </servlet>
     <servlet-mapping>
         <servlet-name>login_servelet</servlet-name>
@@ -125,8 +130,13 @@
         <url-pattern>/remove_reservation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>add_admin</servlet-name>
         <url-pattern>/add_admin</url-pattern>
+=======
+        <servlet-name>modify_reservation</servlet-name>
+        <url-pattern>/modify_reservation</url-pattern>
+>>>>>>> 4dda1f8403aeb5c25387803db254ae6c20e93005
     </servlet-mapping>
     <session-config>
         <session-timeout>
