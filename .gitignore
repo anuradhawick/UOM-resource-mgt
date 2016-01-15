@@ -8,3 +8,4 @@ nbproject/private/*
 nbproject/*
 build/
 build.xml
+.gitignore
