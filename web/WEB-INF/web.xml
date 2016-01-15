@@ -60,6 +60,10 @@
         <servlet-name>remove_reservation</servlet-name>
         <servlet-class>Controller.reservation_mgt.remove_reservation</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>modify_reservation</servlet-name>
+        <servlet-class>Controller.reservation_mgt.modify_reservation</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>login_servelet</servlet-name>
         <url-pattern>/login_servelet</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>remove_reservation</servlet-name>
         <url-pattern>/remove_reservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>modify_reservation</servlet-name>
+        <url-pattern>/modify_reservation</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
