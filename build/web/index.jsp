@@ -39,23 +39,26 @@
             <%@page import="model.logic.ResourceHandler"%>
             <% ResourceHandler resourceHandler = new ResourceHandler();
                 int noPages = resourceHandler.getResourceCount();
-                if(noPages%5==0){ noPages/=5; }
-                else{noPages=noPages/5+1;} %>
+                if (noPages % 5 == 0) {
+                    noPages /= 5;
+                } else {
+                    noPages = noPages / 5 + 1;
+                }%>
 
                 $("#pagination_div").empty();
-                for(var i=0;i<<%=noPages %>;i++){
-                    if(currentPageNo==(i+1)){
-                        $("#pagination_div").append("<li class='active'><a onClick=\"loadResourcePage(["+ i*5 + ',' + 5 +"])\">"+(i+1)+"</a></li>");
+                for (var i = 0; i <<%=noPages%>; i++) {
+                    if (currentPageNo == (i + 1)) {
+                        $("#pagination_div").append("<li class='active'><a onClick=\"loadResourcePage([" + i * 5 + ',' + 5 + "])\">" + (i + 1) + "</a></li>");
                     }
-                    else{
-                        $("#pagination_div").append("<li><a onClick=\"loadResourcePage(["+ i*5 + ',' + 5 +"])\">"+(i+1)+"</a></li>");
+                    else {
+                        $("#pagination_div").append("<li><a onClick=\"loadResourcePage([" + i * 5 + ',' + 5 + "])\">" + (i + 1) + "</a></li>");
                     }
                 }
             };
 
             $(document).ready(function () {
                 loadResourcePage([0, 5]);
-                
+
                 $("#filer_resource").change(function () {
                     var selected_val = $('#filer_resource').find(":selected").val();
                     alert(selected_val);

@@ -61,8 +61,8 @@
         <servlet-class>Controller.reservation_mgt.remove_reservation</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>add_admin</servlet-name>
-        <servlet-class>Controller.auth.add_admin</servlet-class>
+        <servlet-name>add_manager</servlet-name>
+        <servlet-class>Controller.auth.add_manager</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>modify_reservation</servlet-name>
@@ -133,8 +133,8 @@
         <url-pattern>/remove_reservation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>add_admin</servlet-name>
-        <url-pattern>/add_admin</url-pattern>
+        <servlet-name>add_manager</servlet-name>
+        <url-pattern>/add_manager</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>modify_reservation</servlet-name>

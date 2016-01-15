@@ -22,7 +22,7 @@ import model.foundation.Privilege;
  *
  * @author Anuradha
  */
-public class add_admin extends HttpServlet {
+public class add_manager extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,16 +35,20 @@ public class add_admin extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
             /* TODO output your page here. You may use following sample code. */
-            String admin_username = request.getParameter("admin_username");
+            String admin_username = request.getParameter("username");
             DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
             AuthorizedPerson person = new AuthorizedPerson();
             person.setUsername(admin_username);
-            Privilege priv = new Privilege("admin");
+            Privilege priv = new Privilege("manager");
             dbh.addAdmin(person, priv);
             // URL redirect for the success page
+            response.sendRedirect("/uomrms/add_new_manager.jsp?success=true");
+        } catch (Exception e) {
+            response.sendRedirect("/uomrms/add_new_manager.jsp?success=false");
         }
     }
 
@@ -63,7 +67,7 @@ public class add_admin extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(add_admin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(add_manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -81,7 +85,7 @@ public class add_admin extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(add_admin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(add_manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
