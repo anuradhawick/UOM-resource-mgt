@@ -33,17 +33,18 @@ public class ReservationHandler {
         }
     }
 
-    public boolean addReservation(Reservation reservation) {
+    public int addReservation(Reservation reservation) {
         if (isAvailable(reservation.getResourceId(), reservation.getStartTime(), reservation.getEndTime())) {
             try {
-                new DBInsertDeleteHandler().insertReservation(reservation);
+                return new DBInsertDeleteHandler().insertReservation(reservation);
             } catch (SQLException ex) {
                 logger.error("Insert reservation failed", ex);
             }
-            return true;
+            
         } else {
-            return false;
+            return -1;
         }
+        return -1;
     }
 
     public void deleteReservation(int reservationID) {
@@ -54,7 +55,7 @@ public class ReservationHandler {
         }
     }
 
-    public boolean modifyReservation(Reservation reservation) {
+    public int modifyReservation(Reservation reservation) {
         deleteReservation(reservation.getReserveId());
         return addReservation(reservation);
     }
@@ -77,7 +78,7 @@ public class ReservationHandler {
             cal1.set(Calendar.SECOND, 00);
             d1 = cal1.getTime();
 
-            if (handle.isAvailable("8", date, d1)) {
+            if (handle.isAvailable(resourceID, date, d1)) {
                 System.out.println("Start:" + i + " End:" + (i + 1));
             }
         }

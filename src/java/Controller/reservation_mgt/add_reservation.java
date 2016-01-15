@@ -5,6 +5,8 @@
  */
 package Controller.reservation_mgt;
 
+import data.DBNotificationHandler;
+import data.DBPrivilegeUserHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -14,6 +16,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.foundation.AuthorizedPerson;
+import model.foundation.Notification;
+import model.foundation.Person;
 import model.foundation.Reservation;
 import model.logic.ReservationHandler;
 
@@ -38,15 +43,27 @@ public class add_reservation extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             Reservation reserve = new Reservation();
             reserve.setCapacity(Integer.parseInt(request.getParameter("capacity")));
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date start = format.parse(request.getParameter("start"));
             reserve.setStartTime(start);
             Date end = format.parse(request.getParameter("end"));
             reserve.setEndTime(end);
             reserve.setResourceId(request.getParameter("resourceid"));
-            reserve.setPersonId(request.getParameter("id"));
+            String username=(String)request.getSession().getAttribute("username");
+            AuthorizedPerson person=new AuthorizedPerson();
+            person.setUsername(username);
+            Person p=new DBPrivilegeUserHandler().getLoggedPerson(person);
+            reserve.setPersonId(p.getId());
+            reserve.setApproval(0);
+            reserve.setPurpose(request.getParameter("purpose"));
             ReservationHandler handler = new ReservationHandler();
-            handler.addReservation(reserve);
+            int id=handler.addReservation(reserve);
+            
+            // Adding the notification
+            Notification no=new Notification(request.getParameter("notification"),p,id);
+            DBNotificationHandler dbnh = new DBNotificationHandler();
+            dbnh.addNotificationForMgr(no);
+            
         } catch (Exception e) {
         }
     }

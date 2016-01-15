@@ -13,17 +13,20 @@ public class Reservation {
     private Date startTime;
     private String resourceId;
     private String PersonId;
+    private int approval;
     private String purpose;
 
     public Reservation() {
     }
 
-    public Reservation(int capacity, Date startTime, Date endTime, String resourceId, String PersonId) {
+    public Reservation(int capacity, Date startTime, Date endTime, String resourceId, String PersonId,int approval,String purpose) {
         this.capacity = capacity;
         this.endTime = endTime;
         this.startTime = startTime;
         this.resourceId = resourceId;
         this.PersonId = PersonId;
+        this.approval=approval;
+        this.purpose=purpose;
     }
 
     public int getReserveId() {
@@ -81,5 +84,13 @@ public class Reservation {
     public String getPurpose() {
         return purpose;
     }
-    
+  
+    public int getApproval() {
+        return approval;
+    }
+
+    public void setApproval(int approval) {
+        this.approval = approval;
+    }
+
 }

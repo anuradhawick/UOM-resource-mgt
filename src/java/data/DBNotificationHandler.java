@@ -23,6 +23,9 @@ public class DBNotificationHandler {
     private Connection connection;
     private PreparedStatement statement;
 
+    /*
+    Add notification to be seen by a user
+    */
     public void addNotification(Notification notif) throws SQLException {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO `resource_management`.`notification` (`notification`, `reserve_reserveID`, `person_ID`) VALUES (?, ?, ?);");
@@ -34,25 +37,51 @@ public class DBNotificationHandler {
         connection.close();
     }
 
-    public void markNotifRead(Person p, Reservation res) throws SQLException {
+    /*
+     These are request for reservation where the managers are required to see the notification
+     thus
+     read status = 2 unread for mgr
+     acted status = 2 unacted for mgr
+     */
+    public void addNotificationForMgr(Notification notif) throws SQLException {
         connection = DBConnector.connect();
-        statement = connection.prepareStatement("UPDATE notification n JOIN person p ON n.person_ID = p.ID SET n.read_status = 1 WHERE p.ID= ? and n.reserve_reserveID = ?");
-        statement.setString(1, p.getId());
-        statement.setInt(2, res.getReserveId());
+        statement = connection.prepareStatement("INSERT INTO `resource_management`.`notification` (`notification`, `read_status`, `acted_status`, `reserve_reserveID`, `person_ID`) VALUES (?, '2', '2', ?, ?)");
+        statement.setString(1, notif.getNotification());
+        statement.setInt(2, notif.getReservationid());
+        statement.setString(3, notif.getPerson_id());
         statement.execute();
         statement.close();
         connection.close();
     }
 
-    public void markNotifActedMgr(Person p, Reservation res) throws SQLException {
+    /*
+    Marking a notification as read for normal users
+    */
+    public void markNotifRead(Notification not) throws SQLException {
         connection = DBConnector.connect();
-        statement = connection.prepareStatement("UPDATE notification n JOIN person p ON n.person_ID = p.ID SET n.read_status = 1,n.acted_status = 1 WHERE p.ID=? and n.reserve_reserveID=?");
-        statement.setString(1, p.getId());
-        statement.setInt(2, res.getReserveId());
+        statement = connection.prepareStatement("UPDATE notification SET read_status = 1 WHERE idnotification= ?");
+        statement.setInt(1, not.getNotif_id());
         statement.execute();
         statement.close();
         connection.close();
     }
+
+    /*
+     This is marking a notification to be acted by a manager once acted these are no longer visible
+     read status = 3 for mgr
+     acted status = 3 for mgr
+     */
+    public void markNotifActedMgr(Notification not) throws SQLException {
+        connection = DBConnector.connect();
+        statement = connection.prepareStatement("UPDATE notification SET read_status = 3,acted_status = 3 WHERE idnotification=?");
+        statement.setInt(1, not.getNotif_id());
+        statement.execute();
+        statement.close();
+        connection.close();
+    }
+    /*
+    get all notif for a particular person
+     */
 
     public ArrayList<Notification> getNotificationsAll(Person p) throws SQLException {
         int notif_id, res_id;
@@ -73,7 +102,7 @@ public class DBNotificationHandler {
         connection.close();
         return arr;
     }
-    
+
     public ArrayList<Notification> getNotificationsUnread(Person p) throws SQLException {
         int notif_id, res_id;
         ArrayList<Notification> arr = new ArrayList<>();
@@ -93,19 +122,43 @@ public class DBNotificationHandler {
         connection.close();
         return arr;
     }
+
     
-    public ArrayList<Notification> getNotificationsUnActed(Person p) throws SQLException {
+    /*
+    Reading the pending notif for managers
+    */
+    public ArrayList<Notification> getNotificationsUnreadMgr() throws SQLException {
         int notif_id, res_id;
         ArrayList<Notification> arr = new ArrayList<>();
         String notif;
         connection = DBConnector.connect();
-        statement = connection.prepareStatement("SELECT idnotification,notification,reserve_reserveID FROM notification n JOIN person p ON n.person_ID = p.ID WHERE p.ID=? AND n.acted_status=0");
+        statement = connection.prepareStatement("SELECT idnotification,notification,reserve_reserveID FROM notification WHERE read_status=2");
         ResultSet set = statement.executeQuery();
         while (set.next()) {
             notif_id = set.getInt("idnotification");
             notif = set.getString("notification");
             res_id = set.getInt("reserve_reserveID");
-            Notification n = new Notification(notif, p, res_id);
+            Notification n = new Notification(notif, res_id);
+            n.setNotif_id(notif_id);
+            arr.add(n);
+        }
+        statement.close();
+        connection.close();
+        return arr;
+    }
+
+    public ArrayList<Notification> getNotificationsUnActedMgr() throws SQLException {
+        int notif_id, res_id;
+        ArrayList<Notification> arr = new ArrayList<>();
+        String notif;
+        connection = DBConnector.connect();
+        statement = connection.prepareStatement("SELECT idnotification,notification,reserve_reserveID FROM notification WHERE acted_status=0");
+        ResultSet set = statement.executeQuery();
+        while (set.next()) {
+            notif_id = set.getInt("idnotification");
+            notif = set.getString("notification");
+            res_id = set.getInt("reserve_reserveID");
+            Notification n = new Notification(notif, res_id);
             n.setNotif_id(notif_id);
             arr.add(n);
         }

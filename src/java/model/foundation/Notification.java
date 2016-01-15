@@ -20,6 +20,11 @@ public class Notification {
 
     }
 
+    public Notification(String notification, int reservationids) {
+        this.notification = notification;
+        this.reservationid = reservationids;
+    }
+
     public Notification(String notification, Person person, int reservationids) {
         this.notification = notification;
         this.person_id = person.getId();
