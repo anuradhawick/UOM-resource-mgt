@@ -4,6 +4,7 @@
 hs_err_pid*
 
 # netbeans
+nbproject/
 nbproject/private/
 build/
 nbbuild/
@@ -11,3 +12,4 @@ dist/
 nbdist/
 nbactions.xml
 *.xml
+.gitignore
