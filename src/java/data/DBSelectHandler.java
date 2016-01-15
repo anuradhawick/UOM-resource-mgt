@@ -28,8 +28,11 @@ public class DBSelectHandler {
 
         while (resultSet.next()) {
             if (resultSet.getInt("count") > 0) {
+                System.out.println("IN");
                 return false;
+                
             } else {
+                System.out.println("OUT");
                 return true;
             }
         }

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -380,20 +380,27 @@ public class DBSearchHandler {
     public boolean checkAvailability(String resourceID,Date date,Date startTime, Date endTime) throws SQLException{
         
          Connection connection = DBConnector.connect();
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(reserveID) as count FROM resource_management.reserve WHERE resourceid=? and ((date_start <= ? and date_end >= ?) or (date_start <= ? and date_end >= ?)) and (DATE(date_start)<=? and DATE(date_end)>=?);");
+         System.out.println(date);
+         System.out.println(startTime);
+         System.out.println(endTime);
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(reserveID) as count,DATE(date_start)  FROM resource_management.reserve WHERE resourceid=? and ((TIME(date_start) <= ? and TIME(date_end) >= ?) or (TIME(date_start) <= ? and TIME(date_end) >= ?)) ;");
         preparedStatement.setString(1, resourceID);
         preparedStatement.setTimestamp(2, new Timestamp(startTime.getTime()));
         preparedStatement.setTimestamp(3, new Timestamp(startTime.getTime()));
         preparedStatement.setTimestamp(4, new Timestamp(endTime.getTime()));
         preparedStatement.setTimestamp(5, new Timestamp(endTime.getTime()));
-        preparedStatement.setDate(6,  date);
-        preparedStatement.setDate(5,  date);
+//        preparedStatement.setDate(6, new java.sql.Date(date.getTime()));
+//        preparedStatement.setDate(7,  new java.sql.Date(date.getTime()));
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
+            System.out.println(resultSet.getString("DATE(date_start)"));
+            
             if (resultSet.getInt("count") > 0) {
+                System.out.println("IN");
                 return false;
             } else {
+                System.out.println("OUT");
                 return true;
             }
         }
