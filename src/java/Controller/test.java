@@ -3,29 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.res_opt;
+package Controller;
 
-import com.google.gson.Gson;
-import data.DBSearchHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jdk.nashorn.api.scripting.JSObject;
-import model.foundation.ResourceView;
-import model.logic.ResourceHandler;
 
 /**
  *
- * @author RAVIDU-PC
+ * @author Anuradha
  */
-public class SearchAll extends HttpServlet {
+@WebServlet(name = "test", urlPatterns = {"/test"})
+public class test extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,18 +33,16 @@ public class SearchAll extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            int start=Integer.parseInt(request.getParameter("start"));
-            
-            int end=Integer.parseInt(request.getParameter("end"));
-            
-            ResourceHandler rh=new ResourceHandler();
-            try {
-                String json = new Gson().toJson(rh.getResources(start, end));
-                out.print(json);
-//                request.setAttribute("resources", rh.getResources(start, end));
-            } catch (SQLException ex) {
-                Logger.getLogger(SearchAll.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet test</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet test at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -67,11 +58,7 @@ public class SearchAll extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception e) {
-        }
-        
+        processRequest(request, response);
     }
 
     /**
@@ -85,11 +72,7 @@ public class SearchAll extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-             processRequest(request, response);
-        } catch (Exception e) {
-        }
-       
+        processRequest(request, response);
     }
 
     /**

@@ -5,6 +5,8 @@
  */
 package data;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +25,9 @@ public class DBPrivilegeUserHandler {
 
     //authorizeed person object
     //priv array return
+    private Connection connection;
+    private PreparedStatement statement;
+
     public ArrayList<Privilege> getPrivileges(Person p) throws SQLException {
         ArrayList<Privilege> priv_list = new ArrayList();
         Connection connection = DBConnector.connect();
@@ -68,5 +73,72 @@ public class DBPrivilegeUserHandler {
             priv.put(priv_list1.getPrivName(), 1);
         }
         return priv;
+    }
+
+    public void addAdmin(AuthorizedPerson ap, Privilege priv) throws SQLException {
+        DBInsertDeleteHandler dbih = new DBInsertDeleteHandler();
+        Person person = getLoggedPerson(ap);
+        dbih.insertInto_person_priv(person, priv);
+    }
+
+    public boolean updateDetails(AuthorizedPerson ap, Person p, Privilege priv) {
+        connection = DBConnector.connect();
+        try {
+            String up_p = "UPDATE resource_management.person SET  first_name= ?, middle_name = ?,last_name=? WHERE ID = ?";
+            statement = connection.prepareStatement(up_p);
+            statement.setString(1, p.getFirstName());
+            statement.setString(2, p.getMiddleName());
+            statement.setString(3, p.getLastName());
+            statement.setString(4, p.getId());
+            statement.executeUpdate();
+            statement.clearParameters();
+
+            String up_ap = "UPDATE resource_management.authorized_person SET password=? WHERE username = ?";
+            statement = connection.prepareStatement(up_p);
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            md.update(ap.getPassword().getBytes());
+            byte[] mdbytes = md.digest();
+
+            //convert the byte to hex format method 1
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < mdbytes.length; i++) {
+                sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            statement.setString(1, sb.toString());
+            statement.setString(2, ap.getUsername());
+            statement.executeUpdate();
+            statement.clearParameters();
+
+//            String up_priv = "UPDATE resource_management.person_priv SET priv_name=? WHERE ID = ?";
+//            statement = connection.prepareStatement(up_priv);
+//            statement.setString(1, priv.getPrivName());
+//            statement.setString(2, p.getId());
+//            statement.executeUpdate();
+//            statement.clearParameters();
+            return true;
+        } catch (SQLException | NoSuchAlgorithmException ex) {
+            return false;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                return false;
+            }
+        }
+
+    }
+
+    public boolean checkUsername(AuthorizedPerson ap) throws SQLException {
+        connection = DBConnector.connect();
+        String query = "SELECT username FROM resource_management.authorized_person WHERE username= ? LIMIT 1";
+        statement = connection.prepareStatement(query);
+        statement.setString(1, ap.getUsername());
+        ResultSet rs = statement.executeQuery();
+
+        if (rs.next()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

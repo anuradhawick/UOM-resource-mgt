@@ -22,13 +22,30 @@
                                 Compose New Message 
                             </div>
                             <div class="panel-body">
+                                <% if (request.getParameter("success") != null && request.getParameter("success").equals("true")) {
+                                %>
+                                <pre style="color: red">Successfully sent.</pre>
+                                <%
+                                } else if (request.getParameter("success") != null) {
+                                %>
+                                <pre style="color: red">Failed please contact the administrator.</pre>
+                                <%
+                                    }
+                                    if (request.getParameter("success") == null) {
+                                %>
+
                                 <div class="alert alert-info">
                                     Please fill details to send a new message
                                 </div>
-                                <form class="com-mail">
-                                    <input type="text" class="form-control1 control3" placeholder="To :">
-                                    <input type="text" class="form-control1 control3" placeholder="Subject :">
-                                    <textarea rows="6" class="form-control1 control2" placeholder="Message :" ></textarea>
+                                <%
+                                    }
+                                %>
+
+                                <form class="com-mail" action="/uomrms/contact_us">
+                                    <input name="name" type="text" class="form-control1 control3" placeholder="Name :" required>
+                                    <input name="email" type="text" class="form-control1 control3" placeholder="Email :" required>
+                                    <input name="sub" type="text" class="form-control1 control3" placeholder="Subject :" required>
+                                    <textarea name="msg" rows="6" class="form-control1 control2" placeholder="Message :" required></textarea>
                                     <input type="submit" value="Send Message"> 
                                 </form>
                             </div>

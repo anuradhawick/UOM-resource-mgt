@@ -3,29 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.res_opt;
+package Controller.reservation_mgt;
 
-import com.google.gson.Gson;
-import data.DBSearchHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import jdk.nashorn.api.scripting.JSObject;
-import model.foundation.ResourceView;
-import model.logic.ResourceHandler;
+import model.foundation.Reservation;
+import model.logic.ReservationHandler;
 
 /**
  *
  * @author RAVIDU-PC
  */
-public class SearchAll extends HttpServlet {
+public class modify_reservation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,18 +35,18 @@ public class SearchAll extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            int start=Integer.parseInt(request.getParameter("start"));
-            
-            int end=Integer.parseInt(request.getParameter("end"));
-            
-            ResourceHandler rh=new ResourceHandler();
-            try {
-                String json = new Gson().toJson(rh.getResources(start, end));
-                out.print(json);
-//                request.setAttribute("resources", rh.getResources(start, end));
-            } catch (SQLException ex) {
-                Logger.getLogger(SearchAll.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Reservation reserve = new Reservation();
+            reserve.setCapacity(Integer.parseInt(request.getParameter("capacity")));
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date start = format.parse(request.getParameter("start"));
+            reserve.setStartTime(start);
+            Date end = format.parse(request.getParameter("end"));
+            reserve.setEndTime(end);
+            reserve.setResourceId(request.getParameter("resourceid"));
+            reserve.setPersonId(request.getParameter("id"));
+            ReservationHandler handler = new ReservationHandler();
+            handler.modifyReservation(reserve);
+        } catch (Exception e) {
         }
     }
 
@@ -67,11 +62,7 @@ public class SearchAll extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (Exception e) {
-        }
-        
+        processRequest(request, response);
     }
 
     /**
@@ -85,11 +76,7 @@ public class SearchAll extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-             processRequest(request, response);
-        } catch (Exception e) {
-        }
-       
+        processRequest(request, response);
     }
 
     /**

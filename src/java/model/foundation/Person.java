@@ -1,8 +1,5 @@
 package model.foundation;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Person  {
 
      private String id;

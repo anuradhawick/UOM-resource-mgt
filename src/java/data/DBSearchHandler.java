@@ -377,28 +377,8 @@ public class DBSearchHandler {
         return null;
     }
     
-    public boolean checkAvailability(String resourceID,Date date,Date startTime, Date endTime) throws SQLException{
-        
-         Connection connection = DBConnector.connect();
-        PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(reserveID) as count FROM resource_management.reserve WHERE resourceid=? and ((date_start <= ? and date_end >= ?) or (date_start <= ? and date_end >= ?)) and (DATE(date_start)<=? and DATE(date_end)>=?);");
-        preparedStatement.setString(1, resourceID);
-        preparedStatement.setTimestamp(2, new Timestamp(startTime.getTime()));
-        preparedStatement.setTimestamp(3, new Timestamp(startTime.getTime()));
-        preparedStatement.setTimestamp(4, new Timestamp(endTime.getTime()));
-        preparedStatement.setTimestamp(5, new Timestamp(endTime.getTime()));
-        preparedStatement.setDate(6,  date);
-        preparedStatement.setDate(5,  date);
-        ResultSet resultSet = preparedStatement.executeQuery();
-
-        while (resultSet.next()) {
-            if (resultSet.getInt("count") > 0) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        return false;
+   
     
-    }
+    
 
 }
