@@ -12,4 +12,4 @@ dist/
 nbdist/
 nbactions.xml
 *.xml
-
+.gitignore
