@@ -413,6 +413,7 @@ public class DBSearchHandler {
             rv.setResourceId(resultSet.getString("resourceid"));
             rv.setPersonId(resultSet.getString("ID"));
             rv.setPurpose(resultSet.getString("purpose"));
+            rv.setApproval(resultSet.getInt("approval"));
             list.add(rv);
         }
         return list;
@@ -436,6 +437,31 @@ public class DBSearchHandler {
             rv.setResourceId(resultSet.getString("resourceid"));
             rv.setPersonId(resultSet.getString("ID"));
             rv.setPurpose(resultSet.getString("purpose"));
+            rv.setApproval(resultSet.getInt("approval"));
+            list.add(rv);
+        }
+        return list;
+    }
+    
+    public ArrayList<Reservation> getPendingReservation(Date startdate, Date enddate) throws SQLException {
+        Connection connection = DBConnector.connect();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM resource_management.reserve WHERE ((DATE(date_start)>=? and DATE(date_start)<=?) and(DATE(date_end)<=?)) and approval=?");
+        preparedStatement.setDate(1, new java.sql.Date(startdate.getTime()));
+        preparedStatement.setDate(2, new java.sql.Date(enddate.getTime()));
+        preparedStatement.setDate(3, new java.sql.Date(enddate.getTime()));
+        preparedStatement.setInt(4, 0);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        ArrayList<Reservation> list = new ArrayList<>();
+        while (resultSet.next()) {
+            Reservation rv = new Reservation();
+            rv.setReserveId(resultSet.getInt("reserveID"));
+            rv.setCapacity(resultSet.getInt("capacity"));
+            rv.setStartTime(resultSet.getDate("date_start"));
+            rv.setEndTime(resultSet.getDate("date_end"));
+            rv.setResourceId(resultSet.getString("resourceid"));
+            rv.setPersonId(resultSet.getString("ID"));
+            rv.setPurpose(resultSet.getString("purpose"));
+            rv.setApproval(resultSet.getInt("approval"));
             list.add(rv);
         }
         return list;

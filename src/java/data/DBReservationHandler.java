@@ -27,7 +27,7 @@ public class DBReservationHandler {
         return status;
     }
     
-    public void acceptReservation(int resID) throws SQLException{
+    public boolean acceptReservation(int resID) throws SQLException{
         connection = DBConnector.connect();
         String query= "UPDATE resource_management.reserve SET approval=2 WHERE reserveID=?";            
             statement = connection.prepareStatement(query);
@@ -36,10 +36,11 @@ public class DBReservationHandler {
             statement.clearParameters();
             statement.close();
             connection.close();
+            return true;
             
     }
         
-    public void rejectReservation(int resID) throws SQLException{
+    public boolean rejectReservation(int resID) throws SQLException{
         connection = DBConnector.connect();
         String query= "UPDATE resource_management.reserve SET approval=1 WHERE reserveID=?";            
             statement = connection.prepareStatement(query);
@@ -48,6 +49,7 @@ public class DBReservationHandler {
             statement.clearParameters();
             statement.close();
             connection.close();
+            return true;
             
     }
 

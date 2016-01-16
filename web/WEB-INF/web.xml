@@ -49,10 +49,6 @@
         <servlet-class>Controller.reservation_mgt.add_reservation</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>get_reservation</servlet-name>
-        <servlet-class>Controller.reservation_mgt.get_reservation</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>get_resource</servlet-name>
         <servlet-class>Controller.res_opt.get_resource</servlet-class>
     </servlet>
@@ -79,6 +75,26 @@
     <servlet>
         <servlet-name>get_categoryresource</servlet-name>
         <servlet-class>Controller.res_opt.get_categoryresource</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>get_rejectedreservation</servlet-name>
+        <servlet-class>Controller.reservation_mgt.get_rejectedreservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>get_overallreservation</servlet-name>
+        <servlet-class>Controller.reservation_mgt.get_overallreservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>get_pendingreservation</servlet-name>
+        <servlet-class>Controller.reservation_mgt.get_pendingreservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>accept_reservation</servlet-name>
+        <servlet-class>Controller.reservation_mgt.accept_reservation</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>reject_reservation</servlet-name>
+        <servlet-class>Controller.reservation_mgt.reject_reservation</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login_servelet</servlet-name>
@@ -129,10 +145,6 @@
         <url-pattern>/add_reservation</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>get_reservation</servlet-name>
-        <url-pattern>/get_reservation</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>get_resource</servlet-name>
         <url-pattern>/get_resource</url-pattern>
     </servlet-mapping>
@@ -159,6 +171,26 @@
     <servlet-mapping>
         <servlet-name>get_categoryresource</servlet-name>
         <url-pattern>/get_categoryresource</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>get_rejectedreservation</servlet-name>
+        <url-pattern>/get_rejectedreservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>get_overallreservation</servlet-name>
+        <url-pattern>/get_overallreservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>get_pendingreservation</servlet-name>
+        <url-pattern>/get_pendingreservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>accept_reservation</servlet-name>
+        <url-pattern>/accept_reservation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reject_reservation</servlet-name>
+        <url-pattern>/reject_reservation</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

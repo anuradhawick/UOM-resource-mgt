@@ -32,12 +32,14 @@ import model.logic.ResourceHandler;
 public class ravidu_test {
 
     public static void main(String[] args) throws SQLException, ParseException {
-       ResourceHandler han=new ResourceHandler();
-       ArrayList<Resource> as=han.getCategoryWiseResources("Vehicle",1,3);
-        for (Resource r:as) {
-            Vehicle l=(Vehicle)r;
-            System.out.println(r.getResourceid()+" "+r.getResourceName()+" "+r.getCategory()+" "+r.getDescription()+" "+r.getCapacityAmount()+" "+l.getVehicleName());
-        }
+        ReservationHandler h = new ReservationHandler();
+        String startdate = "2016-01-16";
+        String enddate = "2016-01-18";
+        SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+        Date d1 = fm.parse(startdate);
+        Date d2 = fm.parse(enddate);
+        System.out.println(h.getRejectedReservationHistory(d1,d2).get(0).getApproval());
+        
         
     }
 }
