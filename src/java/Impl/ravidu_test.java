@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import model.foundation.Department;
 import model.foundation.Hall;
 import model.foundation.Lab;
 import model.foundation.MaintenanceTool;
@@ -32,12 +33,12 @@ import model.logic.ResourceHandler;
 public class ravidu_test {
 
     public static void main(String[] args) throws SQLException, ParseException {
-       ResourceHandler han=new ResourceHandler();
-       ArrayList<Resource> as=han.getCategoryWiseResources("Vehicle",1,3);
-        for (Resource r:as) {
-            Vehicle l=(Vehicle)r;
-            System.out.println(r.getResourceid()+" "+r.getResourceName()+" "+r.getCategory()+" "+r.getDescription()+" "+r.getCapacityAmount()+" "+l.getVehicleName());
+       DBSearchHandler hn=new DBSearchHandler();
+       ArrayList<Resource> de=hn.getCapacityResource("Hall", 100, 0,10);
+        for (Resource de1 : de) {
+            System.out.println(de1.getResourceName());
         }
+        
         
     }
 }

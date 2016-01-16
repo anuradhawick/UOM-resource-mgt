@@ -88,4 +88,24 @@ public class ReservationHandler {
     public ArrayList<Reservation> getApprovedReservationHistory(Date startdate, Date enddate) throws SQLException {
         return new DBSearchHandler().getApprovedReservationHistory(startdate, enddate);
     }
+
+    public ArrayList<Reservation> getRejectedReservationHistory(Date startdate, Date enddate) throws SQLException {
+        return new DBSearchHandler().getRejectedReservationHistory(startdate, enddate);
+    }
+
+    public ArrayList<Reservation> getOverallReservationHistory(Date startdate, Date enddate) throws SQLException {
+        return new DBSearchHandler().getReservationHistory(startdate, enddate);
+    }
+
+    public ArrayList<Reservation> getPendingReservation(Date startdate, Date enddate) throws SQLException {
+        return new DBSearchHandler().getPendingReservation(startdate, enddate);
+    }
+
+    public boolean acceptResrvation(int id) throws SQLException {
+        return new DBReservationHandler().acceptReservation(id);
+    }
+
+    public boolean rejectResrvation(int id) throws SQLException {
+        return new DBReservationHandler().rejectReservation(id);
+    }
 }

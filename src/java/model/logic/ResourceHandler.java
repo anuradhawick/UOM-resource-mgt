@@ -31,4 +31,12 @@ public class ResourceHandler {
    public ArrayList<Resource> getCategoryWiseResources(String category,int offset,int limit){
        return new DBSearchHandler().SearchKeyword(category,offset,limit);
    }
+   
+   public ArrayList<Resource> getResourceByWord(String word,int offset,int limit){
+       return new DBSearchHandler().searchbyWord(word,offset,limit);
+   }
+   
+   public ArrayList<Resource> getCapacityresource(String Category,int capacity,int offset,int limit){
+       return new DBSearchHandler().getCapacityResource(Category, capacity, offset, limit);
+   }
 }
