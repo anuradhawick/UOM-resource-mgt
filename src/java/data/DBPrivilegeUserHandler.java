@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -48,21 +49,34 @@ public class DBPrivilegeUserHandler {
 
     public Person getLoggedPerson(AuthorizedPerson p) throws SQLException {
         Person person = new Person();
-        Connection connection = DBConnector.connect();
+        connection = DBConnector.connect();
 
         String query = "SELECT * FROM resource_management.person S where S.ID IN (SELECT ID FROM resource_management.authorized_person A WHERE A.username = ? )";
 
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
-        preparedStatement.setString(1, p.getUsername());
-        ResultSet resultSet = preparedStatement.executeQuery();
+        statement = connection.prepareStatement(query);
+        statement.setString(1, p.getUsername());
+        ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             person.setFirstName(resultSet.getString("first_name"));
             person.setLastName(resultSet.getString("last_name"));
             person.setMiddleName(resultSet.getString("middle_name"));
             person.setId(resultSet.getString("ID"));
-            return person;
         }
-        return null;
+
+        statement = connection.prepareStatement("SELECT img FROM resource_management.person_img i JOIN resource_management.person p WHERE i.person_ID=p.ID AND p.ID=?");
+        statement.setString(1, person.getId());
+        resultSet = statement.executeQuery();
+        InputStream d = resultSet.getBinaryStream("filecol");
+        byte[] barr;
+//        try {
+//            barr = IOUtils.toByteArray(d);
+//            Base64.Encoder en = Base64.getEncoder();
+//            String theString = en.encodeToString(barr);
+        person.setImage(d);
+//        } catch (IOException ex) {
+//            // Do nothing
+//        }
+        return person;
 
     }
 
@@ -109,12 +123,14 @@ public class DBPrivilegeUserHandler {
             statement.executeUpdate();
             statement.clearParameters();
 
-//            String up_priv = "UPDATE resource_management.person_priv SET priv_name=? WHERE ID = ?";
-//            statement = connection.prepareStatement(up_priv);
-//            statement.setString(1, priv.getPrivName());
-//            statement.setString(2, p.getId());
-//            statement.executeUpdate();
-//            statement.clearParameters();
+            statement = connection.prepareStatement("UPDATE resource_management.person p JOIN resource_management.person_img i ON p.ID=i.person_ID SET i.img=? WHERE p.ID=?");
+            statement.setBinaryStream(1, p.getImage());
+            statement.setString(2, p.getId());
+            statement.executeUpdate();
+            statement.executeUpdate();
+            statement.clearParameters();
+            statement.close();
+            connection.close();
             return true;
         } catch (SQLException | NoSuchAlgorithmException ex) {
             return false;
@@ -135,7 +151,7 @@ public class DBPrivilegeUserHandler {
         statement.setString(1, ap.getUsername());
         ResultSet rs = statement.executeQuery();
         connection.close();
-        
+
         if (rs.next()) {
             return true;
         } else {

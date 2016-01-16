@@ -8,8 +8,10 @@ package Controller.auth;
 import com.google.gson.Gson;
 import data.DBPrivilegeUserHandler;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -18,6 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.foundation.AuthorizedPerson;
 import model.foundation.Person;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -39,8 +45,8 @@ public class update_details extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String username = (String)request.getSession(false).getAttribute("username");
-            String password = (String)request.getParameter("password");
+            String username = (String) request.getSession(false).getAttribute("username");
+            String password = (String) request.getParameter("password");
             AuthorizedPerson p = new AuthorizedPerson();
             p.setUsername(username);
             p.setPassword(password);
@@ -48,13 +54,27 @@ public class update_details extends HttpServlet {
             Person per = dbh.getLoggedPerson(p);
             p.setFirstName(request.getParameter("fname"));
             p.setMiddleName(request.getParameter("mname"));
-            p.setLastName(request.getParameter("lname"));  
+            p.setLastName(request.getParameter("lname"));
             dbh.getPrivileges(per);
+            //reading image data
+            List<FileItem> multiparts;
+            try {
+                multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+                for (FileItem item : multiparts) {
+                    if (!item.isFormField()) {
+                        InputStream img = item.getInputStream();
+                        p.setImage(img);
+                    }
+                }
+            } catch (FileUploadException ex) {
+                Logger.getLogger(update_details.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
             boolean success = dbh.updateDetails(p, per, null);
             Gson g = new Gson();
-            if(success){
+            if (success) {
                 out.print(g.toJson(true));
-            }else{
+            } else {
                 out.print(g.toJson(false));
             }
         }
