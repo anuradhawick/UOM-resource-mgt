@@ -16,7 +16,7 @@ public class Test {
 
     public static void main(String[] args) {
         DBSearchHandler dsh = new DBSearchHandler();
-        List<Object> result = dsh.SearchKeyword("Lab");
-        out.print(result.get(0));
+      //  List<Object> result = dsh.SearchKeyword("Lab");
+      //  out.print(result.get(0));
     }
 }
