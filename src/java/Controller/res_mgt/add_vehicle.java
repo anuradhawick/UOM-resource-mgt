@@ -51,8 +51,9 @@ public class add_vehicle extends HttpServlet {
             }
             DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
             dbh.insertVehicle(v);
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success");
-
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");
+        } catch (Exception e) {
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success=false");
         }
     }
 

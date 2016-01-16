@@ -38,7 +38,6 @@ public class add_hall extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("start<br>");
             Hall v = new Hall();
             v.setCapacityAmount(Integer.parseInt(request.getParameter("capacity")));
             v.setDescription(request.getParameter("description"));
@@ -51,17 +50,11 @@ public class add_hall extends HttpServlet {
             d.setDeptName(request.getParameter("department"));
             d.setBuilding(request.getParameter("building"));
             v.setDepartment(d);
-            out.println("asd");
-            for (String s : request.getParameterMap().keySet()) {
-                out.println(s + " " + request.getParameter(s) + "<br>");
-            }
             DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
             dbh.insertHall(v);
-            out.println("Done");
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success");
-
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");
         } catch (Exception c) {
-            c.printStackTrace();
+            response.sendRedirect("/uomrms/add_new_resource.jsp?success=false");
         }
     }
 

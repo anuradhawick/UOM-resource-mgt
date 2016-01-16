@@ -7,6 +7,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -40,7 +41,7 @@ public class ReservationHandler {
             } catch (SQLException ex) {
                 logger.error("Insert reservation failed", ex);
             }
-            
+
         } else {
             return -1;
         }
@@ -71,7 +72,7 @@ public class ReservationHandler {
             cal.set(Calendar.HOUR_OF_DAY, i);
             cal.set(Calendar.MINUTE, 00);
             cal.set(Calendar.SECOND, 00);
-            date= cal.getTime();
+            date = cal.getTime();
 
             cal1.set(Calendar.HOUR_OF_DAY, i + 1);
             cal1.set(Calendar.MINUTE, 00);
@@ -82,5 +83,9 @@ public class ReservationHandler {
                 System.out.println("Start:" + i + " End:" + (i + 1));
             }
         }
+    }
+
+    public ArrayList<Reservation> getApprovedReservationHistory(Date startdate, Date enddate) throws SQLException {
+        return new DBSearchHandler().getApprovedReservationHistory(startdate, enddate);
     }
 }

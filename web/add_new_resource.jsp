@@ -19,6 +19,16 @@
                     <div class="col-md-8 widget-shadow">
                         <div class="forms">
                             <div id="form_holder" class="form-three">
+                                <%
+                                    if (request.getParameter("success") != null && request.getParameter("success").equals("true")) { %>
+                                <div class="alert alert-success" role="alert">
+                                    <strong>Success! </strong>Resource added successfully.
+                                </div>
+                                <% } else if (request.getParameter("success") != null && request.getParameter("success").equals("false")) { %>
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Sorry! </strong>Something went wrong.
+                                </div>
+                                <% }%>
                             </div>
                         </div>
                     </div>

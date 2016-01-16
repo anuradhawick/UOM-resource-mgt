@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.res_mgt;
+package Controller.auth;
 
-import data.DBInsertDeleteHandler;
+import data.DBPrivilegeUserHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -15,13 +15,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.SportPlace;
+import model.foundation.AuthorizedPerson;
+import model.foundation.Privilege;
 
 /**
  *
- * @author Pamoda
+ * @author Anuradha
  */
-public class add_sport_place extends HttpServlet {
+public class add_manager extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,25 +35,24 @@ public class add_sport_place extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try {
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
             /* TODO output your page here. You may use following sample code. */
-
-            SportPlace place = new SportPlace();
-
-            place.setCategory("Sport Place");
-            place.setCapacityAmount(Integer.parseInt(request.getParameter("capacity")));
-            place.setResourceName(request.getParameter("resource_name"));
-            place.setDescription(request.getParameter("description"));
-
-            place.setLocation("location");
-            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-            dbh.insertSportPlace(place);
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");
+            String admin_username = request.getParameter("username");
+            DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
+            if (dbh.isNormalUser(admin_username)) {
+                AuthorizedPerson person = new AuthorizedPerson();
+                person.setUsername(admin_username);
+                Privilege priv = new Privilege("manager");
+                dbh.addAdmin(person, priv);
+                response.sendRedirect("/uomrms/add_new_manager.jsp?success=true");
+            } else {
+                response.sendRedirect("/uomrms/add_new_manager.jsp?success=false");
+            }
         } catch (Exception e) {
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success=false");
+            response.sendRedirect("/uomrms/add_new_manager.jsp?success=false");
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,7 +70,7 @@ public class add_sport_place extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(add_sport_place.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(add_manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -88,7 +88,7 @@ public class add_sport_place extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(add_sport_place.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(add_manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

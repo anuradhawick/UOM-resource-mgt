@@ -3,25 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.res_mgt;
+package Controller.reservation_mgt;
 
-import data.DBInsertDeleteHandler;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.SportPlace;
+import model.logic.*;
 
 /**
  *
- * @author Pamoda
+ * @author RAVIDU-PC
  */
-public class add_sport_place extends HttpServlet {
+public class get_approvedreservation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,26 +36,18 @@ public class add_sport_place extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, ParseException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-
-            SportPlace place = new SportPlace();
-
-            place.setCategory("Sport Place");
-            place.setCapacityAmount(Integer.parseInt(request.getParameter("capacity")));
-            place.setResourceName(request.getParameter("resource_name"));
-            place.setDescription(request.getParameter("description"));
-
-            place.setLocation("location");
-            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-            dbh.insertSportPlace(place);
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");
-        } catch (Exception e) {
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success=false");
+           String startdate=request.getParameter("startdate");
+           String enddate=request.getParameter("enddate");
+            SimpleDateFormat fm=new SimpleDateFormat("yyyy-MM-dd");
+            Date d1=fm.parse(startdate);
+            Date d2=fm.parse(enddate);
+            ReservationHandler handle=new ReservationHandler();
+            String json = new Gson().toJson(handle.getApprovedReservationHistory(d1, d2));
+            out.print(json);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,8 +64,10 @@ public class add_sport_place extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(get_approvedreservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(add_sport_place.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(get_approvedreservation.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -87,8 +84,10 @@ public class add_sport_place extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(get_approvedreservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(add_sport_place.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(get_approvedreservation.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

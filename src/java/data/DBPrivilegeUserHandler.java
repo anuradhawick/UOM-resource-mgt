@@ -134,10 +134,36 @@ public class DBPrivilegeUserHandler {
         statement = connection.prepareStatement(query);
         statement.setString(1, ap.getUsername());
         ResultSet rs = statement.executeQuery();
-
+        connection.close();
+        
         if (rs.next()) {
             return true;
         } else {
+            return false;
+        }
+    }
+
+    public boolean isNormalUser(String username) throws SQLException {
+        connection = DBConnector.connect();
+        String query = "SELECT username,id FROM resource_management.authorized_person WHERE username= ? LIMIT 1";
+        statement = connection.prepareStatement(query);
+        statement.setString(1, username);
+        ResultSet rs = statement.executeQuery();
+
+        if (rs.next()) {
+            query = "SELECT id FROM resource_management.person_priv WHERE id= ? and priv_name = ? LIMIT 1";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, rs.getString(1));
+            statement.setString(2, "user");
+            rs = statement.executeQuery();
+            connection.close();
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            connection.close();
             return false;
         }
     }
