@@ -1,11 +1,14 @@
 package model.foundation;
 
+import java.io.InputStream;
+
 public class Person  {
 
      private String id;
      private String firstName;
      private String middleName;
      private String lastName;
+     private InputStream image;
   /*   private Set halls = new HashSet(0);
      private ResourceUser resourceUser;
      private AuthorizedPerson authorizedPerson;
@@ -62,50 +65,19 @@ public class Person  {
         this.lastName = lastName;
     }
     
-   /* public Set getHalls() {
-        return this.halls;
-    }
-    
-    public void setHalls(Set halls) {
-        this.halls = halls;
-    }
-    public ResourceUser getResourceUser() {
-        return this.resourceUser;
-    }
-    
-    public void setResourceUser(ResourceUser resourceUser) {
-        this.resourceUser = resourceUser;
-    }
-    public AuthorizedPerson getAuthorizedPerson() {
-        return this.authorizedPerson;
-    }
-    
-    public void setAuthorizedPerson(AuthorizedPerson authorizedPerson) {
-        this.authorizedPerson = authorizedPerson;
-    }
-    public Set getReserves() {
-        return this.reserves;
-    }
-    
-    public void setReserves(Set reserves) {
-        this.reserves = reserves;
-    }
-    public Set getVehicles() {
-        return this.vehicles;
-    }
-    
-    public void setVehicles(Set vehicles) {
-        this.vehicles = vehicles;
-    }
-    public Phone getPhone() {
-        return this.phone;
-    }
-    
-    public void setPhone(Phone phone) {
-        this.phone = phone;
+    /**
+     * @return the image
+     */
+    public InputStream getImage() {
+        return image;
     }
 
-*/
+    /**
+     * @param image the image to set
+     */
+    public void setImage(InputStream image) {
+        this.image = image;
+    }
 
 
 }
