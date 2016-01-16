@@ -24,18 +24,14 @@
                             <div class="panel-body">
                                 <% if (request.getParameter("success") != null && request.getParameter("success").equals("true")) {
                                 %>
-                                <pre style="color: red">Successfully sent.</pre>
+                                <div class="alert alert-success" role="alert">
+                                    Message sent successfully.
+                                </div>
                                 <%
                                 } else if (request.getParameter("success") != null) {
                                 %>
-                                <pre style="color: red">Failed please contact the administrator.</pre>
-                                <%
-                                    }
-                                    if (request.getParameter("success") == null) {
-                                %>
-
-                                <div class="alert alert-info">
-                                    Please fill details to send a new message
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Sorry! </strong>Something went wrong.Please try again.
                                 </div>
                                 <%
                                     }
@@ -43,7 +39,7 @@
 
                                 <form class="com-mail" action="/uomrms/contact_us">
                                     <input name="name" type="text" class="form-control1 control3" placeholder="Name :" required>
-                                    <input name="email" type="text" class="form-control1 control3" placeholder="Email :" required>
+                                    <input name="email" type="email" class="form-control1 control3" placeholder="Email :" required>
                                     <input name="sub" type="text" class="form-control1 control3" placeholder="Subject :" required>
                                     <textarea name="msg" rows="6" class="form-control1 control2" placeholder="Message :" required></textarea>
                                     <input type="submit" value="Send Message"> 

@@ -143,11 +143,11 @@ public class DBPrivilegeUserHandler {
         }
     }
 
-    public boolean isNormalUser(AuthorizedPerson ap) throws SQLException {
+    public boolean isNormalUser(String username) throws SQLException {
         connection = DBConnector.connect();
         String query = "SELECT username,id FROM resource_management.authorized_person WHERE username= ? LIMIT 1";
         statement = connection.prepareStatement(query);
-        statement.setString(1, ap.getUsername());
+        statement.setString(1, username);
         ResultSet rs = statement.executeQuery();
 
         if (rs.next()) {
