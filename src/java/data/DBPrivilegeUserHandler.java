@@ -66,7 +66,7 @@ public class DBPrivilegeUserHandler {
         statement = connection.prepareStatement("SELECT img FROM resource_management.person_img i JOIN resource_management.person p WHERE i.person_ID=p.ID AND p.ID=?");
         statement.setString(1, person.getId());
         resultSet = statement.executeQuery();
-        InputStream d = resultSet.getBinaryStream("filecol");
+        InputStream d = resultSet.getBinaryStream("img");
         byte[] barr;
 //        try {
 //            barr = IOUtils.toByteArray(d);
