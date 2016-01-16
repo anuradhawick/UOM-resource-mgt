@@ -38,8 +38,8 @@ public class DBSearchHandlerTest {
         String word = "";
         DBSearchHandler instance = new DBSearchHandler();
         List<String> expResult = null;
-        List<String> result = instance.searchbyCategory(word);
-        assertEquals(expResult, result);
+      //  List<String> result = instance.searchbyCategory(word);
+      //  assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
