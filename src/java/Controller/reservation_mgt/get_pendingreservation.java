@@ -5,18 +5,22 @@
  */
 package Controller.reservation_mgt;
 
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.logic.ReservationHandler;
 
 /**
  *
  * @author RAVIDU-PC
  */
-public class get_reservation extends HttpServlet {
+public class get_pendingreservation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,16 +35,16 @@ public class get_reservation extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet get_reservation</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet get_reservation at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String startdate = request.getParameter("startdate");
+            String enddate = request.getParameter("enddate");
+            SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd");
+            Date d1 = fm.parse(startdate);
+            Date d2 = fm.parse(enddate);
+            ReservationHandler handle = new ReservationHandler();
+            String json = new Gson().toJson(handle.getPendingReservation(d1, d2));
+            out.print(json);
+        }catch (Exception e) {
+
         }
     }
 

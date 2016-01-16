@@ -26,8 +26,8 @@ public class DBSearchHandlerTest {
         String category = "";
         DBSearchHandler instance = new DBSearchHandler();
         List expResult = null;
-        List result = instance.SearchKeyword(category);
-        assertEquals(expResult, result);
+      //  List result = instance.SearchKeyword(category);
+      //  assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -38,8 +38,8 @@ public class DBSearchHandlerTest {
         String word = "";
         DBSearchHandler instance = new DBSearchHandler();
         List<String> expResult = null;
-        List<String> result = instance.searchbyCategory(word);
-        assertEquals(expResult, result);
+      //  List<String> result = instance.searchbyCategory(word);
+      //  assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

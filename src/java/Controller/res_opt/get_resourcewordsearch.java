@@ -8,21 +8,17 @@ package Controller.res_opt;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.Hall;
-import model.foundation.Lab;
-import model.foundation.Resource;
 import model.logic.ResourceHandler;
 
 /**
  *
  * @author RAVIDU-PC
  */
-public class get_categoryresource extends HttpServlet {
+public class get_resourcewordsearch extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,34 +33,12 @@ public class get_categoryresource extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String category = request.getParameter("category");
-            int offset = Integer.parseInt(request.getParameter("offset"));
-            int limit = Integer.parseInt(request.getParameter("limit"));
-            ResourceHandler handle = new ResourceHandler();
-            ArrayList<Resource> resourcelist = handle.getCategoryWiseResources(category, offset, limit);
-            if (resourcelist != null) {
-                if (resourcelist.get(0) instanceof Hall) {
-                    ArrayList<Hall> halllist = new ArrayList<>();
-                    for (Resource r : resourcelist) {
-                        Hall h = (Hall) r;
-                        halllist.add(h);
-                    }
-                    String json = new Gson().toJson(halllist);
-                    out.print(json);
-                } else if (resourcelist.get(0) instanceof Lab) {
-                    ArrayList<Lab> lablist = new ArrayList<>();
-                    for (Resource r : resourcelist) {
-                        Lab l = (Lab) r;
-                        lablist.add(l);
-                    }
-                    String json = new Gson().toJson(lablist);
-                    out.print(json);
-                } else {
-                    String json = new Gson().toJson(resourcelist);
-                    out.print(json);
-                }
-            }
-
+            String word=request.getParameter("word");
+            int offset=Integer.parseInt(request.getParameter("offset"));
+            int limit=Integer.parseInt(request.getParameter("limit"));
+            ResourceHandler handler=new ResourceHandler();
+            String json=new Gson().toJson(handler.getResourceByWord(word,offset,limit));
+            out.print(json);
         }
     }
 

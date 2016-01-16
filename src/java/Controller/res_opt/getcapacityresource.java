@@ -22,7 +22,7 @@ import model.logic.ResourceHandler;
  *
  * @author RAVIDU-PC
  */
-public class get_categoryresource extends HttpServlet {
+public class getcapacityresource extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +38,11 @@ public class get_categoryresource extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String category = request.getParameter("category");
+            int capacity = Integer.parseInt(request.getParameter("capacity"));
             int offset = Integer.parseInt(request.getParameter("offset"));
             int limit = Integer.parseInt(request.getParameter("limit"));
             ResourceHandler handle = new ResourceHandler();
-            ArrayList<Resource> resourcelist = handle.getCategoryWiseResources(category, offset, limit);
+            ArrayList<Resource> resourcelist = handle.getCapacityresource(category, capacity, offset, limit);
             if (resourcelist != null) {
                 if (resourcelist.get(0) instanceof Hall) {
                     ArrayList<Hall> halllist = new ArrayList<>();
@@ -59,12 +60,8 @@ public class get_categoryresource extends HttpServlet {
                     }
                     String json = new Gson().toJson(lablist);
                     out.print(json);
-                } else {
-                    String json = new Gson().toJson(resourcelist);
-                    out.print(json);
                 }
             }
-
         }
     }
 

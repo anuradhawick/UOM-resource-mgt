@@ -3,26 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.res_opt;
+package Controller.reservation_mgt;
 
-import com.google.gson.Gson;
+import data.DBReservationHandler;
+import model.logic.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.Hall;
-import model.foundation.Lab;
-import model.foundation.Resource;
-import model.logic.ResourceHandler;
 
 /**
  *
- * @author RAVIDU-PC
+ * @author Pamoda
  */
-public class get_categoryresource extends HttpServlet {
+public class accept_reservation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,37 +33,13 @@ public class get_categoryresource extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String category = request.getParameter("category");
-            int offset = Integer.parseInt(request.getParameter("offset"));
-            int limit = Integer.parseInt(request.getParameter("limit"));
-            ResourceHandler handle = new ResourceHandler();
-            ArrayList<Resource> resourcelist = handle.getCategoryWiseResources(category, offset, limit);
-            if (resourcelist != null) {
-                if (resourcelist.get(0) instanceof Hall) {
-                    ArrayList<Hall> halllist = new ArrayList<>();
-                    for (Resource r : resourcelist) {
-                        Hall h = (Hall) r;
-                        halllist.add(h);
-                    }
-                    String json = new Gson().toJson(halllist);
-                    out.print(json);
-                } else if (resourcelist.get(0) instanceof Lab) {
-                    ArrayList<Lab> lablist = new ArrayList<>();
-                    for (Resource r : resourcelist) {
-                        Lab l = (Lab) r;
-                        lablist.add(l);
-                    }
-                    String json = new Gson().toJson(lablist);
-                    out.print(json);
-                } else {
-                    String json = new Gson().toJson(resourcelist);
-                    out.print(json);
-                }
-            }
-
+            int id = Integer.parseInt(request.getParameter("id"));
+            ReservationHandler handler=new ReservationHandler();
+            handler.acceptResrvation(id);
+                    
         }
     }
 
@@ -80,7 +55,11 @@ public class get_categoryresource extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(accept_reservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -94,7 +73,11 @@ public class get_categoryresource extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(accept_reservation.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -138,7 +138,7 @@
                     </div>
                     <!--Add reservation end-->
                     <!--Add vehicle reservation start-->
-                    <div id="add_resravation" class="col-md-4 widget-shadow">
+                    <div id="add_resravation_vehicle" class="col-md-4 widget-shadow">
                         <div class="forms">
                             <div class="form-three">
                                 <form class='form-horizontal panel-default'>
