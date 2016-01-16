@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import model.foundation.Notification;
 import model.foundation.Person;
-import model.foundation.Reservation;
 
 /**
  *
