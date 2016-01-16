@@ -13,9 +13,15 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import model.foundation.Hall;
+import model.foundation.Lab;
+import model.foundation.MaintenanceTool;
 import model.foundation.Reservation;
 import model.foundation.Resource;
 import model.foundation.ResourceView;
+import model.foundation.SportItem;
+import model.foundation.SportPlace;
+import model.foundation.Vehicle;
 import model.logic.ReservationHandler;
 import model.logic.ResourceHandler;
 
@@ -26,17 +32,12 @@ import model.logic.ResourceHandler;
 public class ravidu_test {
 
     public static void main(String[] args) throws SQLException, ParseException {
-        DBSearchHandler han=new DBSearchHandler();
-        String date1="2016-01-16";
-        String date2="2016-01-18";
-        SimpleDateFormat fm=new SimpleDateFormat("yyyy-MM-dd");
-        Date d1=fm.parse(date1);
-        Date d2=fm.parse(date2);
-        ArrayList<Reservation> res=han.getReservationHistory(d1, d2);
-        for (Reservation r:res) {
-            System.out.println(r.getCapacity());
+       ResourceHandler han=new ResourceHandler();
+       ArrayList<Resource> as=han.getCategoryWiseResources("Vehicle",1,3);
+        for (Resource r:as) {
+            Vehicle l=(Vehicle)r;
+            System.out.println(r.getResourceid()+" "+r.getResourceName()+" "+r.getCategory()+" "+r.getDescription()+" "+r.getCapacityAmount()+" "+l.getVehicleName());
         }
-        
         
     }
 }
