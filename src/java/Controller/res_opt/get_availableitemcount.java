@@ -7,10 +7,13 @@ package Controller.res_opt;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.logic.*;
 
 /**
  *
@@ -31,16 +34,13 @@ public class get_availableitemcount extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet get_availableitemcount</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet get_availableitemcount at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String id = request.getParameter("reourceid");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date start = format.parse(request.getParameter("start"));
+            Date end = format.parse(request.getParameter("end"));
+            ResourceHandler handle = new ResourceHandler();
+            out.print(handle.getAvailableItemCount(id, start, end));
+        } catch (Exception e) {
         }
     }
 

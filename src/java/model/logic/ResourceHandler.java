@@ -8,6 +8,7 @@ package model.logic;
 import data.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import model.foundation.*;
 
 /**
@@ -38,5 +39,9 @@ public class ResourceHandler {
    
    public ArrayList<Resource> getCapacityresource(String Category,int capacity,int offset,int limit){
        return new DBSearchHandler().getCapacityResource(Category, capacity, offset, limit);
+   }
+   
+   public int getAvailableItemCount(String resourceid,Date startDate,Date endDate) throws SQLException{
+       return new DBSelectHandler().getAvailableItemCount(resourceid, startDate, endDate);
    }
 }

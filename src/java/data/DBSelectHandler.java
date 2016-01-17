@@ -96,7 +96,7 @@ public class DBSelectHandler {
                 return resultSet.getInt("capacity_amount");
             }
         }
-        return 6;
+        return -1;
     }
 
     private String getDay(int number) {
