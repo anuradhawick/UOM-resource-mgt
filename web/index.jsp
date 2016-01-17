@@ -48,10 +48,10 @@
                 $("#pagination_div").empty();
                 for (var i = 0; i <<%=noPages%>; i++) {
                     if (currentPageNo == (i + 1)) {
-                        $("#pagination_div").append("<li class='active'><a onClick=\"loadResourcePage([" + i * 5 + ',' + 5 + "])\">" + (i + 1) + "</a></li>");
+                        $("#pagination_div").append("<li class='active'><a href='#' onClick=\"loadResourcePage([" + i * 5 + ',' + 5 + "])\">" + (i + 1) + "</a></li>");
                     }
                     else {
-                        $("#pagination_div").append("<li><a onClick=\"loadResourcePage([" + i * 5 + ',' + 5 + "])\">" + (i + 1) + "</a></li>");
+                        $("#pagination_div").append("<li><a href='#' onClick=\"loadResourcePage([" + i * 5 + ',' + 5 + "])\">" + (i + 1) + "</a></li>");
                     }
                 }
             };
@@ -74,10 +74,11 @@
             <div id="page-wrapper">
                 <div class="main-page compose">
                     <!--Resources start-->
-                    <div id="resources" class="col-md-8">
+                    <div class="col-md-9" style="padding-right: 25px;">  
+                        <div id="resources">
+                        </div>
                     </div>
                     <!--Resources end-->
-                    <div class="col-md-1 clearfix"></div>
                     <!--Filter pane start-->
                     <div class="col-md-3 widget-shadow" >
                         <div class="panel-body filter-pane">
@@ -104,12 +105,14 @@
                             <!--//end-search-box-->
                         </div>
                     </div>
-                    <div class="grid_3 grid_5 widget-shadow col-md-8">
-                        <div id="parentmy" class="col-md-6">
-                            <nav class="blockmy centermy">
-                                <ul id="pagination_div" class="pagination">
-                                </ul>
-                            </nav>
+                    <div class="col-md-9" style="padding-right: 25px; padding-top: 25px;">
+                        <div class="widget-shadow">
+                            <div id="parentmy">
+                                <nav class="blockmy centermy">
+                                    <ul id="pagination_div" class="pagination">
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                     <!--Filter pane end-->

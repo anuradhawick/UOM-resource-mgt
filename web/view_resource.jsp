@@ -19,10 +19,14 @@
 <html>
     <head>
         <title>UoM RMS</title>
+
+        <link rel="stylesheet" type="text/css" media="screen"
+              href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
         <%@include file="common_imports.jsp" %>     
+        <!--<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">-->
 
         <script>
-            var onReserveClick = function () {
+            var loadReservationPane = function () {
                 if (<%=session.getAttribute("logged")%>) {
             <%
                 AuthorizedPerson authorizedPerson = new AuthorizedPerson();
@@ -34,17 +38,20 @@
             %>
                     var category = localStorage.getItem("cat").toLowerCase();
                     if (category === "vehicle") {
-                        $("#requestmodalVehicle").modal('show');
-                    }
-                    else if (category === "maintenance tool" || category === 'sports item') {
-                        $("#requestmodalCount").modal('show');
+                        $("#add_resravation_vehicle").show();
+                        $('#add_resravation').hide();
+                        $('#add_resravation_button').hide();
                     }
                     else {
-                        $("#requestmodalCapacity").modal('show');
+                        $("#add_resravation_vehicle").hide();
+                        $('#add_resravation').show();
+                        $('#add_resravation_button').hide();
                     }
                 }
                 else {
-                    window.location.replace("login.jsp");
+                    $("#add_resravation_vehicle").hide();
+                    $('#add_resravation').hide();
+                    $('#add_resravation_button').show();
                 }
             };
         </script>
@@ -57,190 +64,196 @@
             <div id="page-wrapper">
                 <div class="main-page compose">
                     <!-- main content start-->
-                    <div class="media col-md-12">
-                        <div class="bs-example5 widget-shadow" data-example-id="default-media">
-                            <div class="media">
-                                <div class="media-left col-md-2">
-                                    <a href="#">
-                                        <img class="media-object" data-src="holder.js/64x64" alt="128x128" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNGUwMDNiM2U3NSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE0ZTAwM2IzZTc1Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 128px; height: 128px;">
-                                    </a>
-                                </div>
-                                <div class="media-right col-md-10">
-                                    <div id="resource_heading" class="media-heading"></div><br>
-                                    <button type="button" class="btn btn-info" data-toggle="modal" data-whatever="@mdo" onclick="onReserveClick()">Reserve</button></div>
-                                <!--Modal for all (Capacity)-->
-                                <div class="modal fade form-horizontal panel-default" id="requestmodalCapacity" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="exampleModalLabel">Make a reservation</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>Capacity</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' type='number' name='capacity' min='1' placeholder='Capacity'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>From</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' name='from' placeholder='From'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>To</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' name='to' placeholder='To'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class="form-group">
-                                                        <label class='control-label col-sm-3' for='mediuminput'>Purpose</label> 
-                                                        <div class='col-sm-9'>
-                                                            <textarea name='purpose' id='txtarea1' cols="50" rows='10' class='form-control1 col-sm-8' placeholder='Metion the purpose of the reservation here'></textarea>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="btn btn-primary">Reserve</button>
+                    <div class="col-md-8">
+                        <div class="widget-shadow" style="padding-right: 25px;">
+                            <div class="bs-example5" data-example-id="default-media">
+                                <div class="media">
+                                    <div class="media-left col-md-3">
+                                        <a href="#">
+                                            <img class="media-object" data-src="holder.js/64x64" alt="128x128" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PCEtLQpTb3VyY2UgVVJMOiBob2xkZXIuanMvNjR4NjQKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNGUwMDNiM2U3NSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE0ZTAwM2IzZTc1Ij48cmVjdCB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIGZpbGw9IiNFRUVFRUUiLz48Zz48dGV4dCB4PSIxNC41IiB5PSIzNi41Ij42NHg2NDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==" data-holder-rendered="true" style="width: 128px; height: 128px;">
+                                        </a>
+                                    </div>
+                                    <div class="media-right col-md-9" style="padding-left: 20px;">
+                                        <div id="resource_heading" class="media-heading"></div><br>
+                                        <button id="add_resravation_button" class="btn btn-primary">Reserve</button>
+                                    </div>   
+                                    <div class="clearfix"></div>
+                                    <div class="media-body">
+                                        <div class="tables">
+                                            <div class="panel-body widget-shadow">
+                                                <table class="table">
+                                                    <tbody  id="resource_details">
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!--Modal for (Capacity) end-->
-                                <!--Modal for (Count) start-->
-                                <div class="modal fade form-horizontal panel-default" id="requestmodalCount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="exampleModalLabel">Make a reservation</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>Count</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' type='number' name='count' min='1' placeholder='Count'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>From</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' name='from' placeholder='From'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>To</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' name='to' placeholder='To'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class="form-group">
-                                                        <label class='control-label col-sm-3' for='mediuminput'>Purpose</label> 
-                                                        <div class='col-sm-9'>
-                                                            <textarea name='purpose' id='txtarea1' cols="50" rows='10' class='form-control1 col-sm-8' placeholder='Metion the purpose of the reservation here'></textarea>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="btn btn-primary">Reserve</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Modal for (Count) end-->
-                                <!--Modal for vehicle start-->
-                                <div class="modal fade form-horizontal panel-default" id="requestmodalVehicle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title" id="exampleModalLabel">Make a reservation</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form>
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>Capacity</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' type='number' name='capacity' min='1' placeholder='Capacity'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>From</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' name='from' placeholder='From'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>To</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' name='to' placeholder='To'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>Starting location</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' name='start' placeholder='Starting location'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class='form-group'>
-                                                        <label class='control-label col-sm-3' for='mediuminput'>Destination</label> 
-                                                        <div class='col-sm-9'> 
-                                                            <input class='form-control1' name='destination' placeholder='Destination'> 
-                                                        </div> 
-                                                    </div> 
-                                                    <div class="form-group">
-                                                        <label class='control-label col-sm-3' for='mediuminput'>Purpose</label> 
-                                                        <div class='col-sm-9'>
-                                                            <textarea name='purpose' id='txtarea1' cols="50" rows='10' class='form-control1 col-sm-8' placeholder='Metion the purpose of the reservation here'></textarea>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                <button type="button" class="btn btn-primary">Reserve</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!--Modal for vehicle end-->
-                            </div>   
-                            <div class="clearfix"></div>
-                            <div class="media-body">
-                                <div class="tables">
-                                    <div class="panel-body widget-shadow">
-                                        <table class="table">
-                                            <tbody  id="resource_details">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"> </div>
+                            </div>	
                         </div>
                     </div>
+                    <!--Add reservation start-->
+                    <div id="add_resravation" class="col-md-4 widget-shadow">
+                        <div class="forms">
+                            <div class="form-three">
+                                <form class='form-horizontal panel-default'>
+                                    <div class='form-group'>
+                                        <label class='col-sm-12' for='mediuminput'>Capacity/No of items</label><br><br>
+                                        <div class='col-sm-12'> 
+                                            <input class='form-control1' type='number' name='capacity' min='1' placeholder='Capacity' required> 
+                                        </div> 
+                                    </div> 
+                                    <div class='form-group'>
+                                        <label class='col-sm-12' for='mediuminput'>From</label><br><br>
+                                        <div id="datetimepicker4" class="col-sm-6 input-append">
+                                            <input class="form-control1 add-on" data-format="yyyy-MM-dd" type="text" placeholder="Date" name="from_date" required readonly>
+                                        </div>
+                                        <div id="datetimepicker3" class="col-sm-6 input-append">
+                                            <input class="form-control1 add-on" data-format="hh:mm:ss" type="text" placeholder="Time" name="from_time" required readonly>
+                                        </div>
+                                    </div> 
+                                    <div class='form-group'>
+                                        <label class='col-sm-12' for='mediuminput'>To</label><br><br>
+                                        <div id="datetimepicker6" class="col-sm-6 input-append">
+                                            <input class="form-control1 add-on" data-format="yyyy-MM-dd" type="text" placeholder="Date" name="to_date" required readonly>
+                                        </div>
+                                        <div id="datetimepicker5" class="col-sm-6 input-append">
+                                            <input class="form-control1 add-on" data-format="hh:mm:ss" type="text" placeholder="Time" name="to_time" required readonly>
+                                        </div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class='col-sm-12' for='mediuminput'>Purpose</label><br><br> 
+                                        <div class='col-sm-12'>
+                                            <textarea  name='purpose' id='txtarea1' cols="50" rows='3' class='form-control1-freeheight col-sm-8' placeholder='Metion the purpose of the reservation here' required=""></textarea>
+                                        </div>
+                                    </div>
+                                    <div class='form-group'> 
+                                        <div class='col-sm-6 col-sm-offset-3'> 
+                                            <button class='btn btn-primary' type='submit'>Reserve</button> 
+                                        </div> 
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Add reservation end-->
+                    <!--Add vehicle reservation start-->
+                    <div id="add_resravation_vehicle" class="col-md-4 widget-shadow">
+                        <div class="forms">
+                            <div class="form-three">
+                                <form class='form-horizontal panel-default'>
+                                    <div class='form-group'>
+                                        <label class='col-sm-12' for='mediuminput'>Capacity/No of items</label><br><br>
+                                        <div class='col-sm-12'> 
+                                            <input class='form-control1' type='number' name='capacity' min='1' placeholder='Capacity' required> 
+                                        </div> 
+                                    </div> 
+                                    <div class='form-group'>
+                                        <label class='col-sm-12' for='mediuminput'>From</label><br><br>
+                                        <div id="datetimepicker4" class="col-sm-6 input-append">
+                                            <input class="form-control1 add-on" data-format="yyyy-MM-dd" type="text" placeholder="Date" name="from_date" required readonly>
+                                        </div>
+                                        <div id="datetimepicker3" class="col-sm-6 input-append">
+                                            <input class="form-control1 add-on" data-format="hh:mm:ss" type="text" placeholder="Time" name="from_time" required readonly>
+                                        </div>
+                                    </div> 
+                                    <div class='form-group'>
+                                        <label class='col-sm-12' for='mediuminput'>To</label><br><br>
+                                        <div id="datetimepicker6" class="col-sm-6 input-append">
+                                            <input class="form-control1 add-on" data-format="yyyy-MM-dd" type="text" placeholder="Date" name="to_date" required readonly>
+                                        </div>
+                                        <div id="datetimepicker5" class="col-sm-6 input-append">
+                                            <input class="form-control1 add-on" data-format="hh:mm:ss" type="text" placeholder="Time" name="to_time" required readonly>
+                                        </div>
+                                    </div> 
+                                    <div class='form-group'>
+                                        <label class='col-sm-12' for='mediuminput'>Starting location</label><br><br>
+                                        <div class='col-sm-12'> 
+                                            <input class='form-control1'  name='start' placeholder='Start' required> 
+                                        </div> 
+                                    </div> 
+                                    <div class='form-group'>
+                                        <label class='col-sm-12' for='mediuminput'>Destination</label><br><br>
+                                        <div class='col-sm-12'> 
+                                            <input class='form-control1' name='end' min='1' placeholder='End' required> 
+                                        </div> 
+                                    </div> 
+                                    <div class="form-group">
+                                        <label class='col-sm-12' for='mediuminput'>Purpose</label><br><br> 
+                                        <div class='col-sm-12'>
+                                            <textarea  name='purpose' id='txtarea1' cols="50" rows='3' class='form-control1-freeheight col-sm-8' placeholder='Metion the purpose of the reservation here' required=""></textarea>
+                                        </div>
+                                    </div>
+                                    <div class='form-group'> 
+                                        <div class='col-sm-6 col-sm-offset-3'> 
+                                            <button class='btn btn-primary' type='submit'>Reserve</button> 
+                                        </div> 
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Add vehicle reservation end-->
                 </div>
                 <div class="clearfix"> </div>	
             </div>
+            <!-- main content end-->
         </div>
-        <!-- main content end-->
         <%@include file="footer.jsp" %>      
+
+        <script type="text/javascript"
+                src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+        </script> 
+        <script type="text/javascript"
+                src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js">
+        </script>
+        <script type="text/javascript"
+                src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.min.js">
+        </script>
+        <script type="text/javascript"
+                src="http://tarruda.github.com/bootstrap-datetimepicker/assets/js/bootstrap-datetimepicker.pt-BR.js">
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker4').datetimepicker({
+                    pickTime: false,
+                    language: 'en',
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker3').datetimepicker({
+                    pickDate: false,
+                    language: 'en',
+                    pick12HourFormat: true
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker6').datetimepicker({
+                    pickTime: false,
+                    language: 'en',
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker5').datetimepicker({
+                    pickDate: false,
+                    language: 'en',
+                    pick12HourFormat: true
+                });
+            });
+        </script>
+
         <script>
             $(document).ready(function () {
                 $.get("get_resource?resourceid=" + localStorage.getItem("id") + "&category=" + localStorage.getItem("cat"), function (data) {
                     var cat = localStorage.getItem("cat").toLowerCase();
                     var jsonObject = $.parseJSON(data);
-
                     $("#resource_heading").append("<h1>" + jsonObject['resourceName'] + "</h1>");
-
                     if (cat === "hall") {
                         var airConditioned;
                         var projectorAvailable;
@@ -307,6 +320,16 @@
                 //                else if (cat === "sports place") {
                 //
                 //                }
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                loadReservationPane();
+            });
+
+            $('#add_resravation_button').click(function () {
+                window.location.href = "login.jsp";
             });
         </script>
 

@@ -4011,3 +4011,17 @@ i.fa.fa-facebook.profile-icon {
 .rightmy {
     margin:auto 0 auto auto;
 }
+
+.form-control1-freeheight{
+    border: 1px solid #ccc;
+    padding: 5px 8px;
+    color: #616161;
+    background: #fff;
+    box-shadow: none !important;
+    width: 100%;
+    font-size: 0.85em;
+    font-weight: 300;
+    border-radius: 0;
+    -webkit-appearance: none;
+    resize: none;
+}
