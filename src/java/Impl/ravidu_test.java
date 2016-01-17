@@ -33,11 +33,13 @@ import model.logic.ResourceHandler;
 public class ravidu_test {
 
     public static void main(String[] args) throws SQLException, ParseException {
-       DBSearchHandler hn=new DBSearchHandler();
-       ArrayList<Resource> de=hn.getCapacityResource("Hall", 100, 0,10);
-        for (Resource de1 : de) {
-            System.out.println(de1.getResourceName());
-        }
+       DBSelectHandler hn=new DBSelectHandler();
+       String statr="2016-01-16 09:21:00";
+       String end="2016-01-18 12:00:00";
+       SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+       Date dd1=f.parse(statr);
+       Date e=f.parse(end);
+        System.out.println(hn.getAvailableItemCount("8", dd1, e));
         
         
     }

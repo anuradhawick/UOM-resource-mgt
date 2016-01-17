@@ -104,6 +104,10 @@
         <servlet-name>getcapacityresource</servlet-name>
         <servlet-class>Controller.res_opt.getcapacityresource</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>get_availableitemcount</servlet-name>
+        <servlet-class>Controller.res_opt.get_availableitemcount</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>login_servelet</servlet-name>
         <url-pattern>/login_servelet</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>getcapacityresource</servlet-name>
         <url-pattern>/getcapacityresource</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>get_availableitemcount</servlet-name>
+        <url-pattern>/get_availableitemcount</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
