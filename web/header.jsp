@@ -24,108 +24,93 @@
         <!--//logo-->
         <div class="center">
             <%
-                    String __jspName = this.getClass().getSimpleName().replaceAll("005f", "");
-                    __jspName = __jspName.replaceAll("_", "");      %>
+                String __jspName = this.getClass().getSimpleName().replaceAll("005f", "");
+                __jspName = __jspName.replaceAll("_", "");      %>
             <h3 class="title1"><% if (__jspName.equals("indexjsp")) {
-                            out.print("All Resources");
-                        }
-            else if (__jspName.equals("allocationsjsp")) {
-                            out.print("Allocations");
-                        }
-            else if (__jspName.equals("addnewresourcejsp")) {
-                            out.print("Add New Resource");
-                        }
-            else if (__jspName.equals("addnewmanagerjsp")) {
-                            out.print("Add New Manager");
-                        }
-            else if (__jspName.equals("contactusjsp")) {
-                            out.print("Contact Us");
-                        }
-            else if (__jspName.equals("aboutjsp")) {
-                            out.print("About");
-                        }%></h3>
+                    out.print("All Resources");
+                } else if (__jspName.equals("allocationsjsp")) {
+                    out.print("Allocations");
+                } else if (__jspName.equals("addnewresourcejsp")) {
+                    out.print("Add New Resource");
+                } else if (__jspName.equals("addnewmanagerjsp")) {
+                    out.print("Add New Manager");
+                } else if (__jspName.equals("contactusjsp")) {
+                    out.print("Contact Us");
+                } else if (__jspName.equals("aboutjsp")) {
+                    out.print("About");
+                }%></h3>
         </div>
         <div class="clearfix"></div>
     </div>
+    <script>
+        $(document).ready(function () {
+            var update_noti = function () {
+                $("#not_area").empty();
+                $.get("/uomrms/notification_generator", function (data, success) {
+                    var arr = $.parseJSON(data);
+                    var num_of_notifications = arr.length;
+                    $(".not_count").text(num_of_notifications);
+                    $("#not_area").append("<li><div class=\"notification_header\"><h3>You have <span class=\"" + num_of_notifications + "\"></span> new notification</h3></div></li>");
+                    $.each(arr, function (i, item) {
+//                        alert(item["notification"]);
+                        $("#not_area").append("<li><a href=\"#\"><div class=\"user_img\"><img src=\"images/avatar.png\" alt=\"\"></div><div class=\"notification_desc\"><p>" + item["notification"] + "</p></div><div class=\"clearfix\"></div></a></li>");
+                    });
+                    $("#not_area").append("<li><div class=\"notification_bottom\"><a href=\"#\">See all notifications</a></div></li>");
+                });
+            }
+            update_noti();
+            setInterval(function(){
+                update_noti();
+            },5000);
+//            update_noti();
+        });
+    </script>
     <div class="header-right">
         <div class="profile_details_left"><!--notifications of menu start -->
             <ul class="nofitications-dropdown">
+                <!--                <li class="dropdown head-dpdn">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">3</span></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <div class="notification_header">
+                                                <h3>You have 3 new messages</h3>
+                                            </div>
+                                        </li>
+                                        <li><a href="#">
+                                                <div class="user_img"><img src="images/1.png" alt=""></div>
+                                                <div class="notification_desc">
+                                                    <p>Lorem ipsum dolor amet</p>
+                                                    <p><span>1 hour ago</span></p>
+                                                </div>
+                                                <div class="clearfix"></div>	
+                                            </a></li>
+                                        <li class="odd"><a href="#">
+                                                <div class="user_img"><img src="images/2.png" alt=""></div>
+                                                <div class="notification_desc">
+                                                    <p>Lorem ipsum dolor amet </p>
+                                                    <p><span>1 hour ago</span></p>
+                                                </div>
+                                                <div class="clearfix"></div>	
+                                            </a></li>
+                                        <li><a href="#">
+                                                <div class="user_img"><img src="images/3.png" alt=""></div>
+                                                <div class="notification_desc">
+                                                    <p>Lorem ipsum dolor amet </p>
+                                                    <p><span>1 hour ago</span></p>
+                                                </div>
+                                                <div class="clearfix"></div>	
+                                            </a></li>
+                                        <li>
+                                            <div class="notification_bottom">
+                                                <a href="#">See all messages</a>
+                                            </div> 
+                                        </li>
+                                    </ul>
+                                </li>-->
                 <li class="dropdown head-dpdn">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-envelope"></i><span class="badge">3</span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <div class="notification_header">
-                                <h3>You have 3 new messages</h3>
-                            </div>
-                        </li>
-                        <li><a href="#">
-                                <div class="user_img"><img src="images/1.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet</p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>	
-                            </a></li>
-                        <li class="odd"><a href="#">
-                                <div class="user_img"><img src="images/2.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet </p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>	
-                            </a></li>
-                        <li><a href="#">
-                                <div class="user_img"><img src="images/3.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet </p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>	
-                            </a></li>
-                        <li>
-                            <div class="notification_bottom">
-                                <a href="#">See all messages</a>
-                            </div> 
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown head-dpdn">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">3</span></a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <div class="notification_header">
-                                <h3>You have 3 new notification</h3>
-                            </div>
-                        </li>
-                        <li><a href="#">
-                                <div class="user_img"><img src="images/avatar.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet</p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>	
-                            </a></li>
-                        <li class="odd"><a href="#">
-                                <div class="user_img"><img src="images/1.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet </p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>	
-                            </a></li>
-                        <li><a href="#">
-                                <div class="user_img"><img src="images/3.png" alt=""></div>
-                                <div class="notification_desc">
-                                    <p>Lorem ipsum dolor amet </p>
-                                    <p><span>1 hour ago</span></p>
-                                </div>
-                                <div class="clearfix"></div>	
-                            </a></li>
-                        <li>
-                            <div class="notification_bottom">
-                                <a href="#">See all notifications</a>
-                            </div> 
-                        </li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue"><span class="not_count"></span></span></a>
+                    <ul id="not_area" class="dropdown-menu">                        
+                        <!--To be loaded from jquery-->
                     </ul>
                 </li>		
             </ul>
@@ -170,7 +155,7 @@
                             %>
                         <li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li> 
                         <li><a href="/uomrms/logout_servlet"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                        <%
+                            <%
                                 }%>
                     </ul>
                 </li>

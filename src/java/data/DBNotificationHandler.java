@@ -108,12 +108,13 @@ public class DBNotificationHandler {
         String notif;
         connection = DBConnector.connect();
         statement = connection.prepareStatement("SELECT idnotification,notification,reserve_reserveID FROM notification n JOIN person p ON n.person_ID = p.ID WHERE p.ID=? AND n.read_status=0");
+        statement.setString(1, p.getId());
         ResultSet set = statement.executeQuery();
         while (set.next()) {
             notif_id = set.getInt("idnotification");
             notif = set.getString("notification");
             res_id = set.getInt("reserve_reserveID");
-            Notification n = new Notification(notif, p, res_id);
+            Notification n = new Notification(notif, p, res_id);          
             n.setNotif_id(notif_id);
             arr.add(n);
         }
