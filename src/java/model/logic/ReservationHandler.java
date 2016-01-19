@@ -38,11 +38,12 @@ public class ReservationHandler {
         if (isAvailable(reservation.getResourceId(), reservation.getStartTime(), reservation.getEndTime())) {
             try {
                 return new DBInsertDeleteHandler().insertReservation(reservation);
-            } catch (SQLException ex) {
+            } catch (Exception ex) {
                 logger.error("Insert reservation failed", ex);
             }
 
         } else {
+            
             return -1;
         }
         return -1;

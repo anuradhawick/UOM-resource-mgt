@@ -43,14 +43,17 @@ public class DBSelectHandler {
             Calendar cal = Calendar.getInstance();
             cal.setTime(startTime);
             String dayofweek = getDay(cal.get(Calendar.DAY_OF_WEEK));
-            PreparedStatement preparedStatement1 = connection.prepareStatement("SELECT count(resourceid) as count FROM resource_management.daily_time_slot WHERE resourceid=? and ((start_time <=? and end_time >=?) or (start_time <=? and end_time >=?) or (date_start>=? and date_end<=?)) and day=?;");
+
+            PreparedStatement preparedStatement1 = connection.prepareStatement("SELECT count(resourceid) as count FROM resource_management.daily_time_slot WHERE resourceid=? and ((start_time <=? and end_time >=?) or (start_time <=? and end_time >=?) or (start_time>=? and end_time<=?)) and day=?;");
             preparedStatement1.setInt(1, resourceID);
+
+
             preparedStatement1.setTimestamp(2, new Timestamp(startTime.getTime()));
             preparedStatement1.setTimestamp(3, new Timestamp(startTime.getTime()));
             preparedStatement1.setTimestamp(4, new Timestamp(endTime.getTime()));
             preparedStatement1.setTimestamp(5, new Timestamp(endTime.getTime()));
-            preparedStatement.setTimestamp(6, new Timestamp(startTime.getTime()));
-            preparedStatement.setTimestamp(7, new Timestamp(endTime.getTime()));
+            preparedStatement1.setTimestamp(6, new Timestamp(startTime.getTime()));
+            preparedStatement1.setTimestamp(7, new Timestamp(endTime.getTime()));
             preparedStatement1.setString(8, dayofweek);
             ResultSet resultSet1 = preparedStatement1.executeQuery();
 
