@@ -8,7 +8,7 @@ public class Lab extends Resource {
     public Lab() {
     }
     
-    public Lab(String resourceid, String category, String resourceName, int capacityAmount, String description, boolean airConditioned,Department department) {
+    public Lab(int resourceid, String category, String resourceName, int capacityAmount, String description, boolean airConditioned,Department department) {
         super(resourceid, category, resourceName, capacityAmount, description);
         this.airConditioned = airConditioned;
         this.department=department;

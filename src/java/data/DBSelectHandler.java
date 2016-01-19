@@ -18,11 +18,11 @@ public class DBSelectHandler {
 
     private HashMap<Integer, String> day;
 
-    public boolean isAvailable(String resourceID, Date startTime, Date endTime) throws SQLException {
+    public boolean isAvailable(int resourceID, Date startTime, Date endTime) throws SQLException {
         int counter = 0;
         Connection connection = DBConnector.connect();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT count(reserveID) as count FROM resource_management.reserve WHERE resourceid=? and ((date_start <= ? and date_end >= ?) or (date_start <= ? and date_end >= ?) or (date_start>=? and date_end<=?));");
-        preparedStatement.setString(1, resourceID);
+        preparedStatement.setInt(1, resourceID);
         preparedStatement.setTimestamp(2, new Timestamp(startTime.getTime()));
         preparedStatement.setTimestamp(3, new Timestamp(startTime.getTime()));
         preparedStatement.setTimestamp(4, new Timestamp(endTime.getTime()));
@@ -44,7 +44,7 @@ public class DBSelectHandler {
             cal.setTime(startTime);
             String dayofweek = getDay(cal.get(Calendar.DAY_OF_WEEK));
             PreparedStatement preparedStatement1 = connection.prepareStatement("SELECT count(resourceid) as count FROM resource_management.daily_time_slot WHERE resourceid=? and ((start_time <=? and end_time >=?) or (start_time <=? and end_time >=?) or (date_start>=? and date_end<=?)) and day=?;");
-            preparedStatement1.setString(1, resourceID);
+            preparedStatement1.setInt(1, resourceID);
             preparedStatement1.setTimestamp(2, new Timestamp(startTime.getTime()));
             preparedStatement1.setTimestamp(3, new Timestamp(startTime.getTime()));
             preparedStatement1.setTimestamp(4, new Timestamp(endTime.getTime()));

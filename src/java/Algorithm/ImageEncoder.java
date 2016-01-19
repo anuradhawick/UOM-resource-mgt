@@ -36,7 +36,7 @@ public class ImageEncoder {
             byte[] barr = IOUtils.toByteArray(img);
             Base64.Encoder en = Base64.getEncoder();
             theString = en.encodeToString(barr);
-        } catch (IOException iOException) {
+        } catch (Exception iOException) {
             // Do nothing
         }
         //item.write(f);

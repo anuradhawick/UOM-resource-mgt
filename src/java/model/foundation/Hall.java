@@ -13,7 +13,7 @@ public class Hall extends Resource {
     public Hall() {
     }
     
-    public Hall(String resourceid, String category, String resourceName, int capacityAmount, String description, Department department, Boolean airConditioned, Boolean projectorAvailable, String boardType) {
+    public Hall(int resourceid, String category, String resourceName, int capacityAmount, String description, Department department, Boolean airConditioned, Boolean projectorAvailable, String boardType) {
         super(resourceid, category, resourceName, capacityAmount, description);
         this.department = department;
         this.airConditioned = airConditioned;

@@ -186,7 +186,7 @@ public class DBInsertDeleteHandler {
         statement.setInt(1, reservation.getCapacity());
         statement.setTimestamp(2, new Timestamp(reservation.getStartTime().getTime()));
         statement.setTimestamp(3, new Timestamp(reservation.getEndTime().getTime()));
-        statement.setString(4, reservation.getResourceId());
+        statement.setInt(4, reservation.getResourceId());
         statement.setString(5, reservation.getPersonId());
         statement.executeUpdate();
         statement.clearParameters();
@@ -225,7 +225,7 @@ public class DBInsertDeleteHandler {
     public void insertInto_maintainer(Person person, Hall hall) throws SQLException {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.maintainer (resourceid, ID) VALUES (?,?)");
-        statement.setString(1, hall.getResourceid());
+        statement.setInt(1, hall.getResourceid());
         statement.setString(2, person.getId());
         statement.executeUpdate();
         statement.clearParameters();
@@ -236,7 +236,7 @@ public class DBInsertDeleteHandler {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.driver (ID, resourceid)  VALUES (?,?)");
         statement.setString(1, person.getId());
-        statement.setString(2, vehicle.getResourceid());
+        statement.setInt(2, vehicle.getResourceid());
         statement.executeUpdate();
         statement.clearParameters();
         statement.close();
@@ -246,7 +246,7 @@ public class DBInsertDeleteHandler {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.route (reserveID, resourceid)  VALUES (?,?)");
         statement.setInt(1, reservation.getReserveId());
-        statement.setString(2, vehicle.getResourceid());
+        statement.setInt(2, vehicle.getResourceid());
         statement.executeUpdate();
         statement.clearParameters();
         statement.close();

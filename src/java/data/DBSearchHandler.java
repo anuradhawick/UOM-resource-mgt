@@ -47,7 +47,7 @@ public class DBSearchHandler {
                 while (rs.next()) {
 
                     Lab lab = new Lab();
-                    lab.setResourceid(rs.getString("resourceid"));
+                    lab.setResourceid(rs.getInt("resourceid"));
                     lab.setCategory(category);
                     lab.setResourceName(rs.getString("resource_name"));
                     lab.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -77,7 +77,7 @@ public class DBSearchHandler {
 
                 while (rs.next()) {
                     SportPlace sportplace = new SportPlace();
-                    sportplace.setResourceid(rs.getString("resourceid"));
+                    sportplace.setResourceid(rs.getInt("resourceid"));
                     sportplace.setCategory(category);
                     sportplace.setResourceName(rs.getString("resource_name"));
                     sportplace.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -100,7 +100,7 @@ public class DBSearchHandler {
 
                 while (rs.next()) {
                     SportItem sportitem = new SportItem();
-                    sportitem.setResourceid(rs.getString("resourceid"));
+                    sportitem.setResourceid(rs.getInt("resourceid"));
                     sportitem.setCategory(category);
                     sportitem.setResourceName(rs.getString("resource_name"));
                     sportitem.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -122,7 +122,7 @@ public class DBSearchHandler {
                 ArrayList mt = new ArrayList<>();
                 while (rs.next()) {
                     MaintenanceTool tool = new MaintenanceTool();
-                    tool.setResourceid(rs.getString("resourceid"));
+                    tool.setResourceid(rs.getInt("resourceid"));
                     tool.setCategory(category);
                     tool.setResourceName(rs.getString("resource_name"));
                     tool.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -146,7 +146,7 @@ public class DBSearchHandler {
                 while (rs.next()) {
 
                     Hall hall = new Hall();
-                    hall.setResourceid(rs.getString("resourceid"));
+                    hall.setResourceid(rs.getInt("resourceid"));
                     hall.setCategory(category);
                     hall.setResourceName(rs.getString("resource_name"));
                     hall.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -176,7 +176,7 @@ public class DBSearchHandler {
 
                 while (rs.next()) {
                     Vehicle vehicle = new Vehicle();
-                    vehicle.setResourceid(rs.getString("resourceid"));
+                    vehicle.setResourceid(rs.getInt("resourceid"));
                     vehicle.setCategory(category);
                     vehicle.setResourceName(rs.getString("resource_name"));
                     vehicle.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -200,20 +200,20 @@ public class DBSearchHandler {
         return null;
     }
 
-    public ArrayList<Resource> searchbyWord(String word,int offset,int limit) {
+    public ArrayList<Resource> searchbyWord(String word, int offset, int limit) {
         word = word.trim();
         Connection connection = DBConnector.connect();
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM resource WHERE resource_name LIKE ? LIMIT ?,?");
             statement.setString(1, "%" + word + "%");
             statement.setInt(2, offset);
-            statement.setInt(3,limit);
+            statement.setInt(3, limit);
             ResultSet rs = statement.executeQuery();
 
             ArrayList<Resource> arr = new ArrayList<>();
             while (rs.next()) {
                 ResourceView rv = new ResourceView();
-                rv.setResourceid(rs.getString("resourceid"));
+                rv.setResourceid(rs.getInt("resourceid"));
                 rv.setResourceName(rs.getString("resource_name"));
                 rv.setCapacityAmount(rs.getInt("capacity_amount"));
                 rv.setCategory(rs.getString("cat_name"));
@@ -230,9 +230,9 @@ public class DBSearchHandler {
 
     }
 
-    public ArrayList<Resource> getCapacityResource(String category, int capacity,int offset,int limit) {
+    public ArrayList<Resource> getCapacityResource(String category, int capacity, int offset, int limit) {
         Connection connection = DBConnector.connect();
-        
+
         try {
             if (category.equals("Hall")) {
                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM resource INNER JOIN hall USING(resourceid) WHERE cat_name=?  AND capacity_amount>=? LIMIT ?,?");
@@ -243,8 +243,8 @@ public class DBSearchHandler {
                 ResultSet rs = preparedStatement.executeQuery();
                 ArrayList arr = new ArrayList<>();
                 while (rs.next()) {
-                   Hall hall = new Hall();
-                    hall.setResourceid(rs.getString("resourceid"));
+                    Hall hall = new Hall();
+                    hall.setResourceid(rs.getInt("resourceid"));
                     hall.setCategory(category);
                     hall.setResourceName(rs.getString("resource_name"));
                     hall.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -261,9 +261,9 @@ public class DBSearchHandler {
                     arr.add(hall);
                 }
                 return arr;
-            }else if(category.equals("Lab")){
-            
-               PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM resource INNER JOIN lab USING(resourceid) WHERE cat_name=? AND capacity_amount>=? LIMIT ?,?");
+            } else if (category.equals("Lab")) {
+
+                PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM resource INNER JOIN lab USING(resourceid) WHERE cat_name=? AND capacity_amount>=? LIMIT ?,?");
                 preparedStatement.setString(1, category);
                 preparedStatement.setInt(2, capacity);
                 preparedStatement.setInt(3, offset);
@@ -274,7 +274,7 @@ public class DBSearchHandler {
                 while (rs.next()) {
 
                     Lab lab = new Lab();
-                    lab.setResourceid(rs.getString("resourceid"));
+                    lab.setResourceid(rs.getInt("resourceid"));
                     lab.setCategory(category);
                     lab.setResourceName(rs.getString("resource_name"));
                     lab.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -309,7 +309,7 @@ public class DBSearchHandler {
 
         while (resultSet.next()) {
             ResourceView rv = new ResourceView();
-            rv.setResourceid(resultSet.getString("resourceid"));
+            rv.setResourceid(resultSet.getInt("resourceid"));
             rv.setResourceName(resultSet.getString("resource_name"));
             rv.setCapacityAmount(resultSet.getInt("capacity_amount"));
             rv.setDescription(resultSet.getString("description"));
@@ -336,7 +336,7 @@ public class DBSearchHandler {
                 if (rs.next()) {
 
                     Lab lab = new Lab();
-                    lab.setResourceid(rs.getString("resourceid"));
+                    lab.setResourceid(rs.getInt("resourceid"));
                     lab.setCategory(category);
                     lab.setResourceName(rs.getString("resource_name"));
                     lab.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -362,7 +362,7 @@ public class DBSearchHandler {
 
                 if (rs.next()) {
                     SportPlace sportplace = new SportPlace();
-                    sportplace.setResourceid(rs.getString("resourceid"));
+                    sportplace.setResourceid(rs.getInt("resourceid"));
                     sportplace.setCategory(category);
                     sportplace.setResourceName(rs.getString("resource_name"));
                     sportplace.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -380,7 +380,7 @@ public class DBSearchHandler {
                 ResultSet rs = preparedStatement.executeQuery();
                 if (rs.next()) {
                     SportItem sportitem = new SportItem();
-                    sportitem.setResourceid(rs.getString("resourceid"));
+                    sportitem.setResourceid(rs.getInt("resourceid"));
                     sportitem.setCategory(category);
                     sportitem.setResourceName(rs.getString("resource_name"));
                     sportitem.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -400,7 +400,7 @@ public class DBSearchHandler {
                 ResultSet rs = preparedStatement.executeQuery();
                 while (rs.next()) {
                     MaintenanceTool tool = new MaintenanceTool();
-                    tool.setResourceid(rs.getString("resourceid"));
+                    tool.setResourceid(rs.getInt("resourceid"));
                     tool.setCategory(category);
                     tool.setResourceName(rs.getString("resource_name"));
                     tool.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -421,7 +421,7 @@ public class DBSearchHandler {
                 while (rs.next()) {
 
                     Hall hall = new Hall();
-                    hall.setResourceid(rs.getString("resourceid"));
+                    hall.setResourceid(rs.getInt("resourceid"));
                     hall.setCategory(category);
                     hall.setResourceName(rs.getString("resource_name"));
                     hall.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -449,7 +449,7 @@ public class DBSearchHandler {
 
                 while (rs.next()) {
                     Vehicle vehicle = new Vehicle();
-                    vehicle.setResourceid(rs.getString("resourceid"));
+                    vehicle.setResourceid(rs.getInt("resourceid"));
                     vehicle.setCategory(category);
                     vehicle.setResourceName(rs.getString("resource_name"));
                     vehicle.setCapacityAmount(rs.getInt("capacity_amount"));
@@ -487,7 +487,7 @@ public class DBSearchHandler {
             rv.setCapacity(resultSet.getInt("capacity"));
             rv.setStartTime(resultSet.getDate("date_start"));
             rv.setEndTime(resultSet.getDate("date_end"));
-            rv.setResourceId(resultSet.getString("resourceid"));
+            rv.setResourceId(resultSet.getInt("resourceid"));
             rv.setPersonId(resultSet.getString("ID"));
             rv.setPurpose(resultSet.getString("purpose"));
             rv.setApproval(resultSet.getInt("approval"));
@@ -512,7 +512,7 @@ public class DBSearchHandler {
             rv.setCapacity(resultSet.getInt("capacity"));
             rv.setStartTime(resultSet.getDate("date_start"));
             rv.setEndTime(resultSet.getDate("date_end"));
-            rv.setResourceId(resultSet.getString("resourceid"));
+            rv.setResourceId(resultSet.getInt("resourceid"));
             rv.setPersonId(resultSet.getString("ID"));
             rv.setPurpose(resultSet.getString("purpose"));
             rv.setApproval(resultSet.getInt("approval"));
@@ -537,7 +537,7 @@ public class DBSearchHandler {
             rv.setCapacity(resultSet.getInt("capacity"));
             rv.setStartTime(resultSet.getDate("date_start"));
             rv.setEndTime(resultSet.getDate("date_end"));
-            rv.setResourceId(resultSet.getString("resourceid"));
+            rv.setResourceId(resultSet.getInt("resourceid"));
             rv.setPersonId(resultSet.getString("ID"));
             rv.setPurpose(resultSet.getString("purpose"));
             rv.setApproval(resultSet.getInt("approval"));
@@ -562,7 +562,7 @@ public class DBSearchHandler {
             rv.setCapacity(resultSet.getInt("capacity"));
             rv.setStartTime(resultSet.getDate("date_start"));
             rv.setEndTime(resultSet.getDate("date_end"));
-            rv.setResourceId(resultSet.getString("resourceid"));
+            rv.setResourceId(resultSet.getInt("resourceid"));
             rv.setPersonId(resultSet.getString("ID"));
             rv.setPurpose(resultSet.getString("purpose"));
             rv.setApproval(resultSet.getInt("approval"));
@@ -605,4 +605,21 @@ public class DBSearchHandler {
         return department;
     }
 
+    public Resource getResourceById(int id) throws SQLException {
+        Connection connection = DBConnector.connect();
+        PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM resource WHERE resourceid=?");
+        preparedStatement.setInt(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        Resource res = new Resource() {
+        };
+        if (resultSet.next()) {
+            res.setCapacityAmount(resultSet.getInt("capacity_amount"));
+            res.setResourceid(resultSet.getInt("resourceid"));
+            res.setDescription(resultSet.getString("description"));
+            res.setCategory(resultSet.getString("cat_name"));
+            res.setResourceName(resultSet.getString("resource_name"));
+        }
+        DBConnector.closeDB(connection);
+        return res;
+    }
 }

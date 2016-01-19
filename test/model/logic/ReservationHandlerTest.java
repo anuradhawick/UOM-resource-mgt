@@ -18,7 +18,7 @@ public class ReservationHandlerTest {
     
     @Test
     public void testIsAvailable() {
-        String resourceID = "10001";
+        int resourceID = 10001;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         Date startTime = null;
         Date endTime = null;

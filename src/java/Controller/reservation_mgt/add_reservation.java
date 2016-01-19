@@ -48,7 +48,7 @@ public class add_reservation extends HttpServlet {
             reserve.setStartTime(start);
             Date end = format.parse(request.getParameter("end"));
             reserve.setEndTime(end);
-            reserve.setResourceId(request.getParameter("resourceid"));
+            reserve.setResourceId(Integer.parseInt(request.getParameter("resourceid")));
             String username=(String)request.getSession().getAttribute("username");
             AuthorizedPerson person=new AuthorizedPerson();
             person.setUsername(username);

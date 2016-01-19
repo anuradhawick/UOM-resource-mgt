@@ -42,7 +42,7 @@ public class modify_reservation extends HttpServlet {
             reserve.setStartTime(start);
             Date end = format.parse(request.getParameter("end"));
             reserve.setEndTime(end);
-            reserve.setResourceId(request.getParameter("resourceid"));
+            reserve.setResourceId(Integer.parseInt(request.getParameter("resourceid")));
             reserve.setPersonId(request.getParameter("id"));
             ReservationHandler handler = new ReservationHandler();
             handler.modifyReservation(reserve);

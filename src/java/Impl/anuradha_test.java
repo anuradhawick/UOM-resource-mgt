@@ -6,6 +6,7 @@
 package Impl;
 
 import com.google.gson.Gson;
+import data.DBInsertDeleteHandler;
 import data.DBNotificationHandler;
 import data.DBPrivilegeUserHandler;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import java.util.List;
 import model.foundation.AuthorizedPerson;
 import model.foundation.Notification;
 import model.foundation.Person;
+import model.foundation.Vehicle;
 
 /**
  *
@@ -31,18 +33,20 @@ public class anuradha_test {
 //        String sss =g.toJson(ss);
 //        System.out.println(sss);
         
-        DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
-            AuthorizedPerson auth = new AuthorizedPerson();
-            auth.setUsername("admin");        
-            Person person = dbh.getLoggedPerson(auth);
-            System.out.println(person.getId());
-            DBNotificationHandler nh = new DBNotificationHandler();
-            ArrayList<Notification> arr = nh.getNotificationsUnread(person);
-            for(Notification n:arr){
-                System.out.println(n.getNotification());
-            }
-            Gson g = new Gson();
-            System.out.println(g.toJson(new ArrayList<Object>()));
+//        DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
+//            AuthorizedPerson auth = new AuthorizedPerson();
+//            auth.setUsername("admin");        
+//            Person person = dbh.getLoggedPerson(auth);
+//            System.out.println(person.getId());
+//            DBNotificationHandler nh = new DBNotificationHandler();
+//        ArrayList<Notification> arr = nh.getNotificationsUnread(person);
+//        for (Notification n : arr) {
+//            System.out.println(n.getNotification());
+//        }
+//        Gson g = new Gson();
+//        System.out.println(g.toJson(new ArrayList<Object>()));
+        
+        
     }
 
     static class s {
