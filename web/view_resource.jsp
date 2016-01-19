@@ -25,7 +25,7 @@
         <%@include file="common_imports.jsp" %>     
         <!--<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">-->
 
-        <script>            
+        <script>
             var loadReservationPane = function () {
                 if (<%=session.getAttribute("logged")%>) {
 
@@ -150,19 +150,19 @@
                                     </div> 
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>From</label><br><br>
-                                        <div id="datetimepicker4" class="col-sm-6 input-append">
+                                        <div id="datetimepicker8" class="col-sm-6 input-append">
                                             <input class="form-control1 add-on" data-format="yyyy-MM-dd" type="text" placeholder="Date" name="from_date" required readonly>
                                         </div>
-                                        <div id="datetimepicker3" class="col-sm-6 input-append">
+                                        <div id="datetimepicker7" class="col-sm-6 input-append">
                                             <input class="form-control1 add-on" data-format="hh:mm:ss" type="text" placeholder="Time" name="from_time" required readonly>
                                         </div>
                                     </div> 
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>To</label><br><br>
-                                        <div id="datetimepicker6" class="col-sm-6 input-append">
+                                        <div id="datetimepicker10" class="col-sm-6 input-append">
                                             <input class="form-control1 add-on" data-format="yyyy-MM-dd" type="text" placeholder="Date" name="to_date" required readonly>
                                         </div>
-                                        <div id="datetimepicker5" class="col-sm-6 input-append">
+                                        <div id="datetimepicker9" class="col-sm-6 input-append">
                                             <input class="form-control1 add-on" data-format="hh:mm:ss" type="text" placeholder="Time" name="to_time" required readonly>
                                         </div>
                                     </div> 
@@ -241,6 +241,40 @@
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker5').datetimepicker({
+                    pickDate: false,
+                    language: 'en',
+                    pick12HourFormat: true
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker8').datetimepicker({
+                    pickTime: false,
+                    language: 'en',
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker7').datetimepicker({
+                    pickDate: false,
+                    language: 'en',
+                    pick12HourFormat: true
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker10').datetimepicker({
+                    pickTime: false,
+                    language: 'en',
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker9 ').datetimepicker({
                     pickDate: false,
                     language: 'en',
                     pick12HourFormat: true

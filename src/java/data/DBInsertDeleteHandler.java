@@ -127,7 +127,7 @@ public class DBInsertDeleteHandler {
     }
 
     public void insertSportItem(SportItem sportItem) throws SQLException {
-        int insid=insertResource(sportItem);
+        int insid = insertResource(sportItem);
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.sport_item (sport , item_number ,resourceid) VALUES (?,?,?)");
         statement.setString(1, sportItem.getSport());
@@ -139,7 +139,7 @@ public class DBInsertDeleteHandler {
     }
 
     public void insertSportPlace(SportPlace sportPlace) throws SQLException {
-        int insid=insertResource(sportPlace);
+        int insid = insertResource(sportPlace);
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.sport_place (location, resourceid) VALUES (?,?)");
         statement.setString(1, sportPlace.getLocation());
@@ -180,9 +180,8 @@ public class DBInsertDeleteHandler {
         statement.close();
     }
 
-    public int insertReservation(Reservation reservation)  {
-        try {
-             connection = DBConnector.connect();
+    public int insertReservation(Reservation reservation) throws SQLException {
+        connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.reserve (capacity, date_start, date_end,resourceid, ID,approval,purpose) VALUES (?,?,?,?,?,?,?)");
         statement.setInt(1, reservation.getCapacity());
         statement.setTimestamp(2, new Timestamp(reservation.getStartTime().getTime()));
@@ -200,14 +199,9 @@ public class DBInsertDeleteHandler {
         if (rs.next()) {
             last_id = rs.getInt("last_id");
         }
-            System.out.println(last_id);
+        System.out.println(last_id);
         st.close();
         return last_id;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-       return -1;
-
     }
 
     public void insertResourceUser(ResourceUser resourceUser) throws SQLException {

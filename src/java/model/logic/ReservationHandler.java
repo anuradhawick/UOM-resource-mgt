@@ -41,7 +41,6 @@ public class ReservationHandler {
             } catch (Exception ex) {
                 logger.error("Insert reservation failed", ex);
             }
-
         } else {
             
             return -1;
