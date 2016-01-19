@@ -139,7 +139,7 @@
                     <div id="add_resravation_vehicle" class="col-md-4 widget-shadow">
                         <div class="forms">
                             <div class="form-three">
-                                <form id="add_resravation_form_vehicle" class='form-horizontal panel-default'>
+                                <form id="add_resravation_form_vehicle" class='form-horizontal panel-default' action="add_reservation">
                                     <div id="resource_id_vehicle">
                                     </div>
                                     <div class='form-group'>

@@ -46,9 +46,9 @@ public class add_reservation extends HttpServlet {
             Reservation reserve = new Reservation();
             reserve.setCapacity(Integer.parseInt(request.getParameter("capacity")));
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date start = format.parse(request.getParameter("from_date") + request.getParameter("from_time"));
+            Date start = format.parse(request.getParameter("from_date") + " " + request.getParameter("from_time"));
             reserve.setStartTime(start);
-            Date end = format.parse(request.getParameter("to_date") + request.getParameter("to_time"));
+            Date end = format.parse(request.getParameter("to_date") + " " + request.getParameter("to_time"));
             reserve.setEndTime(end);
 
             reserve.setResourceId(Integer.parseInt(request.getParameter("resourceid")));
@@ -66,9 +66,11 @@ public class add_reservation extends HttpServlet {
             
             ReservationHandler handler = new ReservationHandler();
             int id=handler.addReservation(reserve);
+            
+            
             if(request.getParameter("start")!=null){
                 String start_dest=request.getParameter("start");
-                String destination=request.getParameter("destination");
+                String destination=request.getParameter("end");
                 DBInsertDeleteHandler handle=new DBInsertDeleteHandler();
                 Route route=new Route();
                 route.setResourceid(Integer.parseInt(request.getParameter("resourceid")));
