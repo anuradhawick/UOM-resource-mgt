@@ -41,7 +41,7 @@ public class ravidu_test {
        Date e=f.parse(end);
        Reservation re=new Reservation();
        re.setPersonId("1");
-       re.setResourceId("1");
+    //   re.setResourceId("1");
        re.setStartTime(dd1);
        re.setEndTime(e);
        re.setApproval(1);

@@ -180,8 +180,8 @@ public class DBInsertDeleteHandler {
         statement.close();
     }
 
-    public int insertReservation(Reservation reservation)  {
-        try {
+    public int insertReservation(Reservation reservation) throws SQLException {
+        
              connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.reserve (capacity, date_start, date_end,resourceid, ID,approval,purpose) VALUES (?,?,?,?,?,?,?)");
         statement.setInt(1, reservation.getCapacity());
@@ -203,11 +203,7 @@ public class DBInsertDeleteHandler {
             System.out.println(last_id);
         st.close();
         return last_id;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-       return -1;
-
+      
     }
 
     public void insertResourceUser(ResourceUser resourceUser) throws SQLException {
@@ -265,6 +261,18 @@ public class DBInsertDeleteHandler {
         statement = connection.prepareStatement("DELETE FROM resource_management.reserve WHERE reserveID=?;");
         statement.setInt(1, reservationID);
         statement.executeUpdate();
+    }
+    
+    public void insertRoute(Route route) throws SQLException{
+        connection =DBConnector.connect();
+        statement=connection.prepareStatement("INSERT INTO route(resourceid,reserveid,`start`,destination) VALUES (?,?,?,?)");
+        statement.setInt(1,route.getResourceid() );
+        statement.setInt(2, route.getReserveid());
+        statement.setString(3, route.getStart());
+        statement.setString(4, route.getEnd());
+        statement.executeUpdate();
+        statement.clearParameters();
+        statement.close();
     }
 
 }
