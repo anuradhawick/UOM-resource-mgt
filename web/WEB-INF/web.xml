@@ -112,6 +112,14 @@
         <servlet-name>notification_generator</servlet-name>
         <servlet-class>Controller.notification_generator</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>update_image</servlet-name>
+        <servlet-class>Controller.auth.update_image</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>update_resimage</servlet-name>
+        <servlet-class>Controller.res_mgt.update_resimage</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>login_servelet</servlet-name>
         <url-pattern>/login_servelet</url-pattern>
@@ -223,6 +231,14 @@
     <servlet-mapping>
         <servlet-name>notification_generator</servlet-name>
         <url-pattern>/notification_generator</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>update_image</servlet-name>
+        <url-pattern>/update_image</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>update_resimage</servlet-name>
+        <url-pattern>/update_resimage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

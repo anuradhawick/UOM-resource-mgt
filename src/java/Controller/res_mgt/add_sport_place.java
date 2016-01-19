@@ -7,6 +7,7 @@ package Controller.res_mgt;
 
 import data.DBInsertDeleteHandler;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -46,6 +47,8 @@ public class add_sport_place extends HttpServlet {
             place.setDescription(request.getParameter("description"));
 
             place.setLocation("location");
+            InputStream img = Algorithm.RequestParser.getStream(request);
+            place.setImage(img);
             DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
             dbh.insertSportPlace(place);
             response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");

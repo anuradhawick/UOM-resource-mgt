@@ -7,6 +7,7 @@ package Controller.res_mgt;
 
 import data.DBInsertDeleteHandler;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -50,6 +51,8 @@ public class add_hall extends HttpServlet {
             d.setDeptName(request.getParameter("department"));
             d.setBuilding(request.getParameter("building"));
             v.setDepartment(d);
+            InputStream img = Algorithm.RequestParser.getStream(request);
+            v.setImage(img);
             DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
             dbh.insertHall(v);
             response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");

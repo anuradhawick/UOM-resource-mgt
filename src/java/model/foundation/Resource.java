@@ -1,5 +1,6 @@
 package model.foundation;
 
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ public abstract class Resource {
      private String resourceName;
      private int capacityAmount;
      private String description;
+     private InputStream image;
 
     public Resource() {
     }
@@ -56,6 +58,20 @@ public abstract class Resource {
     
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the image
+     */
+    public InputStream getImage() {
+        return image;
+    }
+
+    /**
+     * @param image the image to set
+     */
+    public void setImage(InputStream image) {
+        this.image = image;
     }
 }
 

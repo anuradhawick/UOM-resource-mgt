@@ -52,6 +52,8 @@ public class DBInsertDeleteHandler {
         if (rs.next()) {
             last_id = rs.getInt("last_id");
         }
+        DBResourceImageHandler dbrih = new DBResourceImageHandler();
+        dbrih.addImage(last_id, resource.getImage());
         statement.close();
         return last_id;
     }

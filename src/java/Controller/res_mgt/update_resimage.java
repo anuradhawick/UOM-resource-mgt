@@ -5,24 +5,18 @@
  */
 package Controller.res_mgt;
 
-import data.DBInsertDeleteHandler;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.SportItem;
 
 /**
  *
- * @author Pamoda
+ * @author Anuradha
  */
-public class add_sport_item extends HttpServlet {
+public class update_resimage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,31 +28,20 @@ public class add_sport_item extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            SportItem item = new SportItem();
-
-            item.setCategory("Sport Item");
-            item.setCapacityAmount(Integer.parseInt(request.getParameter("count")));
-            item.setResourceName(request.getParameter("resource_name"));
-            item.setDescription(request.getParameter("description"));
-
-            item.setItemNumber("item_code");
-            item.setSport("sport");
-            for (String s : request.getParameterMap().keySet()) {
-                out.println(s + " " + request.getParameter(s) + "<br>");
-            }
-            InputStream img = Algorithm.RequestParser.getStream(request);
-            item.setImage(img);
-            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-            dbh.insertSportItem(item);
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");
-        } catch (Exception e) {
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success=false");
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet update_resimage</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet update_resimage at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -73,11 +56,7 @@ public class add_sport_item extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(add_sport_item.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -91,11 +70,7 @@ public class add_sport_item extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(add_sport_item.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

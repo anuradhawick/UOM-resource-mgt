@@ -16,7 +16,7 @@ import org.apache.commons.io.IOUtils;
  */
 public class ImageEncoder {
 
-    public static String getImageString(InputStream img, int height, int width) {
+    public static String getImageString(InputStream img, int height, int width, String _class) {
         String theString = "";
         try {
             byte[] barr = IOUtils.toByteArray(img);
@@ -27,17 +27,17 @@ public class ImageEncoder {
         }
         //item.write(f);
 
-        return "<img src=\"data:image/jpeg;base64," + theString + "\" data-holder-rendered=\"true\" style=\"width: " + width + "px; height: " + height + ";\">";
+        return "<img class=\"" + _class + "\" src=\"data:image/jpeg;base64," + theString + "\" data-holder-rendered=\"true\" style=\"width: " + width + "px; height: " + height + ";\">";
     }
-    
+
     public static String getImageStringRaw(InputStream img) {
-        String theString = "";
+        String theString = null;
         try {
             byte[] barr = IOUtils.toByteArray(img);
             Base64.Encoder en = Base64.getEncoder();
             theString = en.encodeToString(barr);
         } catch (Exception iOException) {
-            // Do nothing
+            System.out.println("err");
         }
         //item.write(f);
 
