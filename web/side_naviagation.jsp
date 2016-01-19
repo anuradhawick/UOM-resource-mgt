@@ -14,7 +14,7 @@
     <div class="navbar-collapse">
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
             <ul class="nav" id="side-menu">
-                <% 
+                <%
                     HashMap<String, Integer> priv = new HashMap();
                     if (request.getSession(false).getAttribute("username") != null) {
                         String username = (String) request.getSession(false).getAttribute("username");
@@ -35,12 +35,23 @@
                                             out.print("active");
                                         }%>" href="index.jsp"><i class="fa fa-check-circle nav_icon"></i>Available Resources</a>
                                 </li>-->
+                <% if (priv.containsKey("admin") || priv.containsKey("manager")) {%>
                 <li>
-                    <a class="<% if (__jspName.equals("allocationsjsp")) {
+                    <a class="<% if (__jspName.equals("allocations")) {
                             out.print("active");
                         }%>" href="allocations.jsp"><i class="fa fa-th nav_icon"></i>Allocations</a>
                 </li>
-                <% if (priv.containsKey("admin")) { %>
+                <%}
+                    if (priv.containsKey("user")) {
+                %>
+                <li>
+                    <a class="<% if (__jspName.equals("allocations")) {
+                            out.print("active");
+                        }%>" href="allocationsuser.jsp"><i class="fa fa-th nav_icon"></i>Allocations</a>
+                </li>
+                <%
+                    }%>
+                <% if (priv.containsKey("admin")) { %>                
                 <li>
                     <a class="<% if (__jspName.equals("addnewresourcejsp")) {
                             out.print("active");
