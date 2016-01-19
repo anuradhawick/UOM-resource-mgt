@@ -37,9 +37,15 @@
                 <div class="clearfix"> </div>	
                 <div class="tables">
                     <div class="bs-example widget-shadow" data-example-id="contextual-table"> 
-                        <table class="table"> <thead> <tr> <th>#</th> <th>Date</th> <th>Resource Name</th> <th>Reserved By</th> </tr> </thead> <tbody> <tr> <th scope="row">1</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> <tr> <th scope="row">2</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr> </tbody> </table> 
+                        <table class="table">
+                            <thead> <tr> <th>#</th> <th>Date</th> <th>Resource Name</th> <th>Reserved By</th> </tr> </thead>
+                            <tbody id="allocation_table">
+                                <tr> <th scope="row">1</th> <td>Column content</td> <td>Column content</td> <td>Column content</td> </tr>
+                            </tbody> 
+                        </table> 
                     </div>
                 </div>
+                <div class="clearfix col-md-1"> </div>
             </div>
         </div>
         <%@include file="footer.jsp" %> 
@@ -70,6 +76,12 @@
                     pickTime: false,
                     language: 'en',
                 });
+            });
+        </script>
+        
+        <script>
+            $(document).ready(function (){
+                
             });
         </script>
     </body>
