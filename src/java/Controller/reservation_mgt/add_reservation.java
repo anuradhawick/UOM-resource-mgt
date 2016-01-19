@@ -21,6 +21,8 @@ import model.foundation.Notification;
 import model.foundation.Person;
 import model.foundation.Reservation;
 import model.logic.ReservationHandler;
+import data.*;
+import model.foundation.Route;
 
 /**
  *
@@ -61,9 +63,20 @@ public class add_reservation extends HttpServlet {
             reserve.setPersonId(p.getId());
             reserve.setApproval(0);
             reserve.setPurpose(request.getParameter("purpose"));
+            
             ReservationHandler handler = new ReservationHandler();
             int id=handler.addReservation(reserve);
-            
+            if(request.getParameter("start")!=null){
+                String start_dest=request.getParameter("start");
+                String destination=request.getParameter("destination");
+                DBInsertDeleteHandler handle=new DBInsertDeleteHandler();
+                Route route=new Route();
+                route.setResourceid(Integer.parseInt(request.getParameter("resourceid")));
+                route.setReserveid(id);
+                route.setStart(start_dest);
+                route.setEnd(destination);
+                handle.insertRoute(route);
+            }
             // Adding the notification
             Notification no=new Notification(request.getParameter("notification"),p,id);
             DBNotificationHandler dbnh = new DBNotificationHandler();
