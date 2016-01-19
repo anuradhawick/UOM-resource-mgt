@@ -14,7 +14,7 @@ public class Vehicle extends Resource{
     public Vehicle() {
     }
 
-    public Vehicle(String resourceid, String category, String resourceName, int capacityAmount, String description, String vehicleNumber, String vehicleName, String facility, String type) {
+    public Vehicle(int resourceid, String category, String resourceName, int capacityAmount, String description, String vehicleNumber, String vehicleName, String facility, String type) {
        super(resourceid, category, resourceName, capacityAmount, description);
        this.vehicleNumber = vehicleNumber;
        this.vehicleName = vehicleName;

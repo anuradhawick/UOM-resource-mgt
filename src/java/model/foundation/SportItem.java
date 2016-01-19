@@ -8,7 +8,7 @@ public class SportItem extends Resource {
     public SportItem() {
     }
     
-    public SportItem(String resourceid, String category, String resourceName, int capacityAmount, String description, String sport, String itemNumber) {
+    public SportItem(int resourceid, String category, String resourceName, int capacityAmount, String description, String sport, String itemNumber) {
         super(resourceid, category, resourceName, capacityAmount, description);
         this.sport = sport;
         this.itemNumber = itemNumber;

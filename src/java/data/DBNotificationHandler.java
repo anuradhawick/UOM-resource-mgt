@@ -23,8 +23,8 @@ public class DBNotificationHandler {
     private PreparedStatement statement;
 
     /*
-    Add notification to be seen by a user
-    */
+     Add notification to be seen by a user
+     */
     public void addNotification(Notification notif) throws SQLException {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO `resource_management`.`notification` (`notification`, `reserve_reserveID`, `person_ID`) VALUES (?, ?, ?);");
@@ -54,8 +54,8 @@ public class DBNotificationHandler {
     }
 
     /*
-    Marking a notification as read for normal users
-    */
+     Marking a notification as read for normal users
+     */
     public void markNotifRead(Notification not) throws SQLException {
         connection = DBConnector.connect();
         statement = connection.prepareStatement("UPDATE notification SET read_status = 1 WHERE idnotification= ?");
@@ -79,7 +79,7 @@ public class DBNotificationHandler {
         connection.close();
     }
     /*
-    get all notif for a particular person
+     get all notif for a particular person
      */
 
     public ArrayList<Notification> getNotificationsAll(Person p) throws SQLException {
@@ -114,7 +114,7 @@ public class DBNotificationHandler {
             notif_id = set.getInt("idnotification");
             notif = set.getString("notification");
             res_id = set.getInt("reserve_reserveID");
-            Notification n = new Notification(notif, p, res_id);          
+            Notification n = new Notification(notif, p, res_id);
             n.setNotif_id(notif_id);
             arr.add(n);
         }
@@ -123,10 +123,9 @@ public class DBNotificationHandler {
         return arr;
     }
 
-    
     /*
-    Reading the pending notif for managers
-    */
+     Reading the pending notif for managers
+     */
     public ArrayList<Notification> getNotificationsUnreadMgr() throws SQLException {
         int notif_id, res_id;
         ArrayList<Notification> arr = new ArrayList<>();
@@ -166,4 +165,21 @@ public class DBNotificationHandler {
         connection.close();
         return arr;
     }
+
+    public Notification getNotificationById(int not_id) throws SQLException {
+        connection = DBConnector.connect();
+        statement = connection.prepareStatement("SELECT * FROM notification WHERE idnotification=?");
+        statement.setInt(1, not_id);
+        ResultSet set = statement.executeQuery();
+        Notification n = new Notification();
+        if (set.next()) {
+            n.setNotif_id(set.getInt("idnotification"));
+            n.setNotification(set.getString("notification"));
+            n.setReservationid(set.getInt("reserve_reserveID"));
+        }
+        statement.close();
+        connection.close();
+        return n;
+    }
+
 }

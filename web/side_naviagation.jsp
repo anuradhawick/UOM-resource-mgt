@@ -70,7 +70,7 @@
 <!--left-fixed -navigation-->
 
 <!-- Classie -->
-<script src="js/classie.js"></script>
+<script src="/uomrms/js/classie.js"></script>
 <script>
     var menuLeft = document.getElementById('cbp-spmenu-s1'),
             showLeftPush = document.getElementById('showLeftPush'),

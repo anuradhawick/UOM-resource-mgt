@@ -25,7 +25,7 @@ public class ReservationHandler {
     public ReservationHandler() {
     }
 
-    public boolean isAvailable(String resourceID, Date startTime, Date endTime) {
+    public boolean isAvailable(int resourceID, Date startTime, Date endTime) {
         try {
             return new DBSelectHandler().isAvailable(resourceID, startTime, endTime);
         } catch (SQLException ex) {
@@ -62,7 +62,7 @@ public class ReservationHandler {
         return addReservation(reservation);
     }
 
-    public void checkAvailability(String resourceID, Date date) {
+    public void checkAvailability(int resourceID, Date date) {
         Date d1 = date;
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);

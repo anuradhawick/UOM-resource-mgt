@@ -5,7 +5,7 @@ import java.util.Set;
 
 public abstract class Resource {
     
-     private String resourceid;
+     private int resourceid;
      private String category;
      private String resourceName;
      private int capacityAmount;
@@ -14,7 +14,7 @@ public abstract class Resource {
     public Resource() {
     }
     
-    public Resource(String resourceid, String category, String resourceName, int capacityAmount, String description) {
+    public Resource(int resourceid, String category, String resourceName, int capacityAmount, String description) {
        this.resourceid = resourceid;
        this.category = category;
        this.resourceName = resourceName;
@@ -22,11 +22,11 @@ public abstract class Resource {
        this.description = description;
     }
    
-    public String getResourceid() {
+    public int getResourceid() {
         return this.resourceid;
     }
     
-    public void setResourceid(String resourceid) {
+    public void setResourceid(int resourceid) {
         this.resourceid = resourceid;
     }
     public String getCategory() {
