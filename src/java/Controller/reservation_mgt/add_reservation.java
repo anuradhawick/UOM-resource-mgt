@@ -21,6 +21,8 @@ import model.foundation.Notification;
 import model.foundation.Person;
 import model.foundation.Reservation;
 import model.logic.ReservationHandler;
+import data.*;
+import model.foundation.Route;
 
 /**
  *
@@ -44,21 +46,39 @@ public class add_reservation extends HttpServlet {
             Reservation reserve = new Reservation();
             reserve.setCapacity(Integer.parseInt(request.getParameter("capacity")));
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date start = format.parse(request.getParameter("start"));
+            Date start = format.parse(request.getParameter("from_date") + " " + request.getParameter("from_time"));
             reserve.setStartTime(start);
-            Date end = format.parse(request.getParameter("end"));
+            Date end = format.parse(request.getParameter("to_date") + " " + request.getParameter("to_time"));
             reserve.setEndTime(end);
+
+            reserve.setResourceId(Integer.parseInt(request.getParameter("resourceid")));
+          //  String username=request.getParameter("admin");//(String)request.getSession().getAttribute("username");
+
             reserve.setResourceId(Integer.parseInt(request.getParameter("resourceid")));
             String username=(String)request.getSession().getAttribute("username");
+
             AuthorizedPerson person=new AuthorizedPerson();
             person.setUsername(username);
             Person p=new DBPrivilegeUserHandler().getLoggedPerson(person);
             reserve.setPersonId(p.getId());
             reserve.setApproval(0);
             reserve.setPurpose(request.getParameter("purpose"));
+            
             ReservationHandler handler = new ReservationHandler();
             int id=handler.addReservation(reserve);
             
+            
+            if(request.getParameter("start")!=null){
+                String start_dest=request.getParameter("start");
+                String destination=request.getParameter("end");
+                DBInsertDeleteHandler handle=new DBInsertDeleteHandler();
+                Route route=new Route();
+                route.setResourceid(Integer.parseInt(request.getParameter("resourceid")));
+                route.setReserveid(id);
+                route.setStart(start_dest);
+                route.setEnd(destination);
+                handle.insertRoute(route);
+            }
             // Adding the notification
             Notification no=new Notification(request.getParameter("notification"),p,id);
             DBNotificationHandler dbnh = new DBNotificationHandler();

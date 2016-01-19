@@ -183,13 +183,17 @@ public class DBInsertDeleteHandler {
     }
 
     public int insertReservation(Reservation reservation) throws SQLException {
+
         connection = DBConnector.connect();
-        statement = connection.prepareStatement("INSERT INTO resource_management.reserve (capacity, date_start, date_end,resourceid, ID) VALUES (?,?,?,?,?)");
+
+        statement = connection.prepareStatement("INSERT INTO resource_management.reserve (capacity, date_start, date_end,resourceid, ID,approval,purpose) VALUES (?,?,?,?,?,?,?)");
         statement.setInt(1, reservation.getCapacity());
         statement.setTimestamp(2, new Timestamp(reservation.getStartTime().getTime()));
         statement.setTimestamp(3, new Timestamp(reservation.getEndTime().getTime()));
         statement.setInt(4, reservation.getResourceId());
         statement.setString(5, reservation.getPersonId());
+        statement.setInt(6, reservation.getApproval());
+        statement.setString(7, reservation.getPurpose());
         statement.executeUpdate();
         statement.clearParameters();
         statement.close();
@@ -199,6 +203,7 @@ public class DBInsertDeleteHandler {
         if (rs.next()) {
             last_id = rs.getInt("last_id");
         }
+        System.out.println(last_id);
         st.close();
         return last_id;
 
@@ -259,6 +264,18 @@ public class DBInsertDeleteHandler {
         statement = connection.prepareStatement("DELETE FROM resource_management.reserve WHERE reserveID=?;");
         statement.setInt(1, reservationID);
         statement.executeUpdate();
+    }
+    
+    public void insertRoute(Route route) throws SQLException{
+        connection =DBConnector.connect();
+        statement=connection.prepareStatement("INSERT INTO route(resourceid,reserveid,`start`,destination) VALUES (?,?,?,?)");
+        statement.setInt(1,route.getResourceid() );
+        statement.setInt(2, route.getReserveid());
+        statement.setString(3, route.getStart());
+        statement.setString(4, route.getEnd());
+        statement.executeUpdate();
+        statement.clearParameters();
+        statement.close();
     }
 
 }
