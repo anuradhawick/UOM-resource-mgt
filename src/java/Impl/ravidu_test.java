@@ -34,12 +34,21 @@ public class ravidu_test {
 
     public static void main(String[] args) throws SQLException, ParseException {
        DBSelectHandler hn=new DBSelectHandler();
-       String statr="2016-01-16 09:21:00";
-       String end="2016-01-18 12:00:00";
+       String statr="2016-01-21 09:21:00";
+       String end="2016-01-23 12:00:00";
        SimpleDateFormat f=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
        Date dd1=f.parse(statr);
        Date e=f.parse(end);
-        System.out.println(hn.getAvailableItemCount("8", dd1, e));
+       Reservation re=new Reservation();
+       re.setPersonId("1");
+       re.setResourceId("1");
+       re.setStartTime(dd1);
+       re.setEndTime(e);
+       re.setApproval(1);
+       re.setPurpose("Good");
+       ReservationHandler han=new ReservationHandler();
+        System.out.println(han.addReservation(re));
+       
         
         
     }

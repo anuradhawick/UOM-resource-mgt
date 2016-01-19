@@ -180,14 +180,17 @@ public class DBInsertDeleteHandler {
         statement.close();
     }
 
-    public int insertReservation(Reservation reservation) throws SQLException {
-        connection = DBConnector.connect();
-        statement = connection.prepareStatement("INSERT INTO resource_management.reserve (capacity, date_start, date_end,resourceid, ID) VALUES (?,?,?,?,?)");
+    public int insertReservation(Reservation reservation)  {
+        try {
+             connection = DBConnector.connect();
+        statement = connection.prepareStatement("INSERT INTO resource_management.reserve (capacity, date_start, date_end,resourceid, ID,approval,purpose) VALUES (?,?,?,?,?,?,?)");
         statement.setInt(1, reservation.getCapacity());
         statement.setTimestamp(2, new Timestamp(reservation.getStartTime().getTime()));
         statement.setTimestamp(3, new Timestamp(reservation.getEndTime().getTime()));
         statement.setString(4, reservation.getResourceId());
         statement.setString(5, reservation.getPersonId());
+        statement.setInt(6, reservation.getApproval());
+        statement.setString(7, reservation.getPurpose());
         statement.executeUpdate();
         statement.clearParameters();
         statement.close();
@@ -197,8 +200,13 @@ public class DBInsertDeleteHandler {
         if (rs.next()) {
             last_id = rs.getInt("last_id");
         }
+            System.out.println(last_id);
         st.close();
         return last_id;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       return -1;
 
     }
 
