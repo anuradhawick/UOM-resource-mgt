@@ -3,26 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.res_mgt;
+package Controller.auth;
 
-import data.DBInsertDeleteHandler;
+import data.DBPrivilegeUserHandler;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.foundation.Vehicle;
+import model.foundation.AuthorizedPerson;
+import model.foundation.Person;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
  * @author Anuradha
  */
-public class add_vehicle extends HttpServlet {
+public class update_image extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,30 +41,28 @@ public class add_vehicle extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException, SQLException, FileUploadException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            Vehicle v = new Vehicle();
-            v.setCapacityAmount(Integer.parseInt(request.getParameter("capacity")));
-            v.setDescription(request.getParameter("description"));
-            v.setCategory("Vehicle");
-            v.setFacility(request.getParameter("ac"));
-            v.setResourceName(request.getParameter("description"));
-            v.setType(request.getParameter("vehicle_type"));
-            v.setVehicleName(request.getParameter("vehicle_name"));
-            v.setVehicleNumber(request.getParameter("vehicle_no"));
-            for (String s : request.getParameterMap().keySet()) {
-                out.println(s + " " + request.getParameter(s) + "<br>");
+            if (ServletFileUpload.isMultipartContent(request)) {
+
+                List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+                for (FileItem item : multiparts) {
+                    if (!item.isFormField()) {
+                        InputStream img = item.getInputStream();
+                        AuthorizedPerson p = new AuthorizedPerson();
+                        p.setUsername((String) request.getSession(false).getAttribute("username"));
+                        DBPrivilegeUserHandler dbph = new DBPrivilegeUserHandler();
+                        Person person = dbph.getLoggedPerson(p);
+                        person.setImage(img);
+                        dbph.updateImage(person);
+                        out.println("success");
+                        response.sendRedirect("/uomrms/my/update.jsp");
+                    }
+                }
             }
-            InputStream img = Algorithm.RequestParser.getStream(request);
-            v.setImage(img);
-            DBInsertDeleteHandler dbh = new DBInsertDeleteHandler();
-            dbh.insertVehicle(v);
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success=true");
-        } catch (Exception e) {
-            response.sendRedirect("/uomrms/add_new_resource.jsp?success=false");
-        }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -70,13 +75,16 @@ public class add_vehicle extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            try {
+                processRequest(request, response);
+            } catch (FileUploadException ex) {
+                Logger.getLogger(update_image.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(add_vehicle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(update_details.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 
     /**
@@ -91,10 +99,14 @@ public class add_vehicle extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
+            try {
+                processRequest(request, response);
+            } catch (FileUploadException ex) {
+                Logger.getLogger(update_image.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(add_vehicle.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(update_details.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
 
     /**

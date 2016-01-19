@@ -13,7 +13,6 @@
 <%@ page import="org.apache.commons.io.output.*" %>
 
 <%
-    String UPLOAD_DIRECTORY = "C:/res_mgt/";
     if (ServletFileUpload.isMultipartContent(request)) {
         try {
             List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
@@ -21,16 +20,17 @@
                 if (!item.isFormField()) {
                     InputStream img = item.getInputStream();
                     Connection connection = null;
-                    connection = DBConnectorDash.connect();
-                    PreparedStatement stmt = connection.prepareStatement("INSERT INTO `file` (`filecol`) values(?)");
-                    stmt.setBinaryStream(1, img);
+                    connection = DBConnector.connect();
+                    PreparedStatement stmt = connection.prepareStatement("INSERT INTO `person_img` (`person_ID`,`img`) values(?,?)");
+                    stmt.setString(1, "130647R");
+                    stmt.setBinaryStream(2, img);
                     stmt.execute();
                     out.println("asdasdad");
-                    stmt = connection.prepareStatement("SELECT `filecol` FROM `file`");
+                    stmt = connection.prepareStatement("SELECT `img` FROM `person_img` where person_ID='130647R'");
                     ResultSet ss = stmt.executeQuery();
                     while (ss.next()) {
 
-                        InputStream d = ss.getBinaryStream("filecol");
+                        InputStream d = ss.getBinaryStream("img");
                         byte[] barr = IOUtils.toByteArray(d);
                         Base64.Encoder en = Base64.getEncoder();
                         String theString = en.encodeToString(barr);
@@ -38,7 +38,7 @@
 
                         out.println("<img alt=\"64x64\" src=\"data:image/jpeg;base64," + theString + "\" data-holder-rendered=\"true\" style=\"width: 128px; height: 128;\">");
                     }
-                    
+
                     stmt.execute();
                     stmt.close();
                     connection.close();
@@ -51,6 +51,28 @@
         }
     } else {
 
+        Connection connection = null;
+        connection = DBConnector.connect();
+        PreparedStatement stmt;//= connection.prepareStatement("INSERT INTO `file` (`filecol`) values(?)");
+//                    stmt.setBinaryStream(1, img);
+//                    stmt.execute();
+        out.println("asdasdad");
+        stmt = connection.prepareStatement("SELECT `img` FROM `person_img` where person_ID='130647R'");
+        ResultSet ss = stmt.executeQuery();
+        while (ss.next()) {
+
+            InputStream d = ss.getBinaryStream("img");
+            byte[] barr = IOUtils.toByteArray(d);
+            Base64.Encoder en = Base64.getEncoder();
+            String theString = en.encodeToString(barr);
+            //item.write(f);
+
+            out.println("<img alt=\"64x64\" src=\"data:image/jpeg;base64," + theString + "\" data-holder-rendered=\"true\" style=\"width: 128px; height: 128;\">");
+        }
+
+        stmt.execute();
+        stmt.close();
+        connection.close();
     }
 
 %>

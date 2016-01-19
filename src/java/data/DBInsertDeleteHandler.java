@@ -52,6 +52,8 @@ public class DBInsertDeleteHandler {
         if (rs.next()) {
             last_id = rs.getInt("last_id");
         }
+        DBResourceImageHandler dbrih = new DBResourceImageHandler();
+        dbrih.addImage(last_id, resource.getImage());
         statement.close();
         return last_id;
     }
@@ -127,7 +129,7 @@ public class DBInsertDeleteHandler {
     }
 
     public void insertSportItem(SportItem sportItem) throws SQLException {
-        int insid=insertResource(sportItem);
+        int insid = insertResource(sportItem);
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.sport_item (sport , item_number ,resourceid) VALUES (?,?,?)");
         statement.setString(1, sportItem.getSport());
@@ -139,7 +141,7 @@ public class DBInsertDeleteHandler {
     }
 
     public void insertSportPlace(SportPlace sportPlace) throws SQLException {
-        int insid=insertResource(sportPlace);
+        int insid = insertResource(sportPlace);
         connection = DBConnector.connect();
         statement = connection.prepareStatement("INSERT INTO resource_management.sport_place (location, resourceid) VALUES (?,?)");
         statement.setString(1, sportPlace.getLocation());

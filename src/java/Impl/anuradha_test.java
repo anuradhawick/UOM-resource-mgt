@@ -5,17 +5,10 @@
  */
 package Impl;
 
-import com.google.gson.Gson;
-import data.DBInsertDeleteHandler;
-import data.DBNotificationHandler;
 import data.DBPrivilegeUserHandler;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import model.foundation.AuthorizedPerson;
-import model.foundation.Notification;
 import model.foundation.Person;
-import model.foundation.Vehicle;
 
 /**
  *
@@ -32,7 +25,7 @@ public class anuradha_test {
 //        Gson g = new Gson();
 //        String sss =g.toJson(ss);
 //        System.out.println(sss);
-        
+
 //        DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
 //            AuthorizedPerson auth = new AuthorizedPerson();
 //            auth.setUsername("admin");        
@@ -45,8 +38,21 @@ public class anuradha_test {
 //        }
 //        Gson g = new Gson();
 //        System.out.println(g.toJson(new ArrayList<Object>()));
-        
-        
+//        AuthorizedPerson p_update = new AuthorizedPerson();
+//        p_update.setUsername("admin");
+//        Person person_update = (new DBPrivilegeUserHandler()).getLoggedPerson(p_update);
+////        System.out.println(Algorithm.ImageEncoder.getImageString(person_update.getImage(),128,128));
+//        System.out.println(person_update.getImage()==null);
+        AuthorizedPerson p = new AuthorizedPerson();
+        p.setUsername("admin");
+//            p.setPassword(password);
+        DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
+        Person per = dbh.getLoggedPerson(p);
+//        System.out.println(p.getId());
+        per.setFirstName("Anuradha");
+        per.setMiddleName("sd");
+        per.setLastName("asd");
+        System.out.println(dbh.updateDetails(p, per, null));
     }
 
     static class s {

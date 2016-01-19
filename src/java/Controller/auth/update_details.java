@@ -46,30 +46,16 @@ public class update_details extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String username = (String) request.getSession(false).getAttribute("username");
-            String password = (String) request.getParameter("password");
             AuthorizedPerson p = new AuthorizedPerson();
             p.setUsername(username);
-            p.setPassword(password);
+//            p.setPassword(password);
             DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
             Person per = dbh.getLoggedPerson(p);
-            p.setFirstName(request.getParameter("fname"));
-            p.setMiddleName(request.getParameter("mname"));
-            p.setLastName(request.getParameter("lname"));
-            dbh.getPrivileges(per);
-            //reading image data
-            List<FileItem> multiparts;
-            try {
-                multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-                for (FileItem item : multiparts) {
-                    if (!item.isFormField()) {
-                        InputStream img = item.getInputStream();
-                        p.setImage(img);
-                    }
-                }
-            } catch (FileUploadException ex) {
-                Logger.getLogger(update_details.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+            per.setFirstName(request.getParameter("fname"));
+            per.setMiddleName(request.getParameter("mname"));
+            per.setLastName(request.getParameter("lname"));
+//            dbh.getPrivileges(per);
+            
             boolean success = dbh.updateDetails(p, per, null);
             Gson g = new Gson();
             if (success) {
@@ -77,6 +63,7 @@ public class update_details extends HttpServlet {
             } else {
                 out.print(g.toJson(false));
             }
+            response.sendRedirect("/uomrms/my/update.jsp");
         }
     }
 
