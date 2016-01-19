@@ -28,24 +28,20 @@
         <script>
             var loadReservationPane = function () {
                 if (<%=session.getAttribute("logged")%>) {
-            <%
-                AuthorizedPerson authorizedPerson = new AuthorizedPerson();
-                try {
-                    authorizedPerson.setUsername(session.getAttribute("username").toString());
-                    String personID = new DBPrivilegeUserHandler().getLoggedPerson(authorizedPerson).getId();
-                } catch (Exception e) {
-                }
-            %>
+
                     var category = localStorage.getItem("cat").toLowerCase();
                     if (category === "vehicle") {
                         $("#add_resravation_vehicle").show();
                         $('#add_resravation').hide();
                         $('#add_resravation_button').hide();
+                        $('#resource_id').append("<input name='resourceid value=" + localStorage.getItem('id') + "  >");
+                        $('#resource_id_vehicle').append("<input name='resourceid' value=" + localStorage.getItem('id') + " hidden>");
                     }
                     else {
                         $("#add_resravation_vehicle").hide();
                         $('#add_resravation').show();
                         $('#add_resravation_button').hide();
+                        $('#resource_id').append("<input name='resourceid' value=" + localStorage.getItem('id') + " hidden>");
                     }
                 }
                 else {
@@ -96,7 +92,9 @@
                     <div id="add_resravation" class="col-md-4 widget-shadow">
                         <div class="forms">
                             <div class="form-three">
-                                <form class='form-horizontal panel-default'>
+                                <form id="add_resravation_form" class='form-horizontal panel-default' action="add_reservation">
+                                    <div id="resource_id">
+                                    </div>
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>Capacity/No of items</label><br><br>
                                         <div class='col-sm-12'> 
@@ -141,7 +139,9 @@
                     <div id="add_resravation_vehicle" class="col-md-4 widget-shadow">
                         <div class="forms">
                             <div class="form-three">
-                                <form class='form-horizontal panel-default'>
+                                <form id="add_resravation_form_vehicle" class='form-horizontal panel-default'>
+                                    <div id="resource_id_vehicle">
+                                    </div>
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>Capacity/No of items</label><br><br>
                                         <div class='col-sm-12'> 
@@ -150,19 +150,19 @@
                                     </div> 
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>From</label><br><br>
-                                        <div id="datetimepicker4" class="col-sm-6 input-append">
+                                        <div id="datetimepicker8" class="col-sm-6 input-append">
                                             <input class="form-control1 add-on" data-format="yyyy-MM-dd" type="text" placeholder="Date" name="from_date" required readonly>
                                         </div>
-                                        <div id="datetimepicker3" class="col-sm-6 input-append">
+                                        <div id="datetimepicker7" class="col-sm-6 input-append">
                                             <input class="form-control1 add-on" data-format="hh:mm:ss" type="text" placeholder="Time" name="from_time" required readonly>
                                         </div>
                                     </div> 
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>To</label><br><br>
-                                        <div id="datetimepicker6" class="col-sm-6 input-append">
+                                        <div id="datetimepicker10" class="col-sm-6 input-append">
                                             <input class="form-control1 add-on" data-format="yyyy-MM-dd" type="text" placeholder="Date" name="to_date" required readonly>
                                         </div>
-                                        <div id="datetimepicker5" class="col-sm-6 input-append">
+                                        <div id="datetimepicker9" class="col-sm-6 input-append">
                                             <input class="form-control1 add-on" data-format="hh:mm:ss" type="text" placeholder="Time" name="to_time" required readonly>
                                         </div>
                                     </div> 
@@ -241,6 +241,40 @@
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker5').datetimepicker({
+                    pickDate: false,
+                    language: 'en',
+                    pick12HourFormat: true
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker8').datetimepicker({
+                    pickTime: false,
+                    language: 'en',
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker7').datetimepicker({
+                    pickDate: false,
+                    language: 'en',
+                    pick12HourFormat: true
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker10').datetimepicker({
+                    pickTime: false,
+                    language: 'en',
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker9 ').datetimepicker({
                     pickDate: false,
                     language: 'en',
                     pick12HourFormat: true
