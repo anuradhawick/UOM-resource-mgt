@@ -1,7 +1,9 @@
 package model.logic;
 
+import data.DBReservationHandler;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -15,23 +17,6 @@ import static org.junit.Assert.*;
  * @author Dulaj
  */
 public class ReservationHandlerTest {
-    
-    @Test
-    public void testIsAvailable() {
-        int resourceID = 10001;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        Date startTime = null;
-        Date endTime = null;
-        try {
-            startTime = sdf.parse("2015-12-16 13:00:00");
-            endTime = sdf.parse("2015-12-16 17:00:00");
-        } catch (ParseException ex) {
-            fail();
-        }
-        
-        ReservationHandler instance = new ReservationHandler();
-        assertEquals(true, instance.isAvailable(resourceID, startTime, endTime));
-    }
 
     @Test
     public void testAddReservation() {
@@ -43,39 +28,20 @@ public class ReservationHandlerTest {
             endTime = sdf.parse("2015-12-16 12:00:00");
             System.out.println(startTime.toString());
             System.out.println(endTime.toString());
+            Reservation re = new Reservation();
+            re.setResourceId(1);
+            re.setPersonId("1");
+            re.setStartTime(startTime);
+            re.setEndTime(endTime);
+            re.setApproval(1);
+            re.setCapacity(67);
+            re.setPurpose("Purpose");
         } catch (ParseException ex) {
             fail();
         }
-        
-     //   Reservation reservation = new Reservation(100, startTime, endTime, "10001", "130047D");
-        ReservationHandler instance = new ReservationHandler();
-     //   assertEquals(true, instance.addReservation(reservation));
-    }
 
-    @Test
-    public void testDeleteReservation() {
-        int reservationID = 28;
+        Reservation reservation = new Reservation(100, startTime, endTime, 1, "1", 1, "Purpose");
         ReservationHandler instance = new ReservationHandler();
-        instance.deleteReservation(reservationID);
-    }
-
-    @Test
-    public void testModifyReservation() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date startTime = null;
-        Date endTime = null;
-        try {
-            startTime = sdf.parse("2015-12-16 09:00:00");
-            endTime = sdf.parse("2015-12-16 11:00:00");
-            System.out.println(startTime.toString());
-            System.out.println(endTime.toString());
-        } catch (ParseException ex) {
-            fail();
-        }
-        
-    //    Reservation reservation = new Reservation(100, startTime, endTime, "10001", "130047D");
-      //  reservation.setReserveId(49);
-        //ReservationHandler instance = new ReservationHandler();
-        //assertEquals(true, instance.modifyReservation(reservation));
+        assertEquals(true, instance.addReservation(reservation));
     }
 }

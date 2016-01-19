@@ -42,7 +42,7 @@ public class add_vehicle extends HttpServlet {
             v.setDescription(request.getParameter("description"));
             v.setCategory("Vehicle");
             v.setFacility(request.getParameter("ac"));
-            v.setResourceName(request.getParameter("description"));
+            v.setResourceName(request.getParameter("resource_name"));
             v.setType(request.getParameter("vehicle_type"));
             v.setVehicleName(request.getParameter("vehicle_name"));
             v.setVehicleNumber(request.getParameter("vehicle_no"));

@@ -25,27 +25,23 @@
         <%@include file="common_imports.jsp" %>     
         <!--<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">-->
 
-        <script>
+        <script>            
             var loadReservationPane = function () {
                 if (<%=session.getAttribute("logged")%>) {
-            <%
-                AuthorizedPerson authorizedPerson = new AuthorizedPerson();
-                try {
-                    authorizedPerson.setUsername(session.getAttribute("username").toString());
-                    String personID = new DBPrivilegeUserHandler().getLoggedPerson(authorizedPerson).getId();
-                } catch (Exception e) {
-                }
-            %>
+
                     var category = localStorage.getItem("cat").toLowerCase();
                     if (category === "vehicle") {
                         $("#add_resravation_vehicle").show();
                         $('#add_resravation').hide();
                         $('#add_resravation_button').hide();
+                        $('#resource_id').append("<input name='resourceid value=" + localStorage.getItem('id') + "  >");
+                        $('#resource_id_vehicle').append("<input name='resourceid' value=" + localStorage.getItem('id') + " hidden>");
                     }
                     else {
                         $("#add_resravation_vehicle").hide();
                         $('#add_resravation').show();
                         $('#add_resravation_button').hide();
+                        $('#resource_id').append("<input name='resourceid' value=" + localStorage.getItem('id') + " hidden>");
                     }
                 }
                 else {
@@ -96,7 +92,9 @@
                     <div id="add_resravation" class="col-md-4 widget-shadow">
                         <div class="forms">
                             <div class="form-three">
-                                <form class='form-horizontal panel-default'>
+                                <form id="add_resravation_form" class='form-horizontal panel-default' action="add_reservation">
+                                    <div id="resource_id">
+                                    </div>
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>Capacity/No of items</label><br><br>
                                         <div class='col-sm-12'> 
@@ -141,7 +139,9 @@
                     <div id="add_resravation_vehicle" class="col-md-4 widget-shadow">
                         <div class="forms">
                             <div class="form-three">
-                                <form class='form-horizontal panel-default'>
+                                <form id="add_resravation_form_vehicle" class='form-horizontal panel-default'>
+                                    <div id="resource_id_vehicle">
+                                    </div>
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>Capacity/No of items</label><br><br>
                                         <div class='col-sm-12'> 
