@@ -39,7 +39,7 @@
                 <li>
                     <a class="<% if (__jspName.equals("allocations")) {
                             out.print("active");
-                        }%>" href="allocations.jsp"><i class="fa fa-th nav_icon"></i>Allocations</a>
+                        }%>" href="/uomrms/allocations.jsp"><i class="fa fa-th nav_icon"></i>Allocations</a>
                 </li>
                 <%}
                     if (priv.containsKey("user")) {
@@ -47,7 +47,7 @@
                 <li>
                     <a class="<% if (__jspName.equals("allocations")) {
                             out.print("active");
-                        }%>" href="allocationsuser.jsp"><i class="fa fa-th nav_icon"></i>Allocations</a>
+                        }%>" href="/uomrms/allocationsuser.jsp"><i class="fa fa-th nav_icon"></i>Allocations</a>
                 </li>
                 <%
                     }%>
@@ -55,23 +55,23 @@
                 <li>
                     <a class="<% if (__jspName.equals("addnewresourcejsp")) {
                             out.print("active");
-                        }%>" href="add_new_resource.jsp"><i class="fa fa-plus-square nav_icon"></i>Add New Resource</a>
+                        }%>" href="/uomrms/add_new_resource.jsp"><i class="fa fa-plus-square nav_icon"></i>Add New Resource</a>
                 </li>
                 <li>
                     <a class="<% if (__jspName.equals("addnewmanagerjsp")) {
                             out.print("active");
-                        }%>" href="add_new_manager.jsp"><i class="fa fa-male nav_icon"></i>Add New Manager</a>
+                        }%>" href="/uomrms/add_new_manager.jsp"><i class="fa fa-male nav_icon"></i>Add New Manager</a>
                 </li>
                 <% } %>
                 <li>
                     <a class="<% if (__jspName.equals("contactusjsp")) {
                             out.print("active");
-                        }%>" href="contact_us.jsp"><i class="fa fa-envelope nav_icon"></i>Contact Us</a>
+                        }%>" href="/uomrms/contact_us.jsp"><i class="fa fa-envelope nav_icon"></i>Contact Us</a>
                 </li>
                 <li>
                     <a class="<% if (__jspName.equals("aboutjsp")) {
                             out.print("active");
-                        }%>" href=about.jsp><i class="fa fa-info-circle nav_icon"></i>About</a>
+                        }%>" href="/uomrms/about.jsp"><i class="fa fa-info-circle nav_icon"></i>About</a>
                 </li>
             </ul>
             <!-- //sidebar-collapse -->

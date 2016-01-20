@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,25 +7,26 @@
 package Controller.reservation_mgt;
 
 import com.google.gson.Gson;
+import data.DBPrivilegeUserHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.logic.*;
+import model.foundation.AuthorizedPerson;
+import model.foundation.Person;
+import model.foundation.Reservation;
+import model.logic.ReservationHandler;
 
 /**
  *
  * @author RAVIDU-PC
  */
-public class get_approvedreservation extends HttpServlet {
+public class get_userreservation extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,9 +38,14 @@ public class get_approvedreservation extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ParseException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            String username = (String) request.getSession().getAttribute("username");
+            AuthorizedPerson person = new AuthorizedPerson();
+            person.setUsername(username);
+            Person p = new DBPrivilegeUserHandler().getLoggedPerson(person);
+            
             String startdate = request.getParameter("from");
             String enddate = request.getParameter("to");
             String page = request.getParameter("page");
@@ -46,8 +53,12 @@ public class get_approvedreservation extends HttpServlet {
             Date d1 = fm.parse(startdate);
             Date d2 = fm.parse(enddate);
             ReservationHandler handle = new ReservationHandler();
-            String json = new Gson().toJson(handle.getApprovedReservationHistory(d1, d2));
+            ArrayList<Reservation> list = handle.getUserresrvation(p.getId(), d1, d2);
+
+            String json = new Gson().toJson(list);
             out.print(json);
+        } catch (Exception e) {
+
         }
     }
 
@@ -63,13 +74,7 @@ public class get_approvedreservation extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(get_approvedreservation.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(get_approvedreservation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -83,13 +88,7 @@ public class get_approvedreservation extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ParseException ex) {
-            Logger.getLogger(get_approvedreservation.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(get_approvedreservation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

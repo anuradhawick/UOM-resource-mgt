@@ -108,4 +108,8 @@ public class ReservationHandler {
     public boolean rejectResrvation(int id) throws SQLException {
         return new DBReservationHandler().rejectReservation(id);
     }
+    
+    public ArrayList<Reservation> getUserresrvation(String id,Date start,Date end) throws SQLException{
+        return new DBSearchHandler().getUserReservation(id, start, end);
+    }
 }
