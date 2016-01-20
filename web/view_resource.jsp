@@ -16,6 +16,7 @@
 <%@page import="data.DBPrivilegeUserHandler"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
+
 <html>
     <head>
         <title>UoM RMS</title>
@@ -49,11 +50,11 @@
                     $('#add_resravation').hide();
                     $('#add_resravation_button').show();
                 }
-            };
-        </script>
+            };</script>
 
     </head> 
     <body class="cbp-spmenu-push">
+
         <div class="main-content">
             <%@include file="header.jsp" %>
             <%@include file="side_naviagation.jsp" %>
@@ -72,9 +73,10 @@
                                     <div class="media-right col-md-9" style="padding-left: 50px;">
                                         <div id="resource_heading" class="media-heading"></div><br>
                                         <button id="add_resravation_button" class="btn btn-primary">Reserve</button>
-                                    </div>   
-                                    <div class="clearfix"></div>
-                                    <div class="media-body">
+                                    </div>  
+                                    <div class="clearfix">
+                                    </div>
+                                    <div class="media-body">                                        
                                         <div class="tables">
                                             <div class="panel-body widget-shadow">
                                                 <table class="table">
@@ -137,6 +139,118 @@
                     <!--Add reservation end-->
                     <!--Add vehicle reservation start-->
                     <div id="add_resravation_vehicle" class="col-md-4 widget-shadow">
+                        <script src="http://maps.googleapis.com/maps/api/js"></script>
+                        <script>
+            $(document).ready(function () {
+                var directionsDisplay;
+                var route = [];
+                var markers = [];
+                var mapProp = {
+                    center: new google.maps.LatLng(6.796194, 79.902362),
+                    zoom: 15,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    suppressInfoWindows: true
+
+                };
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                google.maps.event.addListener(map, 'click', function (event) {
+                    if (route.length == 2) {
+                        return;
+                    } else if (route.length == 1) {
+                        route.push(event.latLng);
+                        deleteMarkers();
+                        addMarker(event.latLng);
+                        showMarkers();
+                        getRoute();
+                    } else {
+                        route.push(event.latLng);
+                        addMarker(event.latLng);
+                        showMarkers();
+                    }
+                });
+                $("#clearmap").click(function () {
+                    clearRoute();
+                });
+                $("#donerouting").click(function () {
+
+                    if (route.length == 2) {
+                        $("#ori").val(route[0]);
+                        $("#dest").val(route[1]);
+//                        clearRoute();
+                        $('#routemap').modal('toggle');
+                    }
+                });
+                $(".routinput").click(function () {
+                    $("#routemap").modal('show');
+                });
+                $('#routemap').on('shown', function () {
+                    google.maps.event.trigger(map, 'resize');
+                    map.panTo(new google.maps.LatLng(6.796194, 79.902362));
+                })
+                // Clear the map
+                function clearRoute() {
+                    deleteMarkers();
+                    directionsDisplay.setMap(null);
+                    route = [];
+                }
+
+                // Adds a marker to the map and push to the array.
+                function addMarker(location) {
+                    var marker = new google.maps.Marker({
+                        position: location,
+                        map: map
+                    });
+                    markers.push(marker);
+                }
+
+                // Sets the map on all markers in the array.
+                function setMapOnAll(map) {
+                    for (var i = 0; i < markers.length; i++) {
+                        markers[i].setMap(map);
+                    }
+                }
+
+                // Removes the markers from the map, but keeps them in the array.
+                function clearMarkers() {
+                    setMapOnAll(null);
+                }
+
+                // Shows any markers currently in the array.
+                function showMarkers() {
+                    setMapOnAll(map);
+                }
+
+                // Deletes all markers in the array by removing references to them.
+                function deleteMarkers() {
+                    clearMarkers();
+                    markers = [];
+                }
+
+                function getRoute() {
+                    var rendererOptions = {map: map};
+                    directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+                    var org = new google.maps.LatLng(route[0].lat(), route[0].lng());
+                    var dest = new google.maps.LatLng(route[1].lat(), route[1].lng());
+                    var request = {
+                        origin: org,
+                        destination: dest,
+                        travelMode: google.maps.DirectionsTravelMode.DRIVING
+                    };
+                    directionsService = new google.maps.DirectionsService();
+                    directionsService.route(request, function (response, status) {
+                        if (status == google.maps.DirectionsStatus.OK) {
+                            directionsDisplay.setDirections(response);
+                        }
+                        else
+                            alert('failed to get directions');
+                    });
+                    if (route.length == 2) {
+                        return route;
+                    } else {
+                        return null;
+                    }
+                }
+            });</script>                        
                         <div class="forms">
                             <div class="form-three">
                                 <form id="add_resravation_form_vehicle" class='form-horizontal panel-default' action="add_reservation">
@@ -169,13 +283,13 @@
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>Starting location</label><br><br>
                                         <div class='col-sm-12'> 
-                                            <input class='form-control1'  name='start' placeholder='Start' required> 
+                                            <input class='form-control1 routinput' id="ori"  name='start' placeholder='Start' required readonly> 
                                         </div> 
                                     </div> 
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>Destination</label><br><br>
                                         <div class='col-sm-12'> 
-                                            <input class='form-control1' name='end' min='1' placeholder='End' required> 
+                                            <input class='form-control1 routinput' id="dest" name='end' min='1' placeholder='End' required readonly> 
                                         </div> 
                                     </div> 
                                     <div class="form-group">
@@ -219,8 +333,7 @@
                     pickTime: false,
                     language: 'en',
                 });
-            });
-        </script>
+            });</script>
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker3').datetimepicker({
@@ -228,16 +341,14 @@
                     language: 'en',
                     pick12HourFormat: true
                 });
-            });
-        </script>
+            });</script>
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker6').datetimepicker({
                     pickTime: false,
                     language: 'en',
                 });
-            });
-        </script>
+            });</script>
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker5').datetimepicker({
@@ -245,16 +356,14 @@
                     language: 'en',
                     pick12HourFormat: true
                 });
-            });
-        </script>
+            });</script>
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker8').datetimepicker({
                     pickTime: false,
                     language: 'en',
                 });
-            });
-        </script>
+            });</script>
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker7').datetimepicker({
@@ -262,16 +371,14 @@
                     language: 'en',
                     pick12HourFormat: true
                 });
-            });
-        </script>
+            });</script>
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker10').datetimepicker({
                     pickTime: false,
                     language: 'en',
                 });
-            });
-        </script>
+            });</script>
         <script type="text/javascript">
             $(function () {
                 $('#datetimepicker9 ').datetimepicker({
@@ -279,8 +386,7 @@
                     language: 'en',
                     pick12HourFormat: true
                 });
-            });
-        </script>
+            });</script>
 
         <script>
             $(document).ready(function () {
@@ -334,38 +440,41 @@
                     else if (cat === "sports place") {
                         $("#resource_details").append("<tr><td>Resource Category</td><td>" + jsonObject['category'] + "</td></tr><tr><td>Location</td><td>" + jsonObject['location'] + "</td></tr><tr><td>Capacity</td><td>" + jsonObject['capacityAmount'] + "</td></tr><tr><td>Description</td><td>" + jsonObject['description'] + "</td></tr>");
                     }
-                })
-
-                //                if (cat === "hall") {
-                //                    $("#requestmodal").append();
-                //                }
-                //                else if (cat === "lab") {
-                //
-                //                }
-                //                else if (cat === "vehicle") {
-                //
-                //                }
-                //                else if (cat === "maintenance tool") {
-                //
-                //                }
-                //                else if (cat === "sports item") {
-                //
-                //                }
-                //                else if (cat === "sports place") {
-                //
-                //                }
-            });
-        </script>
+                });
+            });</script>
 
         <script>
             $(document).ready(function () {
                 loadReservationPane();
             });
-
             $('#add_resravation_button').click(function () {
                 window.location.href = "login.jsp";
             });
         </script>
+        <div>
+            <!-- Modal -->
+            <div id="routemap" class="modal fade" role="dialog">
+                <div class="modal-dialog">
 
-    </body>
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close">&times;</button>
+                            <h4 class="modal-title">Please select the route.</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="googleMap" style="width:500px;height:380px;"></div>
+                            <hr>
+                            <button class="btn btn-primary" id="clearmap">Clear</button>
+                            <button class="btn btn-primary" id="donerouting">Done</button>
+                        </div>
+                        <div class="modal-footer">
+                            <p class="text-center">&copy; 2016 Quarks Industrial Solutions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>

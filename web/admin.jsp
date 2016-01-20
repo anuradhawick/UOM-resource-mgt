@@ -3,6 +3,9 @@
     Created on : Jan 9, 2016, 1:43:11 AM
     Author     : Dulaj
 --%>
+<% if (request.getSession(false).getAttribute("username") == null) {
+        response.sendRedirect("/uomrms/login.jsp");
+    } %>
 <!DOCTYPE HTML>
 <html>
     <head>
