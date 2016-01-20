@@ -22,4 +22,9 @@ function notification_modal(id) {
     });
 }
 
+function notification_rdr_mgr(id) {
+    localStorage.setItem('reservation_id', id);
+    windows.location.href = "/uomrms/view_reservation.jsp";
+}
+
 

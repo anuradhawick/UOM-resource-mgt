@@ -51,6 +51,10 @@
         <div class="profile_details_left"><!--notifications of menu start -->
             <% if (request.getSession(false).getAttribute("logged") != null) { %>
             <script>
+                <%
+                    AuthorizedPerson p_notif = new AuthorizedPerson();
+                    p_notif.setUsername((String) request.getSession(false).getAttribute("username"));
+                    if ((new DBPrivilegeUserHandler()).getPrivilegesHash(p_notif).containsKey("user")) {%>
                 $(document).ready(function () {
                     var update_noti = function () {
                         $("#not_area").empty();
@@ -65,6 +69,21 @@
                             });
                             $("#not_area").append("<li><div class=\"notification_bottom\"><a href=\"#\">See all notifications</a></div></li>");
                         });
+                <%
+
+                } else if ((new DBPrivilegeUserHandler()).getPrivilegesHash(p_notif).containsKey("manager")) { %>
+                        $.get("/uomrms/notification_admin", function (data, success) {
+                            var arr = $.parseJSON(data);
+                            var num_of_notifications = arr.length;
+                            $(".not_count").text(num_of_notifications);
+                            $("#not_area").append("<li><div class=\"notification_header\"><h3>You have <span class=\"" + num_of_notifications + "\"></span> new notification</h3></div></li>");
+                            $.each(arr, function (i, item) {
+//                        alert(item["notification"]);
+                                $("#not_area").append("<li><a href=\"javascript:void(0);\"><div class=\"user_img\"><img src=\"/uomrms/images/avatar.png\" alt=\"\"></div><div id=\"" + item["notif_id"] + "\" onclick=\"notification_rdr_mgr(this.id);\" class=\"notification_desc\"><p>" + item["notification"] + "</p></div><div class=\"clearfix\"></div></a></li>");
+                            });
+                            $("#not_area").append("<li><div class=\"notification_bottom\"><a href=\"#\">See all notifications</a></div></li>");
+                        });
+                <% } %>
                     }
                     update_noti();
                     setInterval(function () {
@@ -93,20 +112,25 @@
                         <div class="profile_img">
                             <%
                                 AuthorizedPerson p = new AuthorizedPerson();
-                                p.setUsername((String) request.getSession(false).getAttribute("username"));
+
+                                p.setUsername(
+                                        (String) request.getSession(false).getAttribute("username"));
                                 DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
                                 Person person = dbh.getLoggedPerson(p);
                             %>
-                            <span class="prfil-img"><% if (person.getImage() != null) {
+                            <span class="prfil-img"><% if (person.getImage()
+                                        != null) {
                                     out.print(Algorithm.ImageEncoder.getImageString(person.getImage(), 64, 64, "img-thumbnail"));
                                 } %></span> 
                             <div class="user-name">
                                 <%
-                                    if (request.getSession(false).getAttribute("logged") == null) {
+
+                                    if (request.getSession(
+                                            false).getAttribute("logged") == null) {
                                 %>
                                 <p>Please sign in</p>
                                 <% } else {
-                                    
+
                                     out.print("<p>" + person.getFirstName() + " " + person.getLastName() + "</p>");
 
                                 %>
@@ -122,14 +146,16 @@
                     </a>
                     <ul class="dropdown-menu drp-mnu"> 
                         <%
-                            if (request.getSession(false).getAttribute("logged") == null) {
+
+                            if (request.getSession(
+                                    false).getAttribute("logged") == null) {
                         %>
                         <li> <a href="/uomrms/login.jsp"><i class="fa fa-sign-out"></i> Login</a> </li>
                             <% } else {
                             %>
                         <li> <a href="/uomrms/my/update.jsp"><i class="fa fa-user"></i> Profile</a> </li> 
                         <li><a href="/uomrms/logout_servlet"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                            <%        
+                            <%
                                 }%>
                     </ul>
                 </li>
