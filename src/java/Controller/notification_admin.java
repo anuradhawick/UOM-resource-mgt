@@ -3,30 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller.reservation_mgt;
+package Controller;
 
+import com.google.gson.Gson;
 import data.DBNotificationHandler;
 import data.DBPrivilegeUserHandler;
-import data.DBReservationHandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.foundation.AuthorizedPerson;
 import model.foundation.Notification;
 import model.foundation.Person;
-import model.foundation.Reservation;
-import model.logic.ReservationHandler;
 
 /**
  *
- * @author Pamoda
+ * @author Anuradha
  */
-public class reject_reservation extends HttpServlet {
+public class notification_admin extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,13 +41,21 @@ public class reject_reservation extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            int id = Integer.parseInt(request.getParameter("id"));
-            ReservationHandler handler=new ReservationHandler();
-            handler.rejectResrvation(id);
-            DBReservationHandler resh = new DBReservationHandler();
-            Reservation reservation = resh.getReservstionByID(id);
-            Person person = new DBPrivilegeUserHandler().getPersonbyID(reservation.getPersonId());
-            new DBNotificationHandler().addNotification(new Notification("Reservation rejected", person, id));
+            /* TODO output your page here. You may use following sample code. */
+            if (request.getSession(false) != null) {
+                DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
+                AuthorizedPerson auth = new AuthorizedPerson();
+                auth.setUsername((String) request.getSession(false).getAttribute("username"));
+                DBNotificationHandler nh = new DBNotificationHandler();
+                ArrayList<Notification> arr = nh.getNotificationsUnreadMgr();
+                Gson g = new Gson();
+                String s = g.toJson(arr);
+                out.print(s);
+            } else {
+                Gson g = new Gson();
+                String s = g.toJson(new ArrayList<Object>());
+                out.print(s);
+            }
         }
     }
 
@@ -66,7 +74,7 @@ public class reject_reservation extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(reject_reservation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(notification_admin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -84,7 +92,7 @@ public class reject_reservation extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(reject_reservation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(notification_admin.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

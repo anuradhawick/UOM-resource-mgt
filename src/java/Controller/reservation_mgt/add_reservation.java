@@ -88,6 +88,7 @@ public class add_reservation extends HttpServlet {
             else{
                 response.sendRedirect("/uomrms/view_resource.jsp?status=success");
             }
+
         } catch (Exception e) {
             response.sendRedirect("/uomrms/view_resource.jsp?status=failed");
         }
