@@ -4,6 +4,9 @@
     Author     : Dulaj
 --%>
 <!DOCTYPE HTML>
+<% if (request.getSession(false).getAttribute("username") == null) {
+        response.sendRedirect("/uomrms/login.jsp");
+    } %>
 <html>
     <head>
         <title>UoM RMS</title>

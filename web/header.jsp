@@ -97,14 +97,16 @@
                                 DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
                                 Person person = dbh.getLoggedPerson(p);
                             %>
-                            <span class="prfil-img"><% if(person.getImage()!=null){ out.print(Algorithm.ImageEncoder.getImageString(person.getImage(), 64, 64,"img-thumbnail"));} %></span> 
+                            <span class="prfil-img"><% if (person.getImage() != null) {
+                                    out.print(Algorithm.ImageEncoder.getImageString(person.getImage(), 64, 64, "img-thumbnail"));
+                                } %></span> 
                             <div class="user-name">
                                 <%
                                     if (request.getSession(false).getAttribute("logged") == null) {
                                 %>
                                 <p>Please sign in</p>
                                 <% } else {
-
+                                    
                                     out.print("<p>" + person.getFirstName() + " " + person.getLastName() + "</p>");
 
                                 %>
@@ -127,7 +129,7 @@
                             %>
                         <li> <a href="/uomrms/my/update.jsp"><i class="fa fa-user"></i> Profile</a> </li> 
                         <li><a href="/uomrms/logout_servlet"><i class="fa fa-sign-out"></i> Logout</a> </li>
-                            <%
+                            <%        
                                 }%>
                     </ul>
                 </li>
