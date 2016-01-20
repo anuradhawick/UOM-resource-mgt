@@ -5,6 +5,8 @@
  */
 package Controller.reservation_mgt;
 
+import data.DBNotificationHandler;
+import data.DBPrivilegeUserHandler;
 import data.DBReservationHandler;
 import model.logic.*;
 import java.io.IOException;
@@ -16,6 +18,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.foundation.Notification;
+import model.foundation.Person;
+import model.foundation.Reservation;
 
 /**
  *
@@ -37,8 +42,12 @@ public class accept_reservation extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             int id = Integer.parseInt(request.getParameter("id"));
-            ReservationHandler handler=new ReservationHandler();
-            handler.acceptResrvation(id);             
+            ReservationHandler handler = new ReservationHandler();
+            handler.acceptResrvation(id);
+            DBReservationHandler resh = new DBReservationHandler();
+            Reservation reservation = resh.getReservstionByID(id);
+            Person person = new DBPrivilegeUserHandler().getPersonbyID(reservation.getPersonId());
+            new DBNotificationHandler().addNotification(new Notification("Reservation approved", person, id));
         }
     }
 

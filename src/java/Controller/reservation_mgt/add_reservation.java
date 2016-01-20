@@ -52,27 +52,26 @@ public class add_reservation extends HttpServlet {
             reserve.setEndTime(end);
 
             reserve.setResourceId(Integer.parseInt(request.getParameter("resourceid")));
-          //  String username=request.getParameter("admin");//(String)request.getSession().getAttribute("username");
+            //  String username=request.getParameter("admin");//(String)request.getSession().getAttribute("username");
 
             reserve.setResourceId(Integer.parseInt(request.getParameter("resourceid")));
-            String username=(String)request.getSession().getAttribute("username");
+            String username = (String) request.getSession().getAttribute("username");
 
-            AuthorizedPerson person=new AuthorizedPerson();
+            AuthorizedPerson person = new AuthorizedPerson();
             person.setUsername(username);
-            Person p=new DBPrivilegeUserHandler().getLoggedPerson(person);
+            Person p = new DBPrivilegeUserHandler().getLoggedPerson(person);
             reserve.setPersonId(p.getId());
             reserve.setApproval(0);
             reserve.setPurpose(request.getParameter("purpose"));
-            
+
             ReservationHandler handler = new ReservationHandler();
-            int id=handler.addReservation(reserve);
-            
-            
-            if(request.getParameter("start")!=null){
-                String start_dest=request.getParameter("start");
-                String destination=request.getParameter("end");
-                DBInsertDeleteHandler handle=new DBInsertDeleteHandler();
-                Route route=new Route();
+            int id = handler.addReservation(reserve);
+
+            if (request.getParameter("start") != null) {
+                String start_dest = request.getParameter("start");
+                String destination = request.getParameter("end");
+                DBInsertDeleteHandler handle = new DBInsertDeleteHandler();
+                Route route = new Route();
                 route.setResourceid(Integer.parseInt(request.getParameter("resourceid")));
                 route.setReserveid(id);
                 route.setStart(start_dest);
@@ -80,10 +79,10 @@ public class add_reservation extends HttpServlet {
                 handle.insertRoute(route);
             }
             // Adding the notification
-            Notification no=new Notification(request.getParameter("notification"),p,id);
+            Notification no = new Notification("Request for reservation", p, id);
             DBNotificationHandler dbnh = new DBNotificationHandler();
             dbnh.addNotificationForMgr(no);
-            
+
         } catch (Exception e) {
         }
     }
