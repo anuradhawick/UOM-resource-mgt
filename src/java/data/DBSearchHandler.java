@@ -485,13 +485,13 @@ public class DBSearchHandler {
         while (resultSet.next()) {
             Reservation rv = new Reservation();
             Resource re = getResourceById(resultSet.getInt("resourceid"));
-            Person person=new DBPrivilegeUserHandler().getPersonbyID(resultSet.getString("ID"));
+            Person person = new DBPrivilegeUserHandler().getPersonbyID(resultSet.getString("ID"));
             rv.setReserveId(resultSet.getInt("reserveID"));
             rv.setStartTime(resultSet.getDate("date_start"));
             rv.setEndTime(resultSet.getDate("date_end"));
-            rv.setPersonId(person.getFirstName()+" "+person.getMiddleName()+" "+person.getLastName());
+            rv.setPersonId(person.getFirstName() + " " + person.getMiddleName() + " " + person.getLastName());
             rv.setPurpose(re.getResourceName());
-           
+
             list.add(rv);
         }
         DBConnector.closeDB(connection);
@@ -623,9 +623,9 @@ public class DBSearchHandler {
         DBConnector.closeDB(connection);
         return res;
     }
-    
-    public ArrayList<Reservation> getUserReservation(String id,Date startdate,Date enddate) throws SQLException{
-         Connection connection = DBConnector.connect();
+
+    public ArrayList<Reservation> getUserReservation(String id, Date startdate, Date enddate) throws SQLException {
+        Connection connection = DBConnector.connect();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM resource_management.reserve  WHERE ((DATE(date_start)>=? and DATE(date_start)<=?) and(DATE(date_end)<=?)) and approval=? and ID=?");
         preparedStatement.setDate(1, new java.sql.Date(startdate.getTime()));
         preparedStatement.setDate(2, new java.sql.Date(enddate.getTime()));
@@ -637,17 +637,16 @@ public class DBSearchHandler {
         while (resultSet.next()) {
             Reservation rv = new Reservation();
             Resource re = getResourceById(resultSet.getInt("resourceid"));
-            Person person=new DBPrivilegeUserHandler().getPersonbyID(resultSet.getString("ID"));
             rv.setReserveId(resultSet.getInt("reserveID"));
             rv.setStartTime(resultSet.getDate("date_start"));
             rv.setEndTime(resultSet.getDate("date_end"));
-            rv.setPersonId(person.getFirstName()+" "+person.getMiddleName()+" "+person.getLastName());
-            rv.setPurpose(re.getResourceName());
-           
+            rv.setPersonId(re.getResourceName());
+            rv.setPurpose(resultSet.getString("purpose"));
+
             list.add(rv);
         }
         DBConnector.closeDB(connection);
         return list;
-    
+
     }
 }

@@ -68,17 +68,9 @@ public class DBPrivilegeUserHandler {
         resultSet = statement.executeQuery();
         if (resultSet.next()) {
             InputStream d = resultSet.getBinaryStream("img");
-            byte[] barr;
-//        try {
-//            barr = IOUtils.toByteArray(d);
-//            Base64.Encoder en = Base64.getEncoder();
-//            String theString = en.encodeToString(barr);
             person.setImage(d);
         }
 
-//        } catch (IOException ex) {
-//            // Do nothing
-//        }
         return person;
 
     }
@@ -101,41 +93,41 @@ public class DBPrivilegeUserHandler {
     public boolean updateDetails(AuthorizedPerson ap, Person p, Privilege priv) {
         connection = DBConnector.connect();
         try {
-            String up_p = "UPDATE resource_management.person SET  first_name= ?, middle_name = ?,last_name=? WHERE ID = ?";
-            statement = connection.prepareStatement(up_p);
+            String up_p = "";
+            statement = connection.prepareStatement("UPDATE `resource_management`.`person` SET first_name=?, middle_name=?, last_name=? WHERE ID=?");
+            System.out.println(p.getFirstName());
             statement.setString(1, p.getFirstName());
             statement.setString(2, p.getMiddleName());
             statement.setString(3, p.getLastName());
             statement.setString(4, p.getId());
-            statement.executeUpdate();
-            statement.clearParameters();
-
-            String up_ap = "UPDATE resource_management.authorized_person SET password=? WHERE username = ?";
-            statement = connection.prepareStatement(up_p);
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(ap.getPassword().getBytes());
-            byte[] mdbytes = md.digest();
-
-            //convert the byte to hex format method 1
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < mdbytes.length; i++) {
-                sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            statement.setString(1, sb.toString());
-            statement.setString(2, ap.getUsername());
-            statement.executeUpdate();
-            statement.clearParameters();
-
-            statement = connection.prepareStatement("UPDATE resource_management.person p JOIN resource_management.person_img i ON p.ID=i.person_ID SET i.img=? WHERE p.ID=?");
-            statement.setBinaryStream(1, p.getImage());
-            statement.setString(2, p.getId());
-            statement.executeUpdate();
-            statement.executeUpdate();
+            System.out.println(p.getId());
+            System.out.println(statement.executeUpdate());
+//            System.out.println("UPDATE `resource_management`.`person` SET first_name='" + p.getFirstName() + "', middle_name='" + p.getMiddleName() + "',last_name='" + p.getLastName() + "' WHERE `ID`='" + p.getId() + "'");
+//            statement.execute("UPDATE `resource_management`.`person` SET first_name='" + p.getFirstName() + "', middle_name='" + p.getMiddleName() + "',last_name='" + p.getLastName() + "' WHERE `ID`='" + p.getId() + "'");
             statement.clearParameters();
             statement.close();
-            connection.close();
+
+//            String up_ap = "UPDATE resource_management.authorized_person SET password=? WHERE username = ?";
+//            statement = connection.prepareStatement(up_p);
+//            MessageDigest md = MessageDigest.getInstance("SHA-256");
+//            md.update(ap.getPassword().getBytes());
+//            byte[] mdbytes = md.digest();
+//
+//            //convert the byte to hex format method 1
+//            StringBuilder sb = new StringBuilder();
+//            for (int i = 0; i < mdbytes.length; i++) {
+//                sb.append(Integer.toString((mdbytes[i] & 0xff) + 0x100, 16).substring(1));
+//            }
+//            statement.setString(1, sb.toString());
+//            statement.setString(2, ap.getUsername());
+//            statement.executeUpdate();
+//            statement.clearParameters();
+//
+//            statement.close();
+//            connection.close();
             return true;
-        } catch (SQLException | NoSuchAlgorithmException ex) {
+        } catch (SQLException ex) {
+            ex.printStackTrace();
             return false;
         } finally {
             try {
@@ -145,6 +137,32 @@ public class DBPrivilegeUserHandler {
             }
         }
 
+    }
+
+    public boolean updateImage(Person p) throws SQLException {
+        connection = DBConnector.connect();
+        statement = connection.prepareStatement("SELECT * FROM resource_management.person_img WHERE person_ID=?");
+        statement.setString(1, p.getId());
+        ResultSet set = statement.executeQuery();
+        if (set.next()) {
+            statement = connection.prepareStatement("UPDATE resource_management.person_img SET img=? WHERE person_ID=?");
+            statement.setBinaryStream(1, p.getImage());
+            statement.setString(2, p.getId());
+            statement.executeUpdate();
+        } else {
+            statement = connection.prepareStatement("INSERT INTO resource_management.person_img (person_ID,img) VALUES(?,?)");
+            statement.setBinaryStream(2, p.getImage());
+//            statement.setBinaryStream(3, p.getImage());
+            statement.setString(1, p.getId());
+            statement.execute();
+        }
+
+        statement.clearParameters();
+        statement.close();
+
+        connection.close();
+
+        return true;
     }
 
     public boolean checkUsername(AuthorizedPerson ap) throws SQLException {
@@ -186,14 +204,14 @@ public class DBPrivilegeUserHandler {
             return false;
         }
     }
-    
-    public Person getPersonbyID(String id) throws SQLException{
-        connection=DBConnector.connect();
-        statement=connection.prepareStatement("SELECT * FROM person where ID=?");
+
+    public Person getPersonbyID(String id) throws SQLException {
+        connection = DBConnector.connect();
+        statement = connection.prepareStatement("SELECT * FROM person where ID=?");
         statement.setString(1, id);
-        ResultSet resultSet=statement.executeQuery();
-        while(resultSet.next()){
-            Person p=new Person();
+        ResultSet resultSet = statement.executeQuery();
+        while (resultSet.next()) {
+            Person p = new Person();
             p.setFirstName(resultSet.getString("first_name"));
             p.setMiddleName(resultSet.getString("middle_name"));
             p.setLastName(resultSet.getString("last_name"));

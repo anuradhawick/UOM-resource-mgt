@@ -112,4 +112,8 @@ public class ReservationHandler {
     public ArrayList<Reservation> getUserresrvation(String id,Date start,Date end) throws SQLException{
         return new DBSearchHandler().getUserReservation(id, start, end);
     }
+    
+    public Reservation getReservationForManager(int reserveid) throws SQLException{
+        return new DBReservationHandler().getReservationForManager(reserveid);
+    }
 }

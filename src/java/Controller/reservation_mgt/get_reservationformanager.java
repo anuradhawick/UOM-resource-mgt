@@ -5,23 +5,22 @@
  */
 package Controller.reservation_mgt;
 
-import data.DBReservationHandler;
-import model.logic.*;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.logic.ReservationHandler;
 
 /**
  *
- * @author Pamoda
+ * @author RAVIDU-PC
  */
-public class accept_reservation extends HttpServlet {
+@WebServlet(name = "get_reservationForManager", urlPatterns = {"/get_reservationForManager"})
+public class get_reservationformanager extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,12 +32,15 @@ public class accept_reservation extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             int id = Integer.parseInt(request.getParameter("id"));
-            ReservationHandler handler=new ReservationHandler();
-            handler.acceptResrvation(id);             
+            
+            String json = new Gson().toJson(new ReservationHandler().getReservationForManager(id));
+            out.print(json);
+
+        } catch (Exception e) {
         }
     }
 
@@ -54,11 +56,7 @@ public class accept_reservation extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(accept_reservation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -72,11 +70,7 @@ public class accept_reservation extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(accept_reservation.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

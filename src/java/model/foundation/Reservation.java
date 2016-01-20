@@ -15,6 +15,8 @@ public class Reservation {
     private String PersonId;
     private int approval;
     private String purpose;
+    private Resource resource;
+    private Person person;
 
     public Reservation() {
     }
@@ -91,6 +93,24 @@ public class Reservation {
 
     public void setApproval(int approval) {
         this.approval = approval;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
+    }
+
+   
+    public Person getPerson() {
+        return person;
+    }
+
+   
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
 }

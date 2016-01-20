@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -115,5 +117,16 @@ public class DBSelectHandler {
             day.put(7, "Saturday");
         }
         return day.get(number);
+    }
+    
+    public List<String> getAllCategories() throws SQLException{
+        Connection connection = DBConnector.connect();
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM CATEGORY");
+        ResultSet resultSet = statement.executeQuery();
+        List<String> resultList = new ArrayList<String>();
+        while (resultSet.next()) {
+            resultList.add(resultSet.getString("cat_name"));
+        }
+        return resultList;
     }
 }

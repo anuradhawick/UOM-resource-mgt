@@ -43,7 +43,7 @@
                 <div class="tables">
                     <div class="bs-example widget-shadow" data-example-id="contextual-table"> 
                         <table class="table">
-                            <thead> <tr> <th>#</th> <th>From</th><th>To</th> <th>Resource Name</th> <th>Reserved By</th> </tr> </thead>
+                            <thead> <tr> <th>#</th> <th>From</th><th>To</th> <th>Resource Name</th> <th>Purpose</th> </tr> </thead>
                             <tbody id="allocation_table">
                             </tbody> 
                         </table> 
@@ -85,11 +85,11 @@
 
         <script>
             var loadAllocations = function () {
-                $.get("get_approvedreservation?from=" + $('#from').val() + "&to=" + $('#to').val() + "&page=" + $('#page').val(), function (data) {
+                $.get("get_userreservation?from=" + $('#from').val() + "&to=" + $('#to').val() + "&page=" + $('#page').val(), function (data) {
                     var jsonArray = $.parseJSON(data);
                     for (var i = 0; i < jsonArray.length; i++) {
                         var item = jsonArray[i];
-                        $("#allocation_table").append("<tr><th scope='row'>" + (i + 1) + "</th><td>" + item['startTime'] + "</td><td>" + item['endTime'] + "</td><td>" + item['resourceId'] + "</td><td>" + item['PersonId'] + "</td></tr>");
+                        $("#allocation_table").append("<tr><th scope='row'>" + (i + 1) + "</th><td>" + item['startTime'] + "</td><td>" + item['endTime'] + "</td><td>" + item['PersonId'] + "</td><td>" + item['purpose '] + "</td></tr>");
                     }
                 });
             };

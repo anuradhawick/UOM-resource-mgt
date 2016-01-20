@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <button onclick="loadAllocations()">Go</button>
+                            <button onclick="loadAllocations()" class="btn btn-primary">Go</button>
                             <!--<button onclick="loadAllocations([\'' + $('#from').val() + ',' + $('#to').val())'\'])">Go</button>-->
                         </div>
                     </div>
@@ -86,10 +86,11 @@
         <script>
             var loadAllocations = function () {
                 $.get("get_approvedreservation?from=" + $('#from').val() + "&to=" + $('#to').val() + "&page=" + $('#page').val(), function (data) {
+                    $("#allocation_table").empty();
                     var jsonArray = $.parseJSON(data);
                     for (var i = 0; i < jsonArray.length; i++) {
                         var item = jsonArray[i];
-                        $("#allocation_table").append("<tr><th scope='row'>" + (i + 1) + "</th><td>" + item['startTime'] + "</td><td>" + item['endTime'] + "</td><td>" + item['resourceId'] + "</td><td>" + item['PersonId'] + "</td><td><button onclick='viewReservation(this)' id=" + item['reserveId'] + " class='btn btn-primary'>View</button></td></tr>");
+                        $("#allocation_table").append("<tr><th scope='row'>" + (i + 1) + "</th><td>" + item['startTime'] + "</td><td>" + item['endTime'] + "</td><td>" + item['resourceId'] + "</td><td>" + item['PersonId'] + "</td><td><button onclick=\"viewReservation(this)\" id=" + item['reserveId'] + " class='btn btn-primary'>View</button></td></tr>");
                     }
                 });
             };
@@ -97,7 +98,8 @@
         
         <script>
             var viewReservation=function (arg){
-                alert(arg.id);
+                localStorage.setItem("reservation_id", arg.id);
+                window.location.href="view_reservation.jsp";
             };
         </script>
 
@@ -116,7 +118,6 @@
                 }
                 pickerFrom.setLocalDate(now);
                 loadAllocations();
-                
             });
         </script>
     </body>
