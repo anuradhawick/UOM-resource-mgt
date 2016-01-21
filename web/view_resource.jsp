@@ -97,6 +97,27 @@
                                 <form id="add_resravation_form" class='form-horizontal panel-default' action="add_reservation">
                                     <div id="resource_id">
                                     </div>
+                                    <%
+                                        if (request.getParameter("status") != null && request.getParameter("status").equals("success")) {
+                                    %>
+                                    <div class="alert alert-success" role="alert">
+                                        <strong>Success! </strong>reservation submitted successfully.
+                                    </div>
+                                    <%
+                                    } else if (request.getParameter("status") != null && request.getParameter("status").equals("failed")) {
+                                    %>
+                                    <div class="alert alert-danger" role="alert">
+                                        <strong>Sorry! </strong>Something went wrong.
+                                    </div>
+                                    <%
+                                    } else if (request.getParameter("status") != null && request.getParameter("status").equals("exists")) {
+                                    %>
+                                    <div class="alert alert-warning" role="alert">
+                                        <strong>Failed! </strong>Time slot is not available. 
+                                    </div>
+                                    <%
+                                        }
+                                    %>
                                     <div class='form-group'>
                                         <label class='col-sm-12' for='mediuminput'>Capacity/No of items</label><br><br>
                                         <div class='col-sm-12'> 

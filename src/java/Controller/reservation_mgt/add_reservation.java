@@ -82,8 +82,15 @@ public class add_reservation extends HttpServlet {
             Notification no = new Notification("Request for reservation", p, id);
             DBNotificationHandler dbnh = new DBNotificationHandler();
             dbnh.addNotificationForMgr(no);
+            if(id==-1){
+                response.sendRedirect("/uomrms/view_resource.jsp?status=exists");
+            }
+            else{
+                response.sendRedirect("/uomrms/view_resource.jsp?status=success");
+            }
 
         } catch (Exception e) {
+            response.sendRedirect("/uomrms/view_resource.jsp?status=failed");
         }
     }
 
