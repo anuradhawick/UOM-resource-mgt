@@ -51,10 +51,6 @@
         <div class="profile_details_left"><!--notifications of menu start -->
             <% if (request.getSession(false).getAttribute("logged") != null) { %>
             <script>
-                <%
-                    AuthorizedPerson p_notif = new AuthorizedPerson();
-                    p_notif.setUsername((String) request.getSession(false).getAttribute("username"));
-                    if ((new DBPrivilegeUserHandler()).getPrivilegesHash(p_notif).containsKey("user")) {%>
                 $(document).ready(function () {
                     var update_noti = function () {
                         $("#not_area").empty();
@@ -69,21 +65,7 @@
                             });
                             $("#not_area").append("<li><div class=\"notification_bottom\"><a href=\"#\">See all notifications</a></div></li>");
                         });
-                <%
 
-                } else if ((new DBPrivilegeUserHandler()).getPrivilegesHash(p_notif).containsKey("manager")) { %>
-                        $.get("/uomrms/notification_admin", function (data, success) {
-                            var arr = $.parseJSON(data);
-                            var num_of_notifications = arr.length;
-                            $(".not_count").text(num_of_notifications);
-                            $("#not_area").append("<li><div class=\"notification_header\"><h3>You have <span class=\"" + num_of_notifications + "\"></span> new notification</h3></div></li>");
-                            $.each(arr, function (i, item) {
-//                        alert(item["notification"]);
-                                $("#not_area").append("<li><a href=\"javascript:void(0);\"><div class=\"user_img\"><img src=\"/uomrms/images/avatar.png\" alt=\"\"></div><div id=\"" + item["notif_id"] + "\" onclick=\"notification_rdr_mgr(this.id);\" class=\"notification_desc\"><p>" + item["notification"] + "</p></div><div class=\"clearfix\"></div></a></li>");
-                            });
-                            $("#not_area").append("<li><div class=\"notification_bottom\"><a href=\"#\">See all notifications</a></div></li>");
-                        });
-                <% } %>
                     }
                     update_noti();
                     setInterval(function () {
@@ -99,9 +81,46 @@
                     <ul id="not_area" class="dropdown-menu">                        
                         <!--To be loaded from jquery-->
                     </ul>
-                </li>		
+                    <%
+                        AuthorizedPerson p_not = new AuthorizedPerson();
+                        p_not.setUsername((String) request.getSession(false).getAttribute("username"));
+                        if (new DBPrivilegeUserHandler().getPrivilegesHash(new DBPrivilegeUserHandler().getLoggedPerson(p_not)).containsKey("admin") || new DBPrivilegeUserHandler().getPrivilegesHash(new DBPrivilegeUserHandler().getLoggedPerson(p_not)).containsKey("manager")) {
+                    %>           
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue"><span class="not_count_admin"></span></span></a>
+                    <ul id="not_area_admin" class="dropdown-menu">                        
+                        <!--To be loaded from jquery-->
+                    </ul>
+                    <script>
+                        $(document).ready(function () {
+                            var update_noti_admin = function () {
+                                $("#not_area_admin").empty();
+                                $.get("/uomrms/notification_admin", function (data, success) {
+                                    var arr = $.parseJSON(data);
+                                    var num_of_notifications_admin = arr.length;
+                                    $(".not_count_admin").text(num_of_notifications_admin);
+                                    $("#not_area_admin").append("<li><div class=\"notification_header\"><h3>You have <span class=\"" + num_of_notifications_admin + "\"></span> new notification</h3></div></li>");
+                                    $.each(arr, function (i, item) {
+                                        //                        alert(item["notification"]);
+                                        $("#not_area_admin").append("<li><a href=\"javascript:void(0);\"><div class=\"user_img\"><img src=\"/uomrms/images/avatar.png\" alt=\"\"></div><div id=\"" + item["notif_id"] + "\" onclick=\"notification_rdr_mgr(this.id);\" class=\"notification_desc\"><p>" + item["notification"] + "</p></div><div class=\"clearfix\"></div></a></li>");
+                                    });
+                                    $("#not_area_admin").append("<li><div class=\"notification_bottom\"><a href=\"#\">See all notifications</a></div></li>");
+                                });
+
+//            update_noti();
+                            };
+                            update_noti_admin();
+                            setInterval(function () {
+                                update_noti_admin();
+                            }, 5000);
+                        });
+                    </script>
+                    <%
+                        }%>
+                </li>
             </ul>
+
             <%}%>
+
             <div class="clearfix"> </div>
         </div>
         <!--notification menu end -->

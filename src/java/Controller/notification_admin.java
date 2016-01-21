@@ -46,12 +46,13 @@ public class notification_admin extends HttpServlet {
                 DBPrivilegeUserHandler dbh = new DBPrivilegeUserHandler();
                 AuthorizedPerson auth = new AuthorizedPerson();
                 auth.setUsername((String) request.getSession(false).getAttribute("username"));
+                Person person = dbh.getLoggedPerson(auth);
                 DBNotificationHandler nh = new DBNotificationHandler();
                 ArrayList<Notification> arr = nh.getNotificationsUnreadMgr();
                 Gson g = new Gson();
                 String s = g.toJson(arr);
                 out.print(s);
-            } else {
+            }else{
                 Gson g = new Gson();
                 String s = g.toJson(new ArrayList<Object>());
                 out.print(s);
