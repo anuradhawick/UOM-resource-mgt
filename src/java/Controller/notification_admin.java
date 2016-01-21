@@ -48,7 +48,7 @@ public class notification_admin extends HttpServlet {
                 auth.setUsername((String) request.getSession(false).getAttribute("username"));
                 Person person = dbh.getLoggedPerson(auth);
                 DBNotificationHandler nh = new DBNotificationHandler();
-                ArrayList<Notification> arr = nh.getNotificationsUnreadMgr();
+                ArrayList<Notification> arr = nh.getNotificationsUnActedMgr();
                 Gson g = new Gson();
                 String s = g.toJson(arr);
                 out.print(s);

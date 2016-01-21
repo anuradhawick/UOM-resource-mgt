@@ -93,7 +93,22 @@
 
         <script>
             $(document).ready(function () {
-                $.get("get_reservationformanager?id=" + localStorage.getItem('reservation_id'), function (data) {
+                var getUrlParameter = function getUrlParameter(sParam) {
+                    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                            sURLVariables = sPageURL.split('&'),
+                            sParameterName,
+                            i;
+
+                    for (i = 0; i < sURLVariables.length; i++) {
+                        sParameterName = sURLVariables[i].split('=');
+
+                        if (sParameterName[0] === sParam) {
+                            return sParameterName[1] === undefined ? true : sParameterName[1];
+                        }
+                    }
+                };
+                var not_id = getUrlParameter('not_id');
+                $.get("get_reservationformanager?id=" + localStorage.getItem('not_id'), function (data) {
                     var jsonObject = $.parseJSON(data);
                     $('#reservation_details').append("<tr><td>Resource name</td><td>" + jsonObject['PersonId'] + "</td></tr>");
                     $('#reservation_details').append("<tr><td>Reserved by</td><td>" + jsonObject['person']['firstName'] + " " + jsonObject['person']['lastName'] + "</td></tr>");

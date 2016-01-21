@@ -23,7 +23,7 @@ function notification_modal(id) {
 }
 
 function notification_rdr_mgr(id) {
-    localStorage.setItem('reservation_id', id);
+    localStorage.setItem('not_id', id);
     window.location.href = "/uomrms/view_reservation.jsp";
 }
 

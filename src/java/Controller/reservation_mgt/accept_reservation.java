@@ -41,13 +41,16 @@ public class accept_reservation extends HttpServlet {
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            int id = Integer.parseInt(request.getParameter("id"));
+            int not_id = Integer.parseInt(request.getParameter("id"));
+            DBNotificationHandler notH = new DBNotificationHandler();
+            Notification n = notH.getNotificationById(not_id);
             ReservationHandler handler = new ReservationHandler();
-            handler.acceptResrvation(id);
+            handler.acceptResrvation(n.getReservationid());
             DBReservationHandler resh = new DBReservationHandler();
-            Reservation reservation = resh.getReservstionByID(id);
+            Reservation reservation = resh.getReservstionByID(n.getReservationid());
             Person person = new DBPrivilegeUserHandler().getPersonbyID(reservation.getPersonId());
-            new DBNotificationHandler().addNotification(new Notification("Reservation approved", person, id));
+            new DBNotificationHandler().addNotification(new Notification("Reservation approved", person, n.getReservationid()));
+            notH.markNotifActedMgr(n);
         }
     }
 

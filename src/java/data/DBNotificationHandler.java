@@ -151,7 +151,7 @@ public class DBNotificationHandler {
         ArrayList<Notification> arr = new ArrayList<>();
         String notif;
         connection = DBConnector.connect();
-        statement = connection.prepareStatement("SELECT idnotification,notification,reserve_reserveID FROM notification WHERE acted_status=0");
+        statement = connection.prepareStatement("SELECT idnotification,notification,reserve_reserveID FROM notification WHERE acted_status=2");
         ResultSet set = statement.executeQuery();
         while (set.next()) {
             notif_id = set.getInt("idnotification");
